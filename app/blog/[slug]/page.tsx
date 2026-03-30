@@ -83,7 +83,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             <h3 className="text-xl font-bold text-gray-900 mb-4">More Articles</h3>
             <div className="grid gap-4">
               {otherPosts.map(p => (
-                <Link key={p.slug} href={`/blog/${p.slug}`}>
+                <Link key={p.slug} href={`/blog/${p.slug}`} title={p.title}>
                   <div className="bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow border border-gray-100">
                     <div className="text-sm text-gray-400 mb-1">{p.readTime} min read</div>
                     <div className="font-semibold text-gray-900 hover:text-blue-600">{p.title}</div>

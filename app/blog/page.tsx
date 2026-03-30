@@ -26,7 +26,7 @@ export default function BlogPage() {
 
         <div className="grid gap-6">
           {blogPosts.map(post => (
-            <Link key={post.slug} href={`/blog/${post.slug}`}>
+            <Link key={post.slug} href={`/blog/${post.slug}`} title={post.title}>
               <article className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow p-6 border border-gray-100">
                 <div className="flex items-center gap-3 mb-3">
                   <span className={`text-xs font-semibold px-2 py-1 rounded-full ${categoryColors[post.category] ?? 'bg-gray-100 text-gray-600'}`}>

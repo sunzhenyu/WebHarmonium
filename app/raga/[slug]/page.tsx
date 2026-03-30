@@ -146,7 +146,7 @@ export default async function RagaPage({ params }: { params: Promise<{ slug: str
             <h3 className="text-xl font-bold text-gray-900 mb-4">More Ragas</h3>
             <div className="grid md:grid-cols-2 gap-4">
               {otherRagas.map(r => (
-                <Link key={r.slug} href={`/raga/${r.slug}`}>
+                <Link key={r.slug} href={`/raga/${r.slug}`} title={`Learn Raga ${r.name}`}>
                   <div className="bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow border border-gray-100">
                     <div className="font-semibold text-gray-900 hover:text-blue-600">{r.name}</div>
                     <div className="text-sm text-gray-500 mt-1">{r.time} · {r.difficulty}</div>

@@ -32,7 +32,7 @@ export default function RagaIndexPage() {
 
         <div className="grid md:grid-cols-2 gap-6">
           {ragas.map(raga => (
-            <Link key={raga.slug} href={`/raga/${raga.slug}`}>
+            <Link key={raga.slug} href={`/raga/${raga.slug}`} title={`Learn Raga ${raga.name}`}>
               <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow p-6 border border-gray-100 h-full">
                 <div className="flex items-start justify-between mb-3">
                   <h2 className="text-xl font-bold text-gray-900">{raga.name}</h2>
