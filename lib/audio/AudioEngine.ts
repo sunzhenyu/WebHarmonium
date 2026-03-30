@@ -19,6 +19,11 @@ export class AudioEngine {
   private keyMap: number[] = [];
   private baseKeyMap: number[] = [];
 
+  // Shruti Box / Drone state
+  private droneSlot: NoteSlot | null = null;
+  private droneEnabled: boolean = false;
+  private droneVolume: number = 0.5;
+
   private config: AudioEngineConfig = {
     sampleURL: '/audio/harmonium-kannan-orig.wav',
     loopStart: 0.5,
@@ -180,11 +185,15 @@ export class AudioEngine {
   setTranspose(transpose: number): void {
     this.transpose = transpose;
     this.initKeyMaps();
-    // Rebuild idle notes only; playing notes keep their pitch until released
     for (let i = 0; i < 128; i++) {
       if (this.notes[i]?.state === 'idle') {
         this.notes[i] = this.buildNoteSlot(i);
       }
+    }
+    // Restart drone with new pitch if active
+    if (this.droneEnabled) {
+      this.stopDrone();
+      this.startDrone();
     }
   }
 
@@ -209,12 +218,81 @@ export class AudioEngine {
     }
   }
 
+  // --- Shruti Box / Drone ---
+
+  private buildDroneSlot(): NoteSlot {
+    if (!this.context || !this.audioBuffer || !this.masterGain) {
+      return { sources: [], gains: [], state: 'idle' };
+    }
+    // Sa is MIDI note 60 (middle C) + transpose, mapped via keyMap at index 64 (middle of range)
+    // We use the same detune logic: Sa corresponds to note index for key "e" = MIDI 60
+    const saIndex = 64; // index in keyMap that corresponds to Sa (C) at octave 3
+    const sources: AudioBufferSourceNode[] = [];
+    const gains: GainNode[] = [];
+
+    // Play Sa + Pa (fifth) for a richer drone
+    const droneNotes = [saIndex, saIndex + 7]; // Sa and Pa
+    for (const noteIdx of droneNotes) {
+      const src = this.context.createBufferSource();
+      const gain = this.context.createGain();
+      gain.gain.value = this.droneVolume * 0.5;
+      src.connect(gain);
+      gain.connect(this.masterGain);
+      src.buffer = this.audioBuffer;
+      src.loop = true;
+      src.loopStart = this.config.loopStart;
+      if (this.keyMap[noteIdx] !== 0) {
+        src.detune.value = this.keyMap[noteIdx] * 100;
+      }
+      sources.push(src);
+      gains.push(gain);
+    }
+    return { sources, gains, state: 'idle' };
+  }
+
+  private startDrone(): void {
+    if (!this.context) return;
+    this.resumeContext();
+    this.droneSlot = this.buildDroneSlot();
+    for (const src of this.droneSlot.sources) {
+      src.start(0);
+    }
+    this.droneSlot.state = 'playing';
+  }
+
+  private stopDrone(): void {
+    if (!this.droneSlot) return;
+    for (const src of this.droneSlot.sources) {
+      try { src.stop(0); } catch (_) { /* ignore */ }
+    }
+    this.droneSlot = null;
+  }
+
+  setDrone(enabled: boolean): void {
+    this.droneEnabled = enabled;
+    if (enabled) {
+      this.startDrone();
+    } else {
+      this.stopDrone();
+    }
+  }
+
+  setDroneVolume(volume: number): void {
+    this.droneVolume = volume;
+    if (this.droneSlot) {
+      for (const gain of this.droneSlot.gains) {
+        gain.gain.value = volume * 0.5;
+      }
+    }
+  }
+
   getTransposeNoteName(): string {
     const names = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
     return names[this.transpose >= 0 ? this.transpose % 12 : this.transpose + 12];
   }
 
   destroy(): void {
+    this.stopDrone();
     for (let i = 0; i < this.notes.length; i++) {
       const slot = this.notes[i];
       if (slot?.releaseTimer) clearTimeout(slot.releaseTimer);

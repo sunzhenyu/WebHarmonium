@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 import { blogPosts } from '@/lib/blog';
+import { ragas } from '@/lib/ragas';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://web-harmonium.net';
@@ -62,5 +63,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...baseRoutes, ...blogRoutes];
+  const ragaRoutes: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/raga`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    ...ragas.map(raga => ({
+      url: `${baseUrl}/raga/${raga.slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    })),
+  ];
+
+  return [...baseRoutes, ...blogRoutes, ...ragaRoutes];
 }

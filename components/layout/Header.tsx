@@ -6,6 +6,7 @@ import { useState } from 'react';
 const navLinks = [
   { href: '/harmonium', label: 'Play', highlight: true },
   { href: '/tutorial', label: 'Tutorial', highlight: false },
+  { href: '/raga', label: 'Ragas', highlight: false },
   { href: '/blog', label: 'Blog', highlight: false },
   { href: '/faq', label: 'FAQ', highlight: false },
   { href: '/about', label: 'About', highlight: false },

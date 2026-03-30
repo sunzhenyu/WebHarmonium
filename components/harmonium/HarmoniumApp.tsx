@@ -12,6 +12,7 @@ import OctaveControl from './OctaveControl';
 import LoadButton from './LoadButton';
 import ReverbControl from './ReverbControl';
 import ReedsControl from './ReedsControl';
+import DroneControl from './DroneControl';
 
 export default function HarmoniumApp() {
   const [volume, setVolume] = useLocalStorage<number>(STORAGE_KEYS.VOLUME, DEFAULT_VALUES.VOLUME);
@@ -19,6 +20,8 @@ export default function HarmoniumApp() {
   const [octave, setOctave] = useLocalStorage<number>(STORAGE_KEYS.OCTAVE, DEFAULT_VALUES.OCTAVE);
   const [reeds, setReeds] = useLocalStorage<number>('harmonium.reeds', 1);
   const [reverbEnabled, setReverbEnabled] = useLocalStorage<boolean>('harmonium.reverb', false);
+  const [droneEnabled, setDroneEnabled] = useLocalStorage<boolean>('harmonium.drone', false);
+  const [droneVolume, setDroneVolume] = useLocalStorage<number>('harmonium.droneVolume', 0.5);
   const [pressedKeys, setPressedKeys] = useState<Set<string>>(new Set());
 
   const { engine, isLoaded, isLoading, loadEngine } = useAudioEngine();
@@ -79,6 +82,18 @@ export default function HarmoniumApp() {
     }
   }, [engine, reverbEnabled]);
 
+  useEffect(() => {
+    if (engine) {
+      engine.setDrone(droneEnabled);
+    }
+  }, [engine, droneEnabled]);
+
+  useEffect(() => {
+    if (engine) {
+      engine.setDroneVolume(droneVolume);
+    }
+  }, [engine, droneVolume]);
+
   const rootNote = engine?.getTransposeNoteName() || 'D';
 
   return (
@@ -99,6 +114,13 @@ export default function HarmoniumApp() {
                 <OctaveControl octave={octave} onChange={setOctave} />
                 <ReedsControl reeds={reeds} onChange={setReeds} />
                 <ReverbControl enabled={reverbEnabled} onChange={setReverbEnabled} />
+                <DroneControl
+                  enabled={droneEnabled}
+                  volume={droneVolume}
+                  rootNote={rootNote}
+                  onToggle={setDroneEnabled}
+                  onVolumeChange={setDroneVolume}
+                />
               </div>
 
               <div className="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
