@@ -4,7 +4,8 @@ import StructuredData from '@/components/seo/StructuredData';
 
 export const metadata: Metadata = {
   title: 'FAQ - Frequently Asked Questions | Web Harmonium',
-  description: 'Common questions about Web Harmonium online simulator. Learn about features, browser compatibility, keyboard controls, and troubleshooting.',
+  description: 'Answers to common questions about Web Harmonium. Learn about keyboard controls, browser support, transpose, Shruti Box, ragas, and troubleshooting tips.',
+  alternates: { canonical: '/faq' },
   keywords: ['harmonium faq', 'harmonium help', 'harmonium questions', 'online harmonium support'],
 };
 

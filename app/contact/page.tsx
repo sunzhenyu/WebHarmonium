@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Contact Us - Web Harmonium Support and Feedback',
-  description: 'Get in touch with the Web Harmonium team. Send feedback, report bugs, or request features for our free online harmonium simulator.',
+  description: 'Contact the Web Harmonium team. Send feedback, report bugs, or suggest new features for our free online harmonium simulator at web-harmonium.net.',
+  alternates: { canonical: '/contact' },
   keywords: ['contact harmonium', 'harmonium support', 'harmonium feedback', 'report bug'],
 };
 

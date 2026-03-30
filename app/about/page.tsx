@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'About Web Harmonium - Free Online Harmonium Simulator',
-  description: 'Learn about Web Harmonium, a free online harmonium simulator built with modern web technologies. Play authentic harmonium sounds in your browser.',
+  description: 'Learn about Web Harmonium — a free browser-based harmonium simulator. Authentic sound, keyboard controls, and Indian classical music tools for all skill levels.',
+  alternates: { canonical: '/about' },
   keywords: ['about harmonium', 'web harmonium', 'online harmonium', 'harmonium simulator', 'web audio'],
 };
 

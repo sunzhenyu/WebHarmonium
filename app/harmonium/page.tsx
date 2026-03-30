@@ -3,7 +3,8 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Play Harmonium Online - Web Harmonium',
-  description: 'Play harmonium online with your keyboard. Free virtual harmonium with realistic sound, transpose, and octave controls.',
+  description: 'Play harmonium online free using your computer keyboard. Realistic sound with transpose, octave, reverb, Shruti Box drone, and multi-reed controls. No download needed.',
+  alternates: { canonical: '/harmonium' },
 };
 
 export default function HarmoniumPage() {

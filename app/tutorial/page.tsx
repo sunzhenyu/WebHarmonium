@@ -4,7 +4,8 @@ import StructuredData from '@/components/seo/StructuredData';
 
 export const metadata: Metadata = {
   title: 'How to Play Harmonium - Complete Tutorial Guide | Web Harmonium',
-  description: 'Learn how to play harmonium online with our comprehensive tutorial. Step-by-step guide for beginners, keyboard controls, scales, and popular songs.',
+  description: 'Learn how to play harmonium online — step-by-step guide for beginners. Covers keyboard layout, sargam scales, ragas, popular songs, and practice exercises.',
+  alternates: { canonical: '/tutorial' },
   keywords: ['harmonium tutorial', 'learn harmonium', 'how to play harmonium', 'harmonium lessons', 'harmonium for beginners', 'online harmonium course'],
 };
 

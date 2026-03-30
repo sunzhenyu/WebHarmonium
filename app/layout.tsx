@@ -5,15 +5,19 @@ import Header from "@/components/layout/Header";
 
 export const metadata: Metadata = {
   title: "Web Harmonium - Free Online Harmonium Simulator",
-  description: "Play harmonium using your computer keyboard. Free virtual instrument with transpose and octave controls.",
+  description: "Play harmonium free in your browser using your keyboard. Transpose, octave, reverb, and Shruti Box controls. No download needed — start playing instantly.",
   keywords: ["harmonium", "online instrument", "virtual keyboard", "web audio", "music"],
+  metadataBase: new URL("https://web-harmonium.net"),
+  alternates: {
+    canonical: "/",
+  },
   icons: {
     icon: '/icon.svg',
     apple: '/apple-icon.svg',
   },
   openGraph: {
     title: "Web Harmonium - Free Online Harmonium Simulator",
-    description: "Play harmonium using your computer keyboard. Free virtual instrument with transpose and octave controls.",
+    description: "Play harmonium free in your browser using your keyboard. Transpose, octave, reverb, and Shruti Box controls. No download needed — start playing instantly.",
     url: "https://web-harmonium.net",
     siteName: "Web Harmonium",
     locale: "en_US",
@@ -22,7 +26,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Web Harmonium - Free Online Harmonium Simulator",
-    description: "Play harmonium using your computer keyboard. Free virtual instrument with transpose and octave controls.",
+    description: "Play harmonium free in your browser using your keyboard. Transpose, octave, reverb, and Shruti Box controls. No download needed — start playing instantly.",
     creator: "@DanDan344479",
   },
 };

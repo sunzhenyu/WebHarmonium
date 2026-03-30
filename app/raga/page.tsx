@@ -4,7 +4,8 @@ import { ragas } from '@/lib/ragas';
 
 export const metadata: Metadata = {
   title: 'Raga Guide - Learn Indian Classical Ragas on Harmonium | Web Harmonium',
-  description: 'Complete guide to 8 essential ragas for harmonium. Learn Bhupali, Yaman, Bhairav, Kafi and more with keyboard notation, scale patterns, and practice tips.',
+  description: 'Complete guide to 8 essential ragas for harmonium. Learn Bhupali, Yaman, Bhairav, Kafi and more — with keyboard notation, scale patterns, and practice tips.',
+  alternates: { canonical: '/raga' },
   keywords: ['raga guide harmonium', 'Indian classical ragas', 'learn ragas', 'harmonium raga notes', 'raga for beginners'],
 };
 

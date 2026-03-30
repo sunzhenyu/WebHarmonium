@@ -4,7 +4,8 @@ import { blogPosts } from '@/lib/blog';
 
 export const metadata: Metadata = {
   title: 'Harmonium Blog - Tutorials, Tips & Guides | Web Harmonium',
-  description: 'Learn harmonium with our expert guides. Raga tutorials, bhajan notes, buying guides, and practice tips for beginners and advanced players.',
+  description: 'Expert harmonium guides: raga tutorials, bhajan notes, buying advice, and practice tips. Learn Indian classical music and devotional songs step by step.',
+  alternates: { canonical: '/blog' },
   keywords: ['harmonium blog', 'harmonium tutorials', 'learn harmonium', 'harmonium tips', 'raga guide'],
 };
 

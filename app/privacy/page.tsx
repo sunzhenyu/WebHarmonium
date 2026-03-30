@@ -3,7 +3,8 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy - Web Harmonium',
-  description: 'Privacy policy for Web Harmonium online harmonium simulator. Learn how we protect your data and use cookies.',
+  description: 'Privacy policy for Web Harmonium. Learn how we handle your data, use cookies, and integrate Google Analytics and AdSense on web-harmonium.net.',
+  alternates: { canonical: '/privacy' },
   keywords: ['privacy policy', 'data protection', 'cookies', 'user privacy'],
 };
 
