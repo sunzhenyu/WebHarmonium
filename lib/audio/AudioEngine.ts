@@ -9,6 +9,7 @@ export class AudioEngine {
   private reverbGain: GainNode | null = null;
   private dryGain: GainNode | null = null;
   private sourceNodes: (AudioBufferSourceNode | null)[][] = [];
+  private sourceNodeGains: (GainNode | null)[][] = [];
   private sourceNodeState: number[] = [];
   private keyMap: number[] = [];
   private baseKeyMap: number[] = [];
@@ -60,6 +61,7 @@ export class AudioEngine {
     // Initialize source nodes (per note, per reed)
     for (let i = 0; i < 128; i++) {
       this.sourceNodes[i] = [];
+      this.sourceNodeGains[i] = [];
       this.sourceNodeState[i] = 0;
       this.setSourceNode(i);
     }
@@ -109,11 +111,16 @@ export class AudioEngine {
 
     this.sourceNodeState[i] = 0;
     this.sourceNodes[i] = [];
+    this.sourceNodeGains[i] = [];
 
     // Create stacked source nodes (one per reed)
     for (let r = 0; r < this.reeds; r++) {
       const sourceNode = this.context.createBufferSource();
-      sourceNode.connect(this.gainNode);
+      const noteGain = this.context.createGain();
+      noteGain.gain.value = 1;
+
+      sourceNode.connect(noteGain);
+      noteGain.connect(this.gainNode);
       sourceNode.buffer = this.audioBuffer;
       sourceNode.loop = this.config.loop;
       sourceNode.loopStart = this.config.loopStart;
@@ -125,6 +132,7 @@ export class AudioEngine {
       }
 
       this.sourceNodes[i].push(sourceNode);
+      this.sourceNodeGains[i].push(noteGain);
     }
   }
 
@@ -142,8 +150,25 @@ export class AudioEngine {
   noteOff(note: number): void {
     const i = note + octaveMap[this.currentOctave];
 
-    if (i < this.sourceNodes.length) {
-      this.setSourceNode(i);
+    if (i < this.sourceNodes.length && this.sourceNodeState[i] === 1) {
+      const now = this.context?.currentTime || 0;
+
+      // Fade out over 0.3 seconds
+      for (let r = 0; r < this.sourceNodeGains[i].length; r++) {
+        const gain = this.sourceNodeGains[i][r];
+        if (gain) {
+          gain.gain.setValueAtTime(gain.gain.value, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+        }
+
+        const node = this.sourceNodes[i][r];
+        if (node) {
+          node.stop(now + 0.3);
+        }
+      }
+
+      // Recreate node after fade completes
+      setTimeout(() => this.setSourceNode(i), 350);
     }
   }
 

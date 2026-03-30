@@ -35,7 +35,15 @@ export default function HarmoniumApp() {
     });
   };
 
-  useKeyboard(engine, isLoaded, handleKeyStateChange);
+  const handleTransposeShortcut = (delta: number) => {
+    setTranspose((prev: number) => Math.max(-11, Math.min(11, prev + delta)));
+  };
+
+  const handleOctaveShortcut = (delta: number) => {
+    setOctave((prev: number) => Math.max(0, Math.min(6, prev + delta)));
+  };
+
+  useKeyboard(engine, isLoaded, handleKeyStateChange, handleTransposeShortcut, handleOctaveShortcut);
 
   const handleLoad = () => {
     loadEngine(octave, transpose);
@@ -100,6 +108,9 @@ export default function HarmoniumApp() {
                 </p>
                 <p className="text-sm text-gray-700 mt-1">
                   Black keys: <code className="bg-gray-200 px-1 rounded text-gray-900">1 2 4 5 7 8 9 - =</code>
+                </p>
+                <p className="text-sm text-gray-700 mt-2">
+                  <strong>Shortcuts:</strong> Ctrl+Alt+← → (transpose) | Ctrl+Alt+↑ ↓ (octave)
                 </p>
               </div>
             </>

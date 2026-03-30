@@ -95,6 +95,17 @@ export default function Keyboard({ engine, pressedKeys }: KeyboardProps) {
     { x: 247, text: '=' },
   ];
 
+  // Sargam labels (Sa Re Ga Ma Pa Dha Ni)
+  const sargamLabels = [
+    { x: 70, y: 85, text: 'Sa' },
+    { x: 91, y: 85, text: 'Re' },
+    { x: 112, y: 85, text: 'Ga' },
+    { x: 133, y: 85, text: 'Ma' },
+    { x: 154, y: 85, text: 'Pa' },
+    { x: 175, y: 85, text: 'Dha' },
+    { x: 196, y: 85, text: 'Ni' },
+  ];
+
   return (
     <div className="flex justify-center my-8">
       <svg width="882" height="330" viewBox="0 0 294 110" className="border border-gray-300 rounded shadow-md">
@@ -137,6 +148,22 @@ export default function Keyboard({ engine, pressedKeys }: KeyboardProps) {
             fill="white"
             fontFamily="courier new"
             fontSize="14"
+            pointerEvents="none"
+          >
+            {label.text}
+          </text>
+        ))}
+
+        {/* Sargam labels */}
+        {sargamLabels.map((label, index) => (
+          <text
+            key={`sargam-${index}`}
+            x={label.x}
+            y={label.y}
+            fill="#666"
+            fontFamily="Arial"
+            fontSize="10"
+            textAnchor="middle"
             pointerEvents="none"
           >
             {label.text}

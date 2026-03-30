@@ -5,13 +5,39 @@ import { AudioEngine } from '../audio/AudioEngine';
 export function useKeyboard(
   engine: AudioEngine | null,
   enabled: boolean,
-  onKeyStateChange?: (key: string, isPressed: boolean) => void
+  onKeyStateChange?: (key: string, isPressed: boolean) => void,
+  onTransposeChange?: (delta: number) => void,
+  onOctaveChange?: (delta: number) => void
 ) {
   useEffect(() => {
     if (!engine || !enabled) return;
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.repeat) return;
+
+      // Keyboard shortcuts: Ctrl+Alt+Arrow keys
+      if (event.ctrlKey && event.altKey) {
+        if (event.key === 'ArrowLeft') {
+          event.preventDefault();
+          onTransposeChange?.(-1);
+          return;
+        }
+        if (event.key === 'ArrowRight') {
+          event.preventDefault();
+          onTransposeChange?.(1);
+          return;
+        }
+        if (event.key === 'ArrowUp') {
+          event.preventDefault();
+          onOctaveChange?.(1);
+          return;
+        }
+        if (event.key === 'ArrowDown') {
+          event.preventDefault();
+          onOctaveChange?.(-1);
+          return;
+        }
+      }
 
       const note = keyboardMap[event.key];
       if (note !== undefined) {
