@@ -11,6 +11,20 @@ export const metadata: Metadata = {
     icon: '/icon.svg',
     apple: '/apple-icon.svg',
   },
+  openGraph: {
+    title: "Web Harmonium - Free Online Harmonium Simulator",
+    description: "Play harmonium using your computer keyboard. Free virtual instrument with transpose and octave controls.",
+    url: "https://web-harmonium.net",
+    siteName: "Web Harmonium",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Web Harmonium - Free Online Harmonium Simulator",
+    description: "Play harmonium using your computer keyboard. Free virtual instrument with transpose and octave controls.",
+    creator: "@DanDan344479",
+  },
 };
 
 export default function RootLayout({
