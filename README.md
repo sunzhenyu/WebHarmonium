@@ -1,145 +1,175 @@
-# Web Harmonium
+# 🎹 Web Harmonium
 
-A free online harmonium simulator built with Next.js, TypeScript, and Web Audio API.
+A free, open-source online harmonium simulator built with modern web technologies. Play authentic harmonium sounds directly in your browser with no downloads or installations required.
 
-## Features
+**🌐 Live Demo:** [https://web-harmonium.net](https://web-harmonium.net)
 
-- 🎹 Play harmonium with your computer keyboard
-- 🎵 Transpose control (-11 to +11 semitones)
-- 🎼 Multiple octaves (7 octaves)
-- 🎚️ Volume control and reverb effects
-- 🎶 Multiple reed simulation for richer sound
-- 💾 Settings persistence using localStorage
-- 📱 Mobile-friendly touch controls
+![Web Harmonium Screenshot](https://web-harmonium.net/icon.svg)
 
-## Getting Started
+---
+
+## ✨ Features
+
+### 🎵 Core Functionality
+- **Computer Keyboard Control** - Play using QWERTY keyboard (` q w e r t y u i o p [ ] \)
+- **Virtual Keyboard** - Click or tap on-screen keys for mobile/tablet support
+- **Authentic Sound** - High-quality harmonium samples with natural sustain and release
+- **Polyphonic** - Play multiple notes simultaneously (chords supported)
+
+### 🎛️ Advanced Controls
+- **Transpose** - Shift pitch ±11 semitones to match any vocal range
+- **Octave Selector** - 7 octaves available (0-6)
+- **Reed Layers** - Stack 1-4 reeds for richer, fuller sound
+- **Reverb Effect** - Toggle concert hall reverb for depth
+- **Volume Control** - Precise 1-100% volume adjustment
+
+### ⌨️ Keyboard Shortcuts
+- `Ctrl+Alt+←/→` - Adjust transpose
+- `Ctrl+Alt+↑/↓` - Change octave
+- Quick access without touching the mouse
+
+### 📚 Learning Resources
+- **Interactive Tutorial** - Step-by-step guide for beginners
+- **Song Library** - 8+ popular songs with notation (Bollywood, Western, Bhajans)
+- **Raga Guide** - 8 common Indian classical ragas with scale patterns
+- **Sargam Labels** - Indian notation (Sa Re Ga Ma) displayed on keys
+
+### 🌍 Accessibility
+- **Mobile Responsive** - Works on phones, tablets, and desktops
+- **No Installation** - Runs entirely in browser
+- **Offline Ready** - Settings persist locally
+- **Cross-Browser** - Chrome, Firefox, Safari, Edge
+
+---
+
+## 🚀 Quick Start
+
+Visit [https://web-harmonium.net](https://web-harmonium.net) and click "Load Module" to start playing immediately.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework:** Next.js 16 (App Router)
+- **Language:** TypeScript
+- **Audio:** Web Audio API
+- **Styling:** Tailwind CSS
+- **Deployment:** Vercel
+
+---
+
+## 📦 Local Development
 
 ### Prerequisites
-
-- Node.js 18+ 
+- Node.js 18+
 - npm or yarn
 
 ### Installation
 
-1. Clone the repository:
 ```bash
-git clone <your-repo-url>
-cd harmonium-nextjs
-```
+# Clone the repository
+git clone https://github.com/sunzhenyu/WebHarmonium.git
+cd WebHarmonium
 
-2. Install dependencies:
-```bash
+# Install dependencies
 npm install
-```
 
-3. Create environment file:
-```bash
-cp .env.local.example .env.local
-```
-
-4. Add your Google AdSense client ID to `.env.local`:
-```
-NEXT_PUBLIC_ADSENSE_CLIENT_ID=ca-pub-XXXXXXXXXXXXXXXX
-```
-
-5. Run the development server:
-```bash
+# Run development server
 npm run dev
 ```
 
-6. Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Project Structure
+### Build for Production
 
-```
-harmonium-nextjs/
-├── app/                      # Next.js App Router pages
-│   ├── harmonium/           # Main harmonium player page
-│   ├── tutorial/            # Tutorial page
-│   ├── about/               # About page
-│   ├── privacy/             # Privacy policy
-│   ├── contact/             # Contact page
-│   ├── layout.tsx           # Root layout with navigation
-│   ├── page.tsx             # Home page
-│   ├── sitemap.ts           # Dynamic sitemap generation
-│   └── robots.ts            # Robots.txt configuration
-├── components/
-│   ├── harmonium/           # Harmonium UI components
-│   ├── layout/              # Layout components (Header)
-│   ├── seo/                 # SEO components (StructuredData)
-│   └── ads/                 # AdSense components
-├── lib/
-│   ├── audio/               # Web Audio API engine
-│   ├── hooks/               # React hooks
-│   └── utils/               # Utility functions
-└── public/
-    └── audio/               # Audio sample files
-```
-
-## SEO Optimization
-
-This project includes comprehensive SEO optimization:
-
-- ✅ Dynamic sitemap generation (`/sitemap.xml`)
-- ✅ Robots.txt configuration
-- ✅ Structured data (Schema.org) for better search visibility
-- ✅ Optimized meta tags on all pages
-- ✅ Rich content pages (tutorial, about)
-- ✅ Mobile-responsive design
-
-## Google AdSense Integration
-
-AdSense is integrated and ready to use:
-
-1. Get your AdSense account approved at [Google AdSense](https://www.google.com/adsense/)
-2. Add your client ID to `.env.local`
-3. Replace ad slot IDs in `app/tutorial/page.tsx` with your actual slot IDs
-4. Deploy to production - ads only show in production mode
-
-Ad placements:
-- Tutorial page: Top banner + mid-content rectangle
-- Additional pages: Can add more ad units as needed
-
-## Deployment
-
-### Vercel (Recommended)
-
-1. Push your code to GitHub
-2. Import project in [Vercel](https://vercel.com)
-3. Add environment variable `NEXT_PUBLIC_ADSENSE_CLIENT_ID`
-4. Deploy
-
-### Other Platforms
-
-Build the production version:
 ```bash
 npm run build
 npm start
 ```
 
-## Browser Compatibility
+---
 
-- Chrome/Edge (recommended)
-- Firefox
-- Safari
-- Modern mobile browsers
+## 📁 Project Structure
 
-## Technologies Used
+```
+webharmonium/
+├── app/                    # Next.js pages
+│   ├── harmonium/         # Main player interface
+│   ├── tutorial/          # Learning resources
+│   ├── faq/              # Frequently asked questions
+│   ├── about/            # About page
+│   └── layout.tsx        # Root layout
+├── components/
+│   ├── harmonium/        # Player UI components
+│   ├── layout/           # Header, navigation
+│   └── seo/              # SEO components
+├── lib/
+│   ├── audio/            # Audio engine (Web Audio API)
+│   ├── hooks/            # React hooks
+│   └── utils/            # Utilities
+└── public/
+    └── audio/            # Audio samples
+```
 
-- **Next.js 14** - React framework with App Router
-- **TypeScript** - Type safety
-- **Web Audio API** - Audio synthesis and playback
-- **Tailwind CSS** - Styling
-- **Vercel** - Hosting and deployment
+---
 
-## License
+## 🎯 Key Improvements Over Traditional Tools
 
-[Add your license here]
+✅ **No Installation** - Instant access from any device
+✅ **Cross-Platform** - Works on Windows, Mac, Linux, iOS, Android
+✅ **Authentic Sound** - Real harmonium samples, not MIDI synthesis
+✅ **Modern UX** - Clean interface with keyboard shortcuts
+✅ **Educational** - Built-in tutorials and song library
+✅ **Free Forever** - No subscriptions, no paywalls
 
-## Contributing
+---
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+## 🌐 Browser Compatibility
 
-## Support
+| Browser | Support |
+|---------|---------|
+| Chrome/Edge | ✅ Recommended |
+| Firefox | ✅ Full support |
+| Safari | ✅ Full support |
+| Mobile browsers | ✅ Touch optimized |
 
-For issues or questions, please visit the [Contact page](https://webharmonium.com/contact).
+---
+
+## 📖 Documentation
+
+- **Tutorial:** [web-harmonium.net/tutorial](https://web-harmonium.net/tutorial)
+- **FAQ:** [web-harmonium.net/faq](https://web-harmonium.net/faq)
+- **About:** [web-harmonium.net/about](https://web-harmonium.net/about)
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to:
+- Report bugs via [GitHub Issues](https://github.com/sunzhenyu/WebHarmonium/issues)
+- Submit feature requests
+- Create pull requests
+
+---
+
+## 📧 Contact
+
+For questions or feedback, visit [web-harmonium.net/contact](https://web-harmonium.net/contact)
+
+---
+
+## 📄 License
+
+MIT License - feel free to use this project for personal or commercial purposes.
+
+---
+
+## 🙏 Acknowledgments
+
+- Original harmonium sample: Kannan's harmonium recording
+- Inspired by traditional Indian harmonium instruments
+- Built with modern web standards (Web Audio API, ES6+)
+
+---
+
+**Made with ❤️ for musicians and learners worldwide**
