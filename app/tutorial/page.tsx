@@ -238,6 +238,48 @@ export default function TutorialPage() {
               <p className="text-sm text-gray-600">Notes: Sa Re Ga Ma# Pa Dha Ni Sa</p>
               <p className="text-sm text-gray-600">Keys: <code className="bg-gray-200 px-1 rounded">e r t 5 u i o</code></p>
             </div>
+
+            <div className="bg-blue-50 p-4 rounded">
+              <h4 className="font-semibold mb-2">Raga Bhairav</h4>
+              <p className="text-gray-700 mb-2">Morning raga with serious, devotional mood</p>
+              <p className="text-sm text-gray-600">Notes: Sa Re♭ Ga Ma Pa Dha♭ Ni Sa</p>
+              <p className="text-sm text-gray-600">Keys: <code className="bg-gray-200 px-1 rounded">e 2 t y u 8 o</code></p>
+            </div>
+
+            <div className="bg-blue-50 p-4 rounded">
+              <h4 className="font-semibold mb-2">Raga Kafi</h4>
+              <p className="text-gray-700 mb-2">Folk-based raga, used in many bhajans</p>
+              <p className="text-sm text-gray-600">Notes: Sa Re Ga♭ Ma Pa Dha Ni♭ Sa</p>
+              <p className="text-sm text-gray-600">Keys: <code className="bg-gray-200 px-1 rounded">e r 4 y u i 9</code></p>
+            </div>
+
+            <div className="bg-blue-50 p-4 rounded">
+              <h4 className="font-semibold mb-2">Raga Durga</h4>
+              <p className="text-gray-700 mb-2">Pentatonic evening raga, bright and uplifting</p>
+              <p className="text-sm text-gray-600">Notes: Sa Re Ma Pa Dha Sa</p>
+              <p className="text-sm text-gray-600">Keys: <code className="bg-gray-200 px-1 rounded">e r y u i</code></p>
+            </div>
+
+            <div className="bg-blue-50 p-4 rounded">
+              <h4 className="font-semibold mb-2">Raga Bilawal</h4>
+              <p className="text-gray-700 mb-2">Morning raga, equivalent to Western C major scale</p>
+              <p className="text-sm text-gray-600">Notes: Sa Re Ga Ma Pa Dha Ni Sa</p>
+              <p className="text-sm text-gray-600">Keys: <code className="bg-gray-200 px-1 rounded">e r t y u i o</code></p>
+            </div>
+
+            <div className="bg-blue-50 p-4 rounded">
+              <h4 className="font-semibold mb-2">Raga Desh</h4>
+              <p className="text-gray-700 mb-2">Monsoon raga, romantic and playful</p>
+              <p className="text-sm text-gray-600">Notes: Sa Re Ma Pa Ni Sa (with Ga and Dha as passing notes)</p>
+              <p className="text-sm text-gray-600">Keys: <code className="bg-gray-200 px-1 rounded">e r y u o</code></p>
+            </div>
+
+            <div className="bg-blue-50 p-4 rounded">
+              <h4 className="font-semibold mb-2">Raga Bageshri</h4>
+              <p className="text-gray-700 mb-2">Late night raga, deeply emotional</p>
+              <p className="text-sm text-gray-600">Notes: Sa Ga♭ Ma Dha Ni♭ Sa</p>
+              <p className="text-sm text-gray-600">Keys: <code className="bg-gray-200 px-1 rounded">e 4 y i 9</code></p>
+            </div>
           </div>
         </section>
 
@@ -278,6 +320,61 @@ export default function TutorialPage() {
                 <p className="text-xs text-gray-600 mb-2">Swa-mi Jai Jag-dish Ha-re</p>
               </div>
             </div>
+
+            <div className="bg-gray-50 p-4 rounded">
+              <h3 className="text-xl font-semibold mb-2 text-gray-800">Amazing Grace</h3>
+              <p className="text-gray-700 mb-3">Beautiful hymn for practicing sustained notes</p>
+              <div className="bg-white p-3 rounded border border-gray-200">
+                <p className="font-mono text-sm mb-1">e u u t u u y</p>
+                <p className="text-xs text-gray-600 mb-2">A-ma-zing grace how sweet the sound</p>
+                <p className="font-mono text-sm mb-1">u i u y t</p>
+                <p className="text-xs text-gray-600">That saved a wretch like me</p>
+              </div>
+            </div>
+
+            <div className="bg-gray-50 p-4 rounded">
+              <h3 className="text-xl font-semibold mb-2 text-gray-800">Raghupati Raghav Raja Ram</h3>
+              <p className="text-gray-700 mb-3">Famous bhajan by Mahatma Gandhi</p>
+              <div className="bg-white p-3 rounded border border-gray-200">
+                <p className="font-mono text-sm mb-1">u u i u y t r</p>
+                <p className="text-xs text-gray-600 mb-2">Ra-ghu-pa-ti Ra-ghav Ra-ja Ram</p>
+                <p className="font-mono text-sm mb-1">u u i u y t</p>
+                <p className="text-xs text-gray-600">Pa-ti-ta Pa-van Si-ta Ram</p>
+              </div>
+            </div>
+
+            <div className="bg-gray-50 p-4 rounded">
+              <h3 className="text-xl font-semibold mb-2 text-gray-800">Vaishnav Jan To</h3>
+              <p className="text-gray-700 mb-3">Traditional Gujarati bhajan</p>
+              <div className="bg-white p-3 rounded border border-gray-200">
+                <p className="font-mono text-sm mb-1">t t r t y u</p>
+                <p className="text-xs text-gray-600 mb-2">Vaish-nav jan to te-ne ka-hi-ye</p>
+                <p className="font-mono text-sm mb-1">u i u y t r</p>
+                <p className="text-xs text-gray-600">Je peed pa-ra-yi ja-ne re</p>
+              </div>
+            </div>
+
+            <div className="bg-gray-50 p-4 rounded">
+              <h3 className="text-xl font-semibold mb-2 text-gray-800">Tum Hi Ho (Aashiqui 2)</h3>
+              <p className="text-gray-700 mb-3">Popular Bollywood romantic song</p>
+              <div className="bg-white p-3 rounded border border-gray-200">
+                <p className="font-mono text-sm mb-1">u y t r t y u</p>
+                <p className="text-xs text-gray-600 mb-2">Tum hi ho tum hi ho</p>
+                <p className="font-mono text-sm mb-1">i u y t r e</p>
+                <p className="text-xs text-gray-600">Zin-da-gi ab tum hi ho</p>
+              </div>
+            </div>
+
+            <div className="bg-gray-50 p-4 rounded">
+              <h3 className="text-xl font-semibold mb-2 text-gray-800">Edelweiss (Sound of Music)</h3>
+              <p className="text-gray-700 mb-3">Gentle waltz for practicing 3/4 time</p>
+              <div className="bg-white p-3 rounded border border-gray-200">
+                <p className="font-mono text-sm mb-1">e u u i u y</p>
+                <p className="text-xs text-gray-600 mb-2">E-del-weiss, E-del-weiss</p>
+                <p className="font-mono text-sm mb-1">t u y u t r</p>
+                <p className="text-xs text-gray-600">Ev-ery morn-ing you greet me</p>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -286,6 +383,14 @@ export default function TutorialPage() {
           <h2 className="text-3xl font-semibold mb-4 text-gray-900">6. Tips for Better Playing</h2>
 
           <div className="space-y-4">
+            <div className="flex items-start gap-3">
+              <span className="text-2xl">🎹</span>
+              <div>
+                <h3 className="font-semibold text-gray-800">Use Keyboard Shortcuts</h3>
+                <p className="text-gray-700">Press Ctrl+Alt+← → to change transpose, Ctrl+Alt+↑ ↓ to change octave. This keeps your hands on the keyboard.</p>
+              </div>
+            </div>
+
             <div className="flex items-start gap-3">
               <span className="text-2xl">🎵</span>
               <div>
