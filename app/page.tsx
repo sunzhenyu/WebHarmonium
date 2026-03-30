@@ -65,12 +65,14 @@ export default function Home() {
           <div className="text-center">
             <Link
               href="/harmonium"
+              title="Play Web Harmonium Online"
               className="inline-block px-8 py-4 bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-700 transition-colors"
             >
               Start Playing
             </Link>
             <Link
               href="/tutorial"
+              title="Harmonium Tutorial for Beginners"
               className="inline-block ml-4 px-8 py-4 bg-white text-blue-600 text-lg font-semibold rounded-lg border-2 border-blue-600 hover:bg-blue-50 transition-colors"
             >
               Learn How to Play

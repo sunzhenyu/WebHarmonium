@@ -5,13 +5,13 @@ import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 
 const navLinks = [
-  { href: '/harmonium', label: 'Play', highlight: true },
-  { href: '/tutorial', label: 'Tutorial', highlight: false },
-  { href: '/raga', label: 'Ragas', highlight: false },
-  { href: '/blog', label: 'Blog', highlight: false },
-  { href: '/faq', label: 'FAQ', highlight: false },
-  { href: '/about', label: 'About', highlight: false },
-  { href: '/contact', label: 'Contact', highlight: false },
+  { href: '/harmonium', label: 'Play', title: 'Play Web Harmonium Online', highlight: true },
+  { href: '/tutorial', label: 'Tutorial', title: 'Harmonium Tutorial for Beginners', highlight: false },
+  { href: '/raga', label: 'Ragas', title: 'Indian Ragas Guide', highlight: false },
+  { href: '/blog', label: 'Blog', title: 'Harmonium Blog & Tips', highlight: false },
+  { href: '/faq', label: 'FAQ', title: 'Frequently Asked Questions', highlight: false },
+  { href: '/about', label: 'About', title: 'About Web Harmonium', highlight: false },
+  { href: '/contact', label: 'Contact', title: 'Contact Us', highlight: false },
 ];
 
 export default function Header() {
@@ -25,7 +25,7 @@ export default function Header() {
     <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
       <div className="max-w-6xl mx-auto px-4 py-4">
         <nav className="flex items-center justify-between">
-          <Link href="/" className="text-2xl font-bold text-gray-900 hover:text-blue-600 transition-colors">
+          <Link href="/" title="Web Harmonium - Play Indian Harmonium Online" className="text-2xl font-bold text-gray-900 hover:text-blue-600 transition-colors">
             Web Harmonium
           </Link>
 
@@ -38,6 +38,7 @@ export default function Header() {
                   <Link
                     key={link.href}
                     href={link.href}
+                    title={link.title}
                     className={`px-4 py-2 rounded-lg font-medium transition-colors ${
                       active
                         ? 'bg-blue-700 text-white'
@@ -52,6 +53,7 @@ export default function Header() {
                 <Link
                   key={link.href}
                   href={link.href}
+                  title={link.title}
                   className={`transition-colors font-medium pb-1 ${
                     active
                       ? 'text-blue-600 border-b-2 border-blue-600'
@@ -91,6 +93,7 @@ export default function Header() {
                 <Link
                   key={link.href}
                   href={link.href}
+                  title={link.title}
                   onClick={() => setMenuOpen(false)}
                   className={
                     link.highlight
