@@ -1,7 +1,17 @@
 import Link from 'next/link';
 import StructuredData from '@/components/seo/StructuredData';
+import { blogPosts } from '@/lib/blog';
+
+const categoryColors: Record<string, string> = {
+  'Learning': 'bg-blue-100 text-blue-700',
+  'Songs': 'bg-green-100 text-green-700',
+  'Buying Guide': 'bg-orange-100 text-orange-700',
+  'History': 'bg-purple-100 text-purple-700',
+};
 
 export default function Home() {
+  const featuredPosts = blogPosts.slice(0, 3);
+
   return (
     <div>
       <StructuredData
@@ -21,13 +31,16 @@ export default function Home() {
           ],
         }}
       />
-      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+      <div className="bg-gradient-to-b from-blue-50 to-white">
       <div className="max-w-4xl mx-auto p-8">
+
+        {/* Hero */}
         <header className="text-center mb-12">
           <h1 className="text-5xl font-bold mb-4 text-gray-900">Web Harmonium</h1>
           <p className="text-xl text-gray-600">Free Online Harmonium Simulator</p>
         </header>
 
+        {/* Main feature card */}
         <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
           <h2 className="text-2xl font-semibold mb-4">Play Harmonium in Your Browser</h2>
           <p className="text-gray-700 mb-4">
@@ -80,6 +93,7 @@ export default function Home() {
           </div>
         </div>
 
+        {/* How to Use */}
         <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
           <h2 className="text-2xl font-semibold mb-4">How to Use</h2>
           <ol className="list-decimal list-inside space-y-2 text-gray-700">
@@ -91,8 +105,96 @@ export default function Home() {
           </ol>
         </div>
 
+        {/* Practice Exercises */}
+        <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
+          <h2 className="text-2xl font-semibold mb-2">Practice Exercises</h2>
+          <p className="text-gray-600 mb-6">Start with these beginner-friendly exercises to build finger coordination and musical intuition.</p>
+
+          <div className="space-y-4">
+            <div className="border border-gray-100 rounded-lg p-5 hover:border-blue-200 transition-colors">
+              <div className="flex items-start gap-3">
+                <span className="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">1</span>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-1">Sa Re Ga Ma — Basic Scale</h3>
+                  <p className="text-sm text-gray-600 mb-2">Press keys <code className="bg-gray-100 px-1 rounded">e r t y u i o p</code> in order to play the C major scale (Sa Re Ga Ma Pa Dha Ni Sa). Repeat slowly, then increase tempo.</p>
+                  <span className="text-xs text-blue-600 font-medium">Beginner · 5 min/day</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="border border-gray-100 rounded-lg p-5 hover:border-blue-200 transition-colors">
+              <div className="flex items-start gap-3">
+                <span className="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">2</span>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-1">Sargam Aaroha & Avaroha</h3>
+                  <p className="text-sm text-gray-600 mb-2">Play the scale ascending (Sa→Ni) and descending (Ni→Sa). This builds muscle memory for both directions — essential for ragas.</p>
+                  <span className="text-xs text-blue-600 font-medium">Beginner · 10 min/day</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="border border-gray-100 rounded-lg p-5 hover:border-blue-200 transition-colors">
+              <div className="flex items-start gap-3">
+                <span className="flex-shrink-0 w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center text-sm font-bold">3</span>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-1">Simple Bhajan — Om Jai Jagdish</h3>
+                  <p className="text-sm text-gray-600 mb-2">Notes: <code className="bg-gray-100 px-1 rounded">Sa Sa Re Sa · Ni Sa Re Ga · Ma Pa Ma Ga Re</code>. Transpose to your vocal key and practice slowly with the drone.</p>
+                  <span className="text-xs text-green-600 font-medium">Intermediate · 15 min/day</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="border border-gray-100 rounded-lg p-5 hover:border-blue-200 transition-colors">
+              <div className="flex items-start gap-3">
+                <span className="flex-shrink-0 w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center text-sm font-bold">4</span>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-1">Raga Bhupali — Pentatonic Raga</h3>
+                  <p className="text-sm text-gray-600 mb-2">Uses only 5 notes: <code className="bg-gray-100 px-1 rounded">Sa Re Ga Pa Dha</code>. One of the easiest ragas for beginners — great for evening practice and devotional music.</p>
+                  <span className="text-xs text-green-600 font-medium">Intermediate · 20 min/day</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6 text-center">
+            <Link href="/tutorial" title="Full Harmonium Tutorial" className="text-blue-600 font-medium hover:underline">
+              View full tutorial & more exercises →
+            </Link>
+          </div>
+        </div>
+
+        {/* Featured Blog Posts */}
+        <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
+          <h2 className="text-2xl font-semibold mb-2">From the Blog</h2>
+          <p className="text-gray-600 mb-6">Guides, tips, and tutorials to help you learn harmonium faster.</p>
+
+          <div className="space-y-4">
+            {featuredPosts.map(post => (
+              <Link key={post.slug} href={`/blog/${post.slug}`} title={post.title}>
+                <article className="border border-gray-100 rounded-lg p-5 hover:border-blue-200 hover:shadow-sm transition-all">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className={`text-xs font-semibold px-2 py-1 rounded-full ${categoryColors[post.category] ?? 'bg-gray-100 text-gray-600'}`}>
+                      {post.category}
+                    </span>
+                    <span className="text-xs text-gray-400">{post.readTime} min read</span>
+                  </div>
+                  <h3 className="font-bold text-gray-900 mb-1 hover:text-blue-600 transition-colors">{post.title}</h3>
+                  <p className="text-sm text-gray-600">{post.description}</p>
+                  <div className="mt-3 text-blue-600 text-sm font-medium">Read more →</div>
+                </article>
+              </Link>
+            ))}
+          </div>
+
+          <div className="mt-6 text-center">
+            <Link href="/blog" title="All Harmonium Blog Posts" className="inline-block px-6 py-3 border border-blue-600 text-blue-600 rounded-lg font-medium hover:bg-blue-50 transition-colors">
+              View All Articles
+            </Link>
+          </div>
+        </div>
+
         {/* PSEO Links Section */}
-        <div className="mt-12 pt-8 border-t border-gray-200">
+        <div className="mt-8 pt-8 border-t border-gray-200">
           <h2 className="text-xl font-semibold mb-6 text-gray-800 text-center">Learn More About Harmoniums</h2>
           <div className="flex flex-wrap justify-center gap-3">
             <Link href="/instrument/harmonium" title="Harmonium" className="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600 hover:text-blue-600 hover:border-blue-300 transition-colors shadow-sm">
@@ -118,8 +220,63 @@ export default function Home() {
             </Link>
           </div>
         </div>
+
       </div>
       </div>
+
+      {/* Footer Quick Navigation */}
+      <footer className="bg-gray-900 text-gray-300">
+        <div className="max-w-4xl mx-auto px-8 py-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+
+            <div>
+              <h3 className="text-white font-semibold mb-4">Play</h3>
+              <ul className="space-y-2 text-sm">
+                <li><Link href="/harmonium" title="Play Harmonium Online" className="hover:text-white transition-colors">Harmonium</Link></li>
+                <li><Link href="/raga" title="Play Ragas" className="hover:text-white transition-colors">Raga Player</Link></li>
+                <li><Link href="/harmonium" title="Shruti Box Online" className="hover:text-white transition-colors">Shruti Box</Link></li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-white font-semibold mb-4">Learn</h3>
+              <ul className="space-y-2 text-sm">
+                <li><Link href="/tutorial" title="Harmonium Tutorial" className="hover:text-white transition-colors">Tutorial</Link></li>
+                <li><Link href="/blog" title="Harmonium Blog" className="hover:text-white transition-colors">Blog</Link></li>
+                <li><Link href="/blog/best-ragas-for-beginners" title="Ragas for Beginners" className="hover:text-white transition-colors">Ragas for Beginners</Link></li>
+                <li><Link href="/blog/how-to-practice-sargam" title="Sargam Practice" className="hover:text-white transition-colors">Sargam Practice</Link></li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-white font-semibold mb-4">Guides</h3>
+              <ul className="space-y-2 text-sm">
+                <li><Link href="/blog/best-harmonium-for-beginners" title="Best Harmonium for Beginners" className="hover:text-white transition-colors">Buying Guide</Link></li>
+                <li><Link href="/blog/harmonium-vs-keyboard" title="Harmonium vs Keyboard" className="hover:text-white transition-colors">Harmonium vs Keyboard</Link></li>
+                <li><Link href="/blog/how-to-play-bhajans-on-harmonium" title="How to Play Bhajans" className="hover:text-white transition-colors">Bhajan Notes</Link></li>
+                <li><Link href="/faq" title="FAQ" className="hover:text-white transition-colors">FAQ</Link></li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-white font-semibold mb-4">About</h3>
+              <ul className="space-y-2 text-sm">
+                <li><Link href="/about" title="About Web Harmonium" className="hover:text-white transition-colors">About</Link></li>
+                <li><Link href="/contact" title="Contact" className="hover:text-white transition-colors">Contact</Link></li>
+                <li><Link href="/privacy" title="Privacy Policy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
+              </ul>
+            </div>
+
+          </div>
+
+          <div className="mt-10 pt-8 border-t border-gray-700 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
+            <p>© {new Date().getFullYear()} Web Harmonium. Free online harmonium simulator.</p>
+            <p>
+              <Link href="https://web-harmonium.net" title="Web Harmonium" className="hover:text-gray-300 transition-colors">web-harmonium.net</Link>
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

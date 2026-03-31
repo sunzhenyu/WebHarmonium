@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     description: "Play harmonium free in your browser using your keyboard. Transpose, octave, reverb, and Shruti Box controls. No download needed — start playing instantly.",
     site: "@DanDan344479",
     creator: "@DanDan344479",
-    images: ["/og-image.svg"],
+    images: ["/twitter-image.svg"],
   },
 };
 
