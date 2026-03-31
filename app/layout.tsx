@@ -22,12 +22,22 @@ export const metadata: Metadata = {
     siteName: "Web Harmonium",
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: "/og-image.svg",
+        width: 1200,
+        height: 630,
+        alt: "Web Harmonium - Free Online Harmonium Simulator",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Web Harmonium - Free Online Harmonium Simulator",
     description: "Play harmonium free in your browser using your keyboard. Transpose, octave, reverb, and Shruti Box controls. No download needed — start playing instantly.",
+    site: "@DanDan344479",
     creator: "@DanDan344479",
+    images: ["/og-image.svg"],
   },
 };
 

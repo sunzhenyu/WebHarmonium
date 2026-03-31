@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e3a5f;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f1e35;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#60a5fa;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)" />
+
+  <!-- Decorative keyboard keys -->
+  <g opacity="0.12">
+    <!-- White keys -->
+    <rect x="80" y="320" width="48" height="160" rx="4" fill="white"/>
+    <rect x="134" y="320" width="48" height="160" rx="4" fill="white"/>
+    <rect x="188" y="320" width="48" height="160" rx="4" fill="white"/>
+    <rect x="242" y="320" width="48" height="160" rx="4" fill="white"/>
+    <rect x="296" y="320" width="48" height="160" rx="4" fill="white"/>
+    <rect x="350" y="320" width="48" height="160" rx="4" fill="white"/>
+    <rect x="404" y="320" width="48" height="160" rx="4" fill="white"/>
+    <!-- Black keys -->
+    <rect x="110" y="320" width="30" height="100" rx="3" fill="#1a2a3a"/>
+    <rect x="164" y="320" width="30" height="100" rx="3" fill="#1a2a3a"/>
+    <rect x="272" y="320" width="30" height="100" rx="3" fill="#1a2a3a"/>
+    <rect x="326" y="320" width="30" height="100" rx="3" fill="#1a2a3a"/>
+    <rect x="380" y="320" width="30" height="100" rx="3" fill="#1a2a3a"/>
+    <!-- Repeat -->
+    <rect x="458" y="320" width="48" height="160" rx="4" fill="white"/>
+    <rect x="512" y="320" width="48" height="160" rx="4" fill="white"/>
+    <rect x="566" y="320" width="48" height="160" rx="4" fill="white"/>
+    <rect x="620" y="320" width="48" height="160" rx="4" fill="white"/>
+    <rect x="674" y="320" width="48" height="160" rx="4" fill="white"/>
+    <rect x="728" y="320" width="48" height="160" rx="4" fill="white"/>
+    <rect x="782" y="320" width="48" height="160" rx="4" fill="white"/>
+    <rect x="488" y="320" width="30" height="100" rx="3" fill="#1a2a3a"/>
+    <rect x="542" y="320" width="30" height="100" rx="3" fill="#1a2a3a"/>
+    <rect x="650" y="320" width="30" height="100" rx="3" fill="#1a2a3a"/>
+    <rect x="704" y="320" width="30" height="100" rx="3" fill="#1a2a3a"/>
+    <rect x="758" y="320" width="30" height="100" rx="3" fill="#1a2a3a"/>
+    <!-- Third repeat -->
+    <rect x="836" y="320" width="48" height="160" rx="4" fill="white"/>
+    <rect x="890" y="320" width="48" height="160" rx="4" fill="white"/>
+    <rect x="944" y="320" width="48" height="160" rx="4" fill="white"/>
+    <rect x="998" y="320" width="48" height="160" rx="4" fill="white"/>
+    <rect x="1052" y="320" width="48" height="160" rx="4" fill="white"/>
+    <rect x="866" y="320" width="30" height="100" rx="3" fill="#1a2a3a"/>
+    <rect x="920" y="320" width="30" height="100" rx="3" fill="#1a2a3a"/>
+    <rect x="1028" y="320" width="30" height="100" rx="3" fill="#1a2a3a"/>
+  </g>
+
+  <!-- Accent bar -->
+  <rect x="80" y="200" width="180" height="6" rx="3" fill="url(#accent)" />
+
+  <!-- Site name -->
+  <text x="80" y="180" font-family="Georgia, serif" font-size="28" fill="#60a5fa" letter-spacing="4" font-weight="normal">WEB HARMONIUM</text>
+
+  <!-- Main headline -->
+  <text x="80" y="270" font-family="Georgia, serif" font-size="72" fill="white" font-weight="bold">Free Online</text>
+  <text x="80" y="350" font-family="Georgia, serif" font-size="72" fill="white" font-weight="bold">Harmonium</text>
+
+  <!-- Tagline -->
+  <text x="82" y="410" font-family="-apple-system, Arial, sans-serif" font-size="26" fill="#94a3b8">Play in your browser · No download needed</text>
+
+  <!-- URL badge -->
+  <rect x="80" y="450" width="320" height="48" rx="24" fill="#3b82f6" opacity="0.2"/>
+  <rect x="80" y="450" width="320" height="48" rx="24" fill="none" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="240" y="480" font-family="-apple-system, Arial, sans-serif" font-size="20" fill="#60a5fa" text-anchor="middle">web-harmonium.net</text>
+</svg>
