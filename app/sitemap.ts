@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next';
 import { blogPosts } from '@/lib/blog';
 import { ragas } from '@/lib/ragas';
+import { instrumentPages } from '@/lib/pseo/instruments';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://web-harmonium.net';
@@ -78,5 +79,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ];
 
-  return [...baseRoutes, ...blogRoutes, ...ragaRoutes];
+  const instrumentRoutes: MetadataRoute.Sitemap = instrumentPages.map(page => ({
+    url: `${baseUrl}/instrument/${page.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.8,
+  }));
+
+  return [...baseRoutes, ...blogRoutes, ...ragaRoutes, ...instrumentRoutes];
 }

@@ -7,6 +7,9 @@ import BhajansPost from '@/components/blog/BhajansPost';
 import BuyingGuidePost from '@/components/blog/BuyingGuidePost';
 import HarmoniumVsKeyboardPost from '@/components/blog/HarmoniumVsKeyboardPost';
 import SargamPost from '@/components/blog/SargamPost';
+import HarmoniumInstrumentGuidePost from '@/components/blog/HarmoniumInstrumentGuidePost';
+import ReedOrganVsIndianPost from '@/components/blog/ReedOrganVsIndianPost';
+import PedalOrganPost from '@/components/blog/PedalOrganPost';
 
 export async function generateStaticParams() {
   return blogPosts.map(post => ({ slug: post.slug }));
@@ -42,6 +45,9 @@ const postComponents: Record<string, React.ComponentType> = {
   'best-harmonium-for-beginners': BuyingGuidePost,
   'harmonium-vs-keyboard': HarmoniumVsKeyboardPost,
   'how-to-practice-sargam': SargamPost,
+  'harmonium-musical-instrument-guide': HarmoniumInstrumentGuidePost,
+  'reed-organ-vs-indian-harmonium': ReedOrganVsIndianPost,
+  'harmonium-pedal-organ-history': PedalOrganPost,
 };
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {

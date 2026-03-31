@@ -90,6 +90,34 @@ export default function Home() {
             <li>Click on the virtual keyboard with your mouse or touch screen</li>
           </ol>
         </div>
+
+        {/* PSEO Links Section */}
+        <div className="mt-12 pt-8 border-t border-gray-200">
+          <h2 className="text-xl font-semibold mb-6 text-gray-800 text-center">Learn More About Harmoniums</h2>
+          <div className="flex flex-wrap justify-center gap-3">
+            <Link href="/instrument/harmonium" title="Harmonium" className="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600 hover:text-blue-600 hover:border-blue-300 transition-colors shadow-sm">
+              Harmonium
+            </Link>
+            <Link href="/instrument/harmonium-instrument" title="Harmonium Instrument" className="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600 hover:text-blue-600 hover:border-blue-300 transition-colors shadow-sm">
+              Harmonium Instrument
+            </Link>
+            <Link href="/instrument/reed-organ-harmonium" title="Reed Organ Harmonium" className="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600 hover:text-blue-600 hover:border-blue-300 transition-colors shadow-sm">
+              Reed Organ Harmonium
+            </Link>
+            <Link href="/instrument/harmonium-pedal-organ" title="Harmonium Pedal Organ" className="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600 hover:text-blue-600 hover:border-blue-300 transition-colors shadow-sm">
+              Harmonium Pedal Organ
+            </Link>
+            <Link href="/instrument/harmonium-musical-instrument" title="Harmonium Musical Instrument" className="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600 hover:text-blue-600 hover:border-blue-300 transition-colors shadow-sm">
+              Harmonium Musical Instrument
+            </Link>
+            <Link href="/instrument/indian-harmonium" title="Indian Harmonium" className="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600 hover:text-blue-600 hover:border-blue-300 transition-colors shadow-sm">
+              Indian Harmonium
+            </Link>
+            <Link href="/instrument/the-harmonium-in-my-memory" title="The Harmonium In My Memory" className="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600 hover:text-blue-600 hover:border-blue-300 transition-colors shadow-sm">
+              The Harmonium in My Memory
+            </Link>
+          </div>
+        </div>
       </div>
       </div>
     </div>

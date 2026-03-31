@@ -54,6 +54,33 @@ export const blogPosts: BlogPost[] = [
     readTime: 9,
     category: 'Learning',
   },
+  {
+    slug: 'harmonium-musical-instrument-guide',
+    title: 'The Ultimate Harmonium Musical Instrument Guide for 2026',
+    description: 'Discover everything you need to know about the harmonium musical instrument. Explore its mechanics, tuning, reeds, and why it is beloved worldwide.',
+    date: '2026-03-31',
+    keywords: ['harmonium musical instrument', 'indian harmonium', 'harmonium guide 2026', 'play harmonium'],
+    readTime: 6,
+    category: 'Buying Guide',
+  },
+  {
+    slug: 'reed-organ-vs-indian-harmonium',
+    title: 'Reed Organ Harmonium vs Indian Harmonium: A Musical Journey',
+    description: 'Trace the fascinating history of how the Western reed organ harmonium transformed into the hand-pumped Indian harmonium used in classical music today.',
+    date: '2026-03-31',
+    keywords: ['reed organ harmonium', 'indian harmonium', 'harmonium instrument history', 'pump organ'],
+    readTime: 7,
+    category: 'History',
+  },
+  {
+    slug: 'harmonium-pedal-organ-history',
+    title: 'What is a Harmonium Pedal Organ? (History & Guide)',
+    description: 'Learn about the harmonium pedal organ, its foot-pumped bellows mechanism, and its role as the Western ancestor to the modern Indian harmonium.',
+    date: '2026-03-31',
+    keywords: ['harmonium pedal organ', 'harmonium history', 'western harmonium', 'parlor organ'],
+    readTime: 5,
+    category: 'History',
+  }
 ];
 
 export function getBlogPost(slug: string): BlogPost | undefined {
