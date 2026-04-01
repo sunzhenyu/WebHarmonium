@@ -1,5 +1,7 @@
 'use client';
 
+import { useLanguage } from '@/lib/i18n/LanguageContext';
+
 interface DroneControlProps {
   enabled: boolean;
   volume: number;
@@ -9,9 +11,11 @@ interface DroneControlProps {
 }
 
 export default function DroneControl({ enabled, volume, rootNote, onToggle, onVolumeChange }: DroneControlProps) {
+  const { t } = useLanguage();
+
   return (
     <div className="flex flex-col items-center min-w-[140px] bg-gray-50 border border-gray-200 rounded-lg p-3">
-      <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Shruti Box</span>
+      <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">{t.controls.shrutiBox}</span>
       <button
         onClick={() => onToggle(!enabled)}
         className={`w-full py-2 px-3 rounded-lg text-sm font-semibold transition-colors mb-2 ${
@@ -20,7 +24,7 @@ export default function DroneControl({ enabled, volume, rootNote, onToggle, onVo
             : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-100'
         }`}
       >
-        {enabled ? `● ${rootNote} Drone ON` : `${rootNote} Drone OFF`}
+        {enabled ? `● ${rootNote} ${t.controls.droneOn}` : `${rootNote} ${t.controls.droneOff}`}
       </button>
       {enabled && (
         <div className="w-full">
@@ -34,12 +38,12 @@ export default function DroneControl({ enabled, volume, rootNote, onToggle, onVo
             className="w-full accent-blue-600"
           />
           <div className="text-xs text-center text-gray-500 mt-1">
-            Volume {Math.round(volume * 100)}%
+            {t.controls.volume} {Math.round(volume * 100)}%
           </div>
         </div>
       )}
       {!enabled && (
-        <p className="text-xs text-gray-400 text-center">Sa+Pa continuous drone for raga practice</p>
+        <p className="text-xs text-gray-400 text-center">{t.controls.droneDesc}</p>
       )}
     </div>
   );

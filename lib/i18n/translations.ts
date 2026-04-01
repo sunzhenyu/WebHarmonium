@@ -15,6 +15,16 @@ export const translations = {
       'A#': 'Ni♭',
       B: 'Ni',
     },
+    // Navigation
+    nav: {
+      play: 'Play',
+      tutorial: 'Tutorial',
+      ragas: 'Ragas',
+      blog: 'Blog',
+      faq: 'FAQ',
+      about: 'About',
+      contact: 'Contact',
+    },
     // Controls
     controls: {
       volume: 'Volume',
@@ -23,6 +33,13 @@ export const translations = {
       reeds: 'Reeds',
       reverb: 'Reverb',
       drone: 'Drone',
+      on: 'On',
+      off: 'Off',
+      stackedReeds: '1–4 stacked reeds',
+      shrutiBox: 'Shruti Box',
+      droneOn: 'Drone ON',
+      droneOff: 'Drone OFF',
+      droneDesc: 'Sa+Pa continuous drone for raga practice',
     },
     // Common UI
     ui: {
@@ -30,6 +47,39 @@ export const translations = {
       quickStart: 'Quick Start:',
       quickStartTip: 'Click the keyboard below or press keys',
       onYourKeyboard: 'on your computer keyboard to play',
+    },
+    // Homepage
+    home: {
+      title: 'Web Harmonium Online',
+      subtitle: 'For Daily Practice',
+      description: 'Play harmonium online in your browser with keyboard shortcuts, Sargam labels, and beginner-friendly guides.',
+      startPlaying: 'Start Playing',
+      practiceExercises: 'Practice Exercises',
+      exerciseDesc: 'Master these fundamental exercises to build your harmonium skills',
+      featuredPosts: 'Featured Blog Posts',
+      postsDesc: 'Learn harmonium techniques and Indian classical music',
+    },
+    // Footer
+    footer: {
+      playSection: 'Play',
+      harmonium: 'Harmonium',
+      ragaPlayer: 'Raga Player',
+      shrutiBox: 'Shruti Box',
+      learnSection: 'Learn',
+      tutorial: 'Tutorial',
+      blog: 'Blog',
+      ragasForBeginners: 'Ragas for Beginners',
+      sargamPractice: 'Sargam Practice',
+      guidesSection: 'Guides',
+      buyingGuide: 'Buying Guide',
+      harmoniumVsKeyboard: 'Harmonium vs Keyboard',
+      bhajanNotes: 'Bhajan Notes',
+      faq: 'FAQ',
+      aboutSection: 'About',
+      about: 'About',
+      contact: 'Contact',
+      privacy: 'Privacy Policy',
+      copyright: 'Web Harmonium. Free online harmonium simulator.',
     },
     // Feedback
     feedback: {
@@ -57,6 +107,16 @@ export const translations = {
       'A#': 'नि♭',
       B: 'नि',
     },
+    // Navigation
+    nav: {
+      play: 'बजाएं',
+      tutorial: 'ट्यूटोरियल',
+      ragas: 'राग',
+      blog: 'ब्लॉग',
+      faq: 'सवाल-जवाब',
+      about: 'हमारे बारे में',
+      contact: 'संपर्क करें',
+    },
     // Controls
     controls: {
       volume: 'वॉल्यूम',
@@ -65,6 +125,13 @@ export const translations = {
       reeds: 'रीड्स',
       reverb: 'रीवर्ब',
       drone: 'ड्रोन',
+      on: 'चालू',
+      off: 'बंद',
+      stackedReeds: '1–4 स्टैक्ड रीड्स',
+      shrutiBox: 'श्रुति बॉक्स',
+      droneOn: 'ड्रोन चालू',
+      droneOff: 'ड्रोन बंद',
+      droneDesc: 'राग अभ्यास के लिए सा+प निरंतर ड्रोन',
     },
     // Common UI
     ui: {
@@ -72,6 +139,39 @@ export const translations = {
       quickStart: 'शुरू करें:',
       quickStartTip: 'नीचे कीबोर्ड पर क्लिक करें या कुंजी दबाएं',
       onYourKeyboard: 'अपने कंप्यूटर कीबोर्ड पर बजाने के लिए',
+    },
+    // Homepage
+    home: {
+      title: 'वेब हारमोनियम ऑनलाइन',
+      subtitle: 'दैनिक अभ्यास के लिए',
+      description: 'कीबोर्ड शॉर्टकट, सरगम लेबल और शुरुआती-अनुकूल गाइड के साथ अपने ब्राउज़र में हारमोनियम बजाएं।',
+      startPlaying: 'बजाना शुरू करें',
+      practiceExercises: 'अभ्यास',
+      exerciseDesc: 'अपने हारमोनियम कौशल को बढ़ाने के लिए इन मूलभूत अभ्यासों में महारत हासिल करें',
+      featuredPosts: 'चुनिंदा ब्लॉग पोस्ट',
+      postsDesc: 'हारमोनियम तकनीक और भारतीय शास्त्रीय संगीत सीखें',
+    },
+    // Footer
+    footer: {
+      playSection: 'बजाएं',
+      harmonium: 'हारमोनियम',
+      ragaPlayer: 'राग प्लेयर',
+      shrutiBox: 'श्रुति बॉक्स',
+      learnSection: 'सीखें',
+      tutorial: 'ट्यूटोरियल',
+      blog: 'ब्लॉग',
+      ragasForBeginners: 'शुरुआती के लिए राग',
+      sargamPractice: 'सरगम अभ्यास',
+      guidesSection: 'गाइड',
+      buyingGuide: 'खरीदारी गाइड',
+      harmoniumVsKeyboard: 'हारमोनियम बनाम कीबोर्ड',
+      bhajanNotes: 'भजन नोट्स',
+      faq: 'सवाल-जवाब',
+      aboutSection: 'हमारे बारे में',
+      about: 'हमारे बारे में',
+      contact: 'संपर्क करें',
+      privacy: 'गोपनीयता नीति',
+      copyright: 'वेब हारमोनियम। मुफ्त ऑनलाइन हारमोनियम सिम्युलेटर।',
     },
     // Feedback
     feedback: {

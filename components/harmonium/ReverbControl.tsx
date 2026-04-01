@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
 
 interface ReverbControlProps {
   enabled: boolean;
@@ -6,9 +7,11 @@ interface ReverbControlProps {
 }
 
 export default function ReverbControl({ enabled, onChange }: ReverbControlProps) {
+  const { t } = useLanguage();
+
   return (
     <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 text-center min-w-[140px]">
-      <h3 className="font-semibold mb-3 text-gray-900">Reverb</h3>
+      <h3 className="font-semibold mb-3 text-gray-900">{t.controls.reverb}</h3>
       <label className="flex items-center justify-center gap-2 cursor-pointer">
         <input
           type="checkbox"
@@ -16,7 +19,7 @@ export default function ReverbControl({ enabled, onChange }: ReverbControlProps)
           onChange={(e) => onChange(e.target.checked)}
           className="w-4 h-4 cursor-pointer accent-blue-600"
         />
-        <span className="text-sm text-gray-700">{enabled ? 'On' : 'Off'}</span>
+        <span className="text-sm text-gray-700">{enabled ? t.controls.on : t.controls.off}</span>
       </label>
     </div>
   );

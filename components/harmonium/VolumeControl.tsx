@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
 
 interface VolumeControlProps {
   volume: number;
@@ -6,9 +7,11 @@ interface VolumeControlProps {
 }
 
 export default function VolumeControl({ volume, onChange }: VolumeControlProps) {
+  const { t } = useLanguage();
+
   return (
     <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 text-center min-w-[140px]">
-      <h3 className="font-semibold mb-3 text-gray-900">Volume</h3>
+      <h3 className="font-semibold mb-3 text-gray-900">{t.controls.volume}</h3>
       <input
         type="range"
         min="1"

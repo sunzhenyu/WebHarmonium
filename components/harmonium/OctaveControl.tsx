@@ -1,5 +1,6 @@
 import React from 'react';
 import { OCTAVE_RANGE } from '@/lib/utils/constants';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
 
 interface OctaveControlProps {
   octave: number;
@@ -7,6 +8,8 @@ interface OctaveControlProps {
 }
 
 export default function OctaveControl({ octave, onChange }: OctaveControlProps) {
+  const { t } = useLanguage();
+
   const handleIncrement = () => {
     if (octave < OCTAVE_RANGE.MAX) {
       onChange(octave + 1);
@@ -21,7 +24,7 @@ export default function OctaveControl({ octave, onChange }: OctaveControlProps) 
 
   return (
     <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 text-center min-w-[140px]">
-      <h3 className="font-semibold mb-3 text-gray-900">Octave</h3>
+      <h3 className="font-semibold mb-3 text-gray-900">{t.controls.octave}</h3>
       <div className="flex items-center justify-center gap-3">
         <button
           onClick={handleDecrement}

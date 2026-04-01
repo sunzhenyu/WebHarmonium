@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
 
 interface ReedsControlProps {
   reeds: number;
@@ -6,9 +7,11 @@ interface ReedsControlProps {
 }
 
 export default function ReedsControl({ reeds, onChange }: ReedsControlProps) {
+  const { t } = useLanguage();
+
   return (
     <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 text-center min-w-[140px]">
-      <h3 className="font-semibold mb-3 text-gray-900">Reeds</h3>
+      <h3 className="font-semibold mb-3 text-gray-900">{t.controls.reeds}</h3>
       <div className="flex items-center justify-center gap-3">
         <button
           onClick={() => onChange(reeds - 1)}
@@ -26,7 +29,7 @@ export default function ReedsControl({ reeds, onChange }: ReedsControlProps) {
           +
         </button>
       </div>
-      <p className="text-xs text-gray-600 mt-1">1–4 stacked reeds</p>
+      <p className="text-xs text-gray-600 mt-1">{t.controls.stackedReeds}</p>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { TRANSPOSE_RANGE } from '@/lib/utils/constants';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
 
 interface TransposeControlProps {
   transpose: number;
@@ -8,6 +9,8 @@ interface TransposeControlProps {
 }
 
 export default function TransposeControl({ transpose, rootNote, onChange }: TransposeControlProps) {
+  const { t } = useLanguage();
+
   const handleIncrement = () => {
     if (transpose < TRANSPOSE_RANGE.MAX) {
       onChange(transpose + 1);
@@ -22,7 +25,7 @@ export default function TransposeControl({ transpose, rootNote, onChange }: Tran
 
   return (
     <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 text-center min-w-[140px]">
-      <h3 className="font-semibold mb-3 text-gray-900">Transpose</h3>
+      <h3 className="font-semibold mb-3 text-gray-900">{t.controls.transpose}</h3>
       <div className="flex items-center justify-center gap-3">
         <button
           onClick={handleDecrement}
