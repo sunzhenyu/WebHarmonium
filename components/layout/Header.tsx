@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 const navLinks = [
   { href: '/harmonium', label: 'Play', title: 'Play Web Harmonium Online', highlight: true },
@@ -30,7 +31,8 @@ export default function Header() {
           </Link>
 
           {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-6">
+          <div className="hidden md:flex items-center gap-4">
+            <LanguageSwitcher />
             {navLinks.map(link => {
               const active = isActive(link.href);
               if (link.highlight) {
@@ -87,6 +89,9 @@ export default function Header() {
         {/* Mobile menu */}
         {menuOpen && (
           <div className="md:hidden mt-4 pb-2 border-t border-gray-100 pt-4 flex flex-col gap-3">
+            <div className="px-2 mb-2">
+              <LanguageSwitcher />
+            </div>
             {navLinks.map(link => {
               const active = isActive(link.href);
               return (

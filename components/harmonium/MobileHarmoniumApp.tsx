@@ -6,6 +6,7 @@ import { useKeyboard } from '@/lib/hooks/useKeyboard';
 import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
 import { STORAGE_KEYS, DEFAULT_VALUES } from '@/lib/utils/constants';
 import { trackControlChange, trackPracticeSession } from '@/lib/utils/analytics';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
 import SimpleKeyboard from './SimpleKeyboard';
 import VolumeControl from './VolumeControl';
 import TransposeControl from './TransposeControl';
@@ -15,6 +16,7 @@ import ReedsControl from './ReedsControl';
 import DroneControl from './DroneControl';
 
 export default function MobileHarmoniumApp() {
+  const { t } = useLanguage();
   const [volume, setVolume] = useLocalStorage<number>(STORAGE_KEYS.VOLUME, DEFAULT_VALUES.VOLUME);
   const [transpose, setTranspose] = useLocalStorage<number>(STORAGE_KEYS.TRANSPOSE, DEFAULT_VALUES.TRANSPOSE);
   const [octave, setOctave] = useLocalStorage<number>(STORAGE_KEYS.OCTAVE, DEFAULT_VALUES.OCTAVE);

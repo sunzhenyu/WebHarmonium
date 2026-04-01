@@ -3,6 +3,7 @@ import Script from "next/script";
 import Link from "next/link";
 import "./globals.css";
 import Header from "@/components/layout/Header";
+import { LanguageProvider } from "@/lib/i18n/LanguageContext";
 
 export const metadata: Metadata = {
   title: "Web Harmonium Online for Daily Practice | Play Harmonium",
@@ -65,9 +66,10 @@ export default function RootLayout({
         </Script>
       </head>
       <body>
-        <Header />
-        {children}
-        <footer className="bg-gray-900 text-gray-300">
+        <LanguageProvider>
+          <Header />
+          {children}
+          <footer className="bg-gray-900 text-gray-300">
           <div className="max-w-4xl mx-auto px-8 py-12">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
 
@@ -119,6 +121,7 @@ export default function RootLayout({
             </div>
           </div>
         </footer>
+        </LanguageProvider>
       </body>
     </html>
   );

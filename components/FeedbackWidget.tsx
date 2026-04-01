@@ -2,8 +2,10 @@
 
 import { useState } from 'react';
 import { trackFeedback } from '@/lib/utils/analytics';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
 
 export default function FeedbackWidget() {
+  const { t } = useLanguage();
   const [showForm, setShowForm] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [feedbackType, setFeedbackType] = useState<'positive' | 'negative' | null>(null);
@@ -32,7 +34,7 @@ export default function FeedbackWidget() {
   if (submitted) {
     return (
       <div className="fixed bottom-6 right-6 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg">
-        Thank you for your feedback!
+        {t.feedback.thanks}
       </div>
     );
   }
@@ -47,20 +49,20 @@ export default function FeedbackWidget() {
           ✕
         </button>
         <h3 className="font-semibold mb-2 text-gray-900">
-          {feedbackType === 'positive' ? 'Glad you like it!' : 'How can we improve?'}
+          {feedbackType === 'positive' ? t.feedback.glad : t.feedback.improve}
         </h3>
         <form onSubmit={handleSubmit}>
           <textarea
             value={comment}
             onChange={(e) => setComment(e.target.value)}
-            placeholder="Tell us your thoughts..."
+            placeholder={t.feedback.placeholder}
             className="w-full border border-gray-300 rounded p-2 text-sm mb-2 min-h-20"
           />
           <button
             type="submit"
             className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition-colors"
           >
-            Submit Feedback
+            {t.feedback.submit}
           </button>
         </form>
       </div>
@@ -69,19 +71,19 @@ export default function FeedbackWidget() {
 
   return (
     <div className="fixed bottom-6 right-6 bg-white rounded-lg shadow-xl p-4 border border-gray-200">
-      <p className="text-sm text-gray-700 mb-3 font-medium">Is this tool useful?</p>
+      <p className="text-sm text-gray-700 mb-3 font-medium">{t.feedback.useful}</p>
       <div className="flex gap-2">
         <button
           onClick={() => handleFeedback(true)}
           className="flex-1 px-4 py-2 bg-green-50 hover:bg-green-100 text-green-700 rounded-lg transition-colors text-2xl"
-          title="有用"
+          aria-label="Useful"
         >
           👍
         </button>
         <button
           onClick={() => handleFeedback(false)}
           className="flex-1 px-4 py-2 bg-red-50 hover:bg-red-100 text-red-700 rounded-lg transition-colors text-2xl"
-          title="不太有用"
+          aria-label="Not useful"
         >
           👎
         </button>

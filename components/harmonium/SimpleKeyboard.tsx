@@ -1,5 +1,6 @@
 import React from 'react';
 import { AudioEngine } from '@/lib/audio/AudioEngine';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
 
 interface SimpleKeyboardProps {
   engine: AudioEngine | null;
@@ -28,6 +29,8 @@ const keyboardMap: Record<string, number> = {
 };
 
 export default function SimpleKeyboard({ engine, pressedKeys }: SimpleKeyboardProps) {
+  const { t } = useLanguage();
+
   const handleMouseDown = (keyChar: string) => {
     if (!engine) return;
     const note = keyboardMap[keyChar];
@@ -80,7 +83,7 @@ export default function SimpleKeyboard({ engine, pressedKeys }: SimpleKeyboardPr
             >
               <div className="flex flex-col items-center justify-end h-full pb-3">
                 <span className="text-xs sm:text-sm text-gray-500 font-mono">{key.keyChar}</span>
-                <span className="text-sm sm:text-base font-semibold text-gray-700 mt-1">{key.sargam}</span>
+                <span className="text-sm sm:text-base font-semibold text-gray-700 mt-1">{t.sargam[key.note as keyof typeof t.sargam]}</span>
                 <span className="text-xs text-gray-400 mt-1">{key.note}</span>
               </div>
             </button>
@@ -110,7 +113,7 @@ export default function SimpleKeyboard({ engine, pressedKeys }: SimpleKeyboardPr
                 >
                   <div className="flex flex-col items-center justify-end h-full pb-2">
                     <span className="text-xs text-white font-mono">{key.keyChar}</span>
-                    <span className="text-xs text-gray-300 mt-1">{key.sargam}</span>
+                    <span className="text-xs text-gray-300 mt-1">{t.sargam[key.note as keyof typeof t.sargam]}</span>
                   </div>
                 </button>
               );
