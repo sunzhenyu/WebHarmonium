@@ -4,15 +4,10 @@ import Link from 'next/link';
 import StructuredData from '@/components/seo/StructuredData';
 import { blogPosts } from '@/lib/blog';
 import dynamic from 'next/dynamic';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
 
 const MobileHarmoniumApp = dynamic(() => import('@/components/harmonium/MobileHarmoniumApp'), {
   ssr: false,
-  loading: () => (
-    <div className="text-center py-8">
-      <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-      <p className="mt-4 text-gray-600">Loading harmonium...</p>
-    </div>
-  ),
 });
 
 const FeedbackWidget = dynamic(() => import('@/components/FeedbackWidget'), {
@@ -27,6 +22,7 @@ const categoryColors: Record<string, string> = {
 };
 
 export default function Home() {
+  const { t } = useLanguage();
   const featuredPosts = blogPosts.slice(0, 3);
 
   return (
@@ -53,17 +49,17 @@ export default function Home() {
 
         {/* Hero */}
         <header className="text-center mb-12">
-          <h1 className="text-5xl font-bold mb-4 text-gray-900">Web Harmonium Online</h1>
-          <p className="text-xl text-gray-600">For Daily Practice</p>
-          <p className="text-base text-gray-500 mt-2">Play harmonium in your browser with keyboard shortcuts, Sargam labels, and beginner-friendly guides</p>
+          <h1 className="text-5xl font-bold mb-4 text-gray-900">{t.home.title}</h1>
+          <p className="text-xl text-gray-600">{t.home.subtitle}</p>
+          <p className="text-base text-gray-500 mt-2">{t.home.description}</p>
         </header>
 
         {/* Harmonium Player - Direct Access */}
         <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
-          <h2 className="text-2xl font-semibold mb-4 text-center">Start Playing Now</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-center">{t.home.startPlayingNow}</h2>
           <div className="bg-blue-50 border-l-4 border-blue-600 p-4 mb-4 rounded">
             <p className="text-sm text-blue-900">
-              💡 <strong>Quick Start:</strong> Click the keyboard below or press keys <code className="bg-blue-100 px-1 rounded">e r t y u i o</code> on your computer keyboard to play
+              💡 <strong>{t.ui.quickStart}</strong> {t.ui.quickStartTip} <code className="bg-blue-100 px-1 rounded">e r t y u i o</code> {t.ui.onYourKeyboard}
             </p>
           </div>
           <MobileHarmoniumApp />
@@ -71,35 +67,34 @@ export default function Home() {
 
         {/* Main feature card */}
         <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-          <h2 className="text-2xl font-semibold mb-4">Why Web Harmonium?</h2>
+          <h2 className="text-2xl font-semibold mb-4">{t.home.whyTitle}</h2>
           <p className="text-gray-700 mb-4">
-            Experience the authentic sound of a harmonium right in your web browser.
-            Perfect for daily practice, learning, and devotional music.
+            {t.home.whyDesc}
           </p>
 
           <div className="grid md:grid-cols-2 gap-6 my-8">
             <div className="p-4 bg-blue-50 rounded">
-              <h3 className="font-semibold mb-2">🎹 Keyboard Control</h3>
+              <h3 className="font-semibold mb-2">{t.home.keyboardControl}</h3>
               <p className="text-sm text-gray-700">
-                Use your computer keyboard to play notes naturally. Easy to learn keyboard layout for beginners.
+                {t.home.keyboardDesc}
               </p>
             </div>
             <div className="p-4 bg-blue-50 rounded">
-              <h3 className="font-semibold mb-2">🎵 Transpose & Pitch</h3>
+              <h3 className="font-semibold mb-2">{t.home.transposePitch}</h3>
               <p className="text-sm text-gray-700">
-                Adjust pitch from -11 to +11 semitones. Perfect for matching your vocal range or playing in different keys.
+                {t.home.transposePitchDesc}
               </p>
             </div>
             <div className="p-4 bg-blue-50 rounded">
-              <h3 className="font-semibold mb-2">🎚️ Volume & Reverb</h3>
+              <h3 className="font-semibold mb-2">{t.home.volumeReverb}</h3>
               <p className="text-sm text-gray-700">
-                Full volume control and reverb effects for authentic harmonium sound. Customize your playing experience.
+                {t.home.volumeReverbDesc}
               </p>
             </div>
             <div className="p-4 bg-blue-50 rounded">
-              <h3 className="font-semibold mb-2">🎼 Multiple Octaves</h3>
+              <h3 className="font-semibold mb-2">{t.home.multipleOctaves}</h3>
               <p className="text-sm text-gray-700">
-                Switch between 7 different octaves. Play everything from deep bass to high treble notes.
+                {t.home.multipleOctavesDesc}
               </p>
             </div>
           </div>
