@@ -18,9 +18,11 @@ export const translations = {
     // Navigation
     nav: {
       play: 'Play',
+      learn: 'Learn',
       tutorial: 'Tutorial',
       ragas: 'Ragas',
       blog: 'Blog',
+      more: 'More',
       faq: 'FAQ',
       about: 'About',
       contact: 'Contact',
@@ -148,9 +150,11 @@ export const translations = {
     // Navigation
     nav: {
       play: 'बजाएं',
+      learn: 'सीखें',
       tutorial: 'ट्यूटोरियल',
       ragas: 'राग',
       blog: 'ब्लॉग',
+      more: 'अधिक',
       faq: 'सवाल-जवाब',
       about: 'हमारे बारे में',
       contact: 'संपर्क करें',
