@@ -9,7 +9,6 @@ import Keyboard from './Keyboard';
 import VolumeControl from './VolumeControl';
 import TransposeControl from './TransposeControl';
 import OctaveControl from './OctaveControl';
-import LoadButton from './LoadButton';
 import ReverbControl from './ReverbControl';
 import ReedsControl from './ReedsControl';
 import DroneControl from './DroneControl';
@@ -51,6 +50,13 @@ export default function HarmoniumApp() {
   const handleLoad = () => {
     loadEngine(octave, transpose);
   };
+
+  // Auto-load engine on mount
+  useEffect(() => {
+    if (!isLoaded && !isLoading) {
+      loadEngine(octave, transpose);
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (engine) {
@@ -102,7 +108,12 @@ export default function HarmoniumApp() {
         <h1 className="text-3xl font-bold text-center mb-6 text-gray-900">Web Harmonium</h1>
 
         <div className="bg-white rounded-xl shadow-2xl p-6 border border-gray-200">
-          <LoadButton isLoading={isLoading} isLoaded={isLoaded} onLoad={handleLoad} />
+          {isLoading && (
+            <div className="text-center py-8">
+              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+              <p className="mt-4 text-gray-600">Loading harmonium...</p>
+            </div>
+          )}
 
           {isLoaded && (
             <>

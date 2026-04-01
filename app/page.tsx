@@ -36,8 +36,9 @@ export default function Home() {
 
         {/* Hero */}
         <header className="text-center mb-12">
-          <h1 className="text-5xl font-bold mb-4 text-gray-900">Web Harmonium</h1>
-          <p className="text-xl text-gray-600">Free Online Harmonium Simulator</p>
+          <h1 className="text-5xl font-bold mb-4 text-gray-900">Web Harmonium Online</h1>
+          <p className="text-xl text-gray-600">For Daily Practice</p>
+          <p className="text-base text-gray-500 mt-2">Play harmonium in your browser with keyboard shortcuts, Sargam labels, and beginner-friendly guides</p>
         </header>
 
         {/* Main feature card */}

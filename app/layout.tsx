@@ -5,8 +5,8 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 
 export const metadata: Metadata = {
-  title: "Web Harmonium - Free Online Harmonium Simulator",
-  description: "Play harmonium free in your browser using your keyboard. Transpose, octave, reverb, and Shruti Box controls. No download needed — start playing instantly.",
+  title: "Web Harmonium Online for Daily Practice | Play Harmonium",
+  description: "Play harmonium online in your browser with keyboard shortcuts, Sargam labels, octave switching, transpose, and beginner-friendly guides. Perfect for daily practice.",
   keywords: ["harmonium", "online instrument", "virtual keyboard", "web audio", "music"],
   metadataBase: new URL("https://web-harmonium.net"),
   alternates: {
@@ -17,8 +17,8 @@ export const metadata: Metadata = {
     apple: '/apple-icon.svg',
   },
   openGraph: {
-    title: "Web Harmonium - Free Online Harmonium Simulator",
-    description: "Play harmonium free in your browser using your keyboard. Transpose, octave, reverb, and Shruti Box controls. No download needed — start playing instantly.",
+    title: "Web Harmonium Online for Daily Practice | Play Harmonium",
+    description: "Play harmonium online in your browser with keyboard shortcuts, Sargam labels, octave switching, transpose, and beginner-friendly guides. Perfect for daily practice.",
     url: "https://web-harmonium.net",
     siteName: "Web Harmonium",
     locale: "en_US",
@@ -34,8 +34,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Web Harmonium - Free Online Harmonium Simulator",
-    description: "Play harmonium free in your browser using your keyboard. Transpose, octave, reverb, and Shruti Box controls. No download needed — start playing instantly.",
+    title: "Web Harmonium Online for Daily Practice | Play Harmonium",
+    description: "Play harmonium online in your browser with keyboard shortcuts, Sargam labels, octave switching, transpose, and beginner-friendly guides. Perfect for daily practice.",
     site: "@DanDan344479",
     creator: "@DanDan344479",
     images: ["/twitter-image.svg"],
