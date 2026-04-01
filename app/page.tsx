@@ -1,6 +1,19 @@
+'use client';
+
 import Link from 'next/link';
 import StructuredData from '@/components/seo/StructuredData';
 import { blogPosts } from '@/lib/blog';
+import dynamic from 'next/dynamic';
+
+const HarmoniumApp = dynamic(() => import('@/components/harmonium/HarmoniumApp'), {
+  ssr: false,
+  loading: () => (
+    <div className="text-center py-8">
+      <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <p className="mt-4 text-gray-600">Loading harmonium...</p>
+    </div>
+  ),
+});
 
 const categoryColors: Record<string, string> = {
   'Learning': 'bg-blue-100 text-blue-700',
@@ -41,12 +54,19 @@ export default function Home() {
           <p className="text-base text-gray-500 mt-2">Play harmonium in your browser with keyboard shortcuts, Sargam labels, and beginner-friendly guides</p>
         </header>
 
+        {/* Harmonium Player - Direct Access */}
+        <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
+          <h2 className="text-2xl font-semibold mb-4 text-center">Start Playing Now</h2>
+          <p className="text-gray-600 text-center mb-4">No download needed - play directly in your browser</p>
+          <HarmoniumApp />
+        </div>
+
         {/* Main feature card */}
         <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-          <h2 className="text-2xl font-semibold mb-4">Play Harmonium in Your Browser</h2>
+          <h2 className="text-2xl font-semibold mb-4">Why Web Harmonium?</h2>
           <p className="text-gray-700 mb-4">
             Experience the authentic sound of a harmonium right in your web browser.
-            No installation required - just click and play! Perfect for musicians, students, and devotional music enthusiasts.
+            Perfect for daily practice, learning, and devotional music.
           </p>
 
           <div className="grid md:grid-cols-2 gap-6 my-8">
@@ -78,18 +98,18 @@ export default function Home() {
 
           <div className="text-center">
             <Link
-              href="/harmonium"
-              title="Play Web Harmonium Online"
-              className="inline-block px-8 py-4 bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              Start Playing
-            </Link>
-            <Link
               href="/tutorial"
               title="Harmonium Tutorial for Beginners"
-              className="inline-block ml-4 px-8 py-4 bg-white text-blue-600 text-lg font-semibold rounded-lg border-2 border-blue-600 hover:bg-blue-50 transition-colors"
+              className="inline-block px-8 py-4 bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-700 transition-colors"
             >
               Learn How to Play
+            </Link>
+            <Link
+              href="/harmonium"
+              title="Full Harmonium Page"
+              className="inline-block ml-4 px-8 py-4 bg-white text-blue-600 text-lg font-semibold rounded-lg border-2 border-blue-600 hover:bg-blue-50 transition-colors"
+            >
+              Full Page View
             </Link>
           </div>
         </div>
