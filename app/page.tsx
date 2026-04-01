@@ -105,43 +105,43 @@ export default function Home() {
               title="Harmonium Tutorial for Beginners"
               className="inline-block px-8 py-4 bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-700 transition-colors"
             >
-              Learn How to Play
+              {t.home.learnHowToPlay}
             </Link>
             <Link
               href="/harmonium"
               title="Full Harmonium Page"
               className="inline-block ml-4 px-8 py-4 bg-white text-blue-600 text-lg font-semibold rounded-lg border-2 border-blue-600 hover:bg-blue-50 transition-colors"
             >
-              Full Page View
+              {t.home.fullPageView}
             </Link>
           </div>
         </div>
 
         {/* How to Use */}
         <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-          <h2 className="text-2xl font-semibold mb-4">How to Use</h2>
+          <h2 className="text-2xl font-semibold mb-4">{t.home.howToUse}</h2>
           <ol className="list-decimal list-inside space-y-2 text-gray-700">
-            <li>Click "Start Playing" to open the harmonium interface</li>
-            <li>Click "Load Module" to initialize the audio engine</li>
-            <li>Use your keyboard keys (` q w e r t y u i o p [ ] \) to play notes</li>
-            <li>Adjust volume, transpose, and octave controls as needed</li>
-            <li>Click on the virtual keyboard with your mouse or touch screen</li>
+            <li>{t.home.howToStep1}</li>
+            <li>{t.home.howToStep2}</li>
+            <li>{t.home.howToStep3}</li>
+            <li>{t.home.howToStep4}</li>
+            <li>{t.home.howToStep5}</li>
           </ol>
         </div>
 
         {/* Practice Exercises */}
         <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-          <h2 className="text-2xl font-semibold mb-2">Practice Exercises</h2>
-          <p className="text-gray-600 mb-6">Start with these beginner-friendly exercises to build finger coordination and musical intuition.</p>
+          <h2 className="text-2xl font-semibold mb-2">{t.home.practiceExercises}</h2>
+          <p className="text-gray-600 mb-6">{t.home.exerciseDesc}</p>
 
           <div className="space-y-4">
             <div className="border border-gray-100 rounded-lg p-5 hover:border-blue-200 transition-colors">
               <div className="flex items-start gap-3">
                 <span className="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">1</span>
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-1">Sa Re Ga Ma — Basic Scale</h3>
-                  <p className="text-sm text-gray-600 mb-2">Press keys <code className="bg-gray-100 px-1 rounded">e r t y u i o p</code> in order to play the C major scale (Sa Re Ga Ma Pa Dha Ni Sa). Repeat slowly, then increase tempo.</p>
-                  <span className="text-xs text-blue-600 font-medium">Beginner · 5 min/day</span>
+                  <h3 className="font-semibold text-gray-900 mb-1">{t.home.exercise1Title}</h3>
+                  <p className="text-sm text-gray-600 mb-2">{t.home.exercise1Desc}</p>
+                  <span className="text-xs text-blue-600 font-medium">{t.home.exercise1Level}</span>
                 </div>
               </div>
             </div>
@@ -150,9 +150,9 @@ export default function Home() {
               <div className="flex items-start gap-3">
                 <span className="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">2</span>
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-1">Sargam Aaroha & Avaroha</h3>
-                  <p className="text-sm text-gray-600 mb-2">Play the scale ascending (Sa→Ni) and descending (Ni→Sa). This builds muscle memory for both directions — essential for ragas.</p>
-                  <span className="text-xs text-blue-600 font-medium">Beginner · 10 min/day</span>
+                  <h3 className="font-semibold text-gray-900 mb-1">{t.home.exercise2Title}</h3>
+                  <p className="text-sm text-gray-600 mb-2">{t.home.exercise2Desc}</p>
+                  <span className="text-xs text-blue-600 font-medium">{t.home.exercise2Level}</span>
                 </div>
               </div>
             </div>
@@ -161,9 +161,9 @@ export default function Home() {
               <div className="flex items-start gap-3">
                 <span className="flex-shrink-0 w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center text-sm font-bold">3</span>
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-1">Simple Bhajan — Om Jai Jagdish</h3>
-                  <p className="text-sm text-gray-600 mb-2">Notes: <code className="bg-gray-100 px-1 rounded">Sa Sa Re Sa · Ni Sa Re Ga · Ma Pa Ma Ga Re</code>. Transpose to your vocal key and practice slowly with the drone.</p>
-                  <span className="text-xs text-green-600 font-medium">Intermediate · 15 min/day</span>
+                  <h3 className="font-semibold text-gray-900 mb-1">{t.home.exercise3Title}</h3>
+                  <p className="text-sm text-gray-600 mb-2">{t.home.exercise3Desc}</p>
+                  <span className="text-xs text-green-600 font-medium">{t.home.exercise3Level}</span>
                 </div>
               </div>
             </div>
@@ -172,9 +172,9 @@ export default function Home() {
               <div className="flex items-start gap-3">
                 <span className="flex-shrink-0 w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center text-sm font-bold">4</span>
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-1">Raga Bhupali — Pentatonic Raga</h3>
-                  <p className="text-sm text-gray-600 mb-2">Uses only 5 notes: <code className="bg-gray-100 px-1 rounded">Sa Re Ga Pa Dha</code>. One of the easiest ragas for beginners — great for evening practice and devotional music.</p>
-                  <span className="text-xs text-green-600 font-medium">Intermediate · 20 min/day</span>
+                  <h3 className="font-semibold text-gray-900 mb-1">{t.home.exercise4Title}</h3>
+                  <p className="text-sm text-gray-600 mb-2">{t.home.exercise4Desc}</p>
+                  <span className="text-xs text-green-600 font-medium">{t.home.exercise4Level}</span>
                 </div>
               </div>
             </div>
@@ -182,15 +182,15 @@ export default function Home() {
 
           <div className="mt-6 text-center">
             <Link href="/tutorial" title="Full Harmonium Tutorial" className="text-blue-600 font-medium hover:underline">
-              View full tutorial & more exercises →
+              {t.home.viewFullTutorial}
             </Link>
           </div>
         </div>
 
         {/* Featured Blog Posts */}
         <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-          <h2 className="text-2xl font-semibold mb-2">From the Blog</h2>
-          <p className="text-gray-600 mb-6">Guides, tips, and tutorials to help you learn harmonium faster.</p>
+          <h2 className="text-2xl font-semibold mb-2">{t.home.fromTheBlog}</h2>
+          <p className="text-gray-600 mb-6">{t.home.blogDesc}</p>
 
           <div className="space-y-4">
             {featuredPosts.map(post => (
@@ -200,11 +200,11 @@ export default function Home() {
                     <span className={`text-xs font-semibold px-2 py-1 rounded-full ${categoryColors[post.category] ?? 'bg-gray-100 text-gray-600'}`}>
                       {post.category}
                     </span>
-                    <span className="text-xs text-gray-400">{post.readTime} min read</span>
+                    <span className="text-xs text-gray-400">{post.readTime} {t.home.minRead}</span>
                   </div>
                   <h3 className="font-bold text-gray-900 mb-1 hover:text-blue-600 transition-colors">{post.title}</h3>
                   <p className="text-sm text-gray-600">{post.description}</p>
-                  <div className="mt-3 text-blue-600 text-sm font-medium">Read more →</div>
+                  <div className="mt-3 text-blue-600 text-sm font-medium">{t.home.readMore}</div>
                 </article>
               </Link>
             ))}
@@ -212,14 +212,14 @@ export default function Home() {
 
           <div className="mt-6 text-center">
             <Link href="/blog" title="All Harmonium Blog Posts" className="inline-block px-6 py-3 border border-blue-600 text-blue-600 rounded-lg font-medium hover:bg-blue-50 transition-colors">
-              View All Articles
+              {t.home.viewAllArticles}
             </Link>
           </div>
         </div>
 
         {/* PSEO Links Section */}
         <div className="mt-8 pt-8 border-t border-gray-200">
-          <h2 className="text-xl font-semibold mb-6 text-gray-800 text-center">Learn More About Harmoniums</h2>
+          <h2 className="text-xl font-semibold mb-6 text-gray-800 text-center">{t.home.learnMoreTitle}</h2>
           <div className="flex flex-wrap justify-center gap-3">
             <Link href="/instrument/harmonium" title="Harmonium" className="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600 hover:text-blue-600 hover:border-blue-300 transition-colors shadow-sm">
               Harmonium
