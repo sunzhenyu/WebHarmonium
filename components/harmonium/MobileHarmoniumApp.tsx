@@ -148,12 +148,12 @@ export default function MobileHarmoniumApp() {
           </div>
 
           <div className="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
-            <h3 className="font-semibold mb-2 text-gray-900 text-sm">Keyboard Controls:</h3>
+            <h3 className="font-semibold mb-2 text-gray-900 text-sm">{t.ui.keyboardControls}</h3>
             <p className="text-xs sm:text-sm text-gray-700">
-              White keys: <code className="bg-gray-200 px-1 rounded text-gray-900">e r t y u i o</code>
+              {t.ui.whiteKeys} <code className="bg-gray-200 px-1 rounded text-gray-900">e r t y u i o</code>
             </p>
             <p className="text-xs sm:text-sm text-gray-700 mt-1">
-              Black keys: <code className="bg-gray-200 px-1 rounded text-gray-900">2 4 7 8 9</code>
+              {t.ui.blackKeys} <code className="bg-gray-200 px-1 rounded text-gray-900">2 4 7 8 9</code>
             </p>
           </div>
         </>

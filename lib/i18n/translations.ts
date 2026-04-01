@@ -47,6 +47,9 @@ export const translations = {
       quickStart: 'Quick Start:',
       quickStartTip: 'Click the keyboard below or press keys',
       onYourKeyboard: 'on your computer keyboard to play',
+      keyboardControls: 'Keyboard Controls:',
+      whiteKeys: 'White keys:',
+      blackKeys: 'Black keys:',
     },
     // Homepage
     home: {
@@ -174,6 +177,9 @@ export const translations = {
       quickStart: 'शुरू करें:',
       quickStartTip: 'नीचे कीबोर्ड पर क्लिक करें या कुंजी दबाएं',
       onYourKeyboard: 'अपने कंप्यूटर कीबोर्ड पर बजाने के लिए',
+      keyboardControls: 'कीबोर्ड नियंत्रण:',
+      whiteKeys: 'सफेद कुंजियाँ:',
+      blackKeys: 'काली कुंजियाँ:',
     },
     // Homepage
     home: {
