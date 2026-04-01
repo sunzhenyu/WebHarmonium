@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useAudioEngine } from '@/lib/hooks/useAudioEngine';
 import { useKeyboard } from '@/lib/hooks/useKeyboard';
 import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
 import { STORAGE_KEYS, DEFAULT_VALUES } from '@/lib/utils/constants';
+import { trackControlChange, trackPracticeSession } from '@/lib/utils/analytics';
 import SimpleKeyboard from './SimpleKeyboard';
 import VolumeControl from './VolumeControl';
 import TransposeControl from './TransposeControl';
@@ -22,6 +23,7 @@ export default function MobileHarmoniumApp() {
   const [droneEnabled, setDroneEnabled] = useLocalStorage<boolean>('harmonium.drone', false);
   const [droneVolume, setDroneVolume] = useLocalStorage<number>('harmonium.droneVolume', 0.5);
   const [pressedKeys, setPressedKeys] = useState<Set<string>>(new Set());
+  const startTimeRef = useRef<number>(Date.now());
 
   const { engine, isLoaded, isLoading, loadEngine } = useAudioEngine();
 
@@ -54,45 +56,62 @@ export default function MobileHarmoniumApp() {
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Track practice session duration on unmount
+  useEffect(() => {
+    return () => {
+      const duration = Math.floor((Date.now() - startTimeRef.current) / 1000);
+      if (duration > 5) { // Only track if used for more than 5 seconds
+        trackPracticeSession(duration);
+      }
+    };
+  }, []);
+
   useEffect(() => {
     if (engine) {
       engine.setVolume(volume);
+      trackControlChange('volume', volume);
     }
   }, [engine, volume]);
 
   useEffect(() => {
     if (engine) {
       engine.setTranspose(transpose);
+      trackControlChange('transpose', transpose);
     }
   }, [engine, transpose]);
 
   useEffect(() => {
     if (engine) {
       engine.setOctave(octave);
+      trackControlChange('octave', octave);
     }
   }, [engine, octave]);
 
   useEffect(() => {
     if (engine) {
       engine.setReeds(reeds);
+      trackControlChange('reeds', reeds);
     }
   }, [engine, reeds]);
 
   useEffect(() => {
     if (engine) {
       engine.setReverb(reverbEnabled);
+      trackControlChange('reverb', reverbEnabled);
     }
   }, [engine, reverbEnabled]);
 
   useEffect(() => {
     if (engine) {
       engine.setDrone(droneEnabled);
+      trackControlChange('drone', droneEnabled);
     }
   }, [engine, droneEnabled]);
 
   useEffect(() => {
     if (engine) {
       engine.setDroneVolume(droneVolume);
+      trackControlChange('drone_volume', droneVolume);
     }
   }, [engine, droneVolume]);
 

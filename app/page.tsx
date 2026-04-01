@@ -15,6 +15,10 @@ const MobileHarmoniumApp = dynamic(() => import('@/components/harmonium/MobileHa
   ),
 });
 
+const FeedbackWidget = dynamic(() => import('@/components/FeedbackWidget'), {
+  ssr: false,
+});
+
 const categoryColors: Record<string, string> = {
   'Learning': 'bg-blue-100 text-blue-700',
   'Songs': 'bg-green-100 text-green-700',
@@ -57,7 +61,11 @@ export default function Home() {
         {/* Harmonium Player - Direct Access */}
         <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
           <h2 className="text-2xl font-semibold mb-4 text-center">Start Playing Now</h2>
-          <p className="text-gray-600 text-center mb-4">No download needed - play directly in your browser</p>
+          <div className="bg-blue-50 border-l-4 border-blue-600 p-4 mb-4 rounded">
+            <p className="text-sm text-blue-900">
+              💡 <strong>Quick Start:</strong> Click the keyboard below or press keys <code className="bg-blue-100 px-1 rounded">e r t y u i o</code> on your computer keyboard to play
+            </p>
+          </div>
           <MobileHarmoniumApp />
         </div>
 
@@ -244,6 +252,9 @@ export default function Home() {
 
       </div>
       </div>
+
+      {/* Feedback Widget */}
+      <FeedbackWidget />
     </div>
   );
 }
