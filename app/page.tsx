@@ -5,7 +5,7 @@ import StructuredData from '@/components/seo/StructuredData';
 import { blogPosts } from '@/lib/blog';
 import dynamic from 'next/dynamic';
 
-const HarmoniumApp = dynamic(() => import('@/components/harmonium/HarmoniumApp'), {
+const MobileHarmoniumApp = dynamic(() => import('@/components/harmonium/MobileHarmoniumApp'), {
   ssr: false,
   loading: () => (
     <div className="text-center py-8">
@@ -58,7 +58,7 @@ export default function Home() {
         <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
           <h2 className="text-2xl font-semibold mb-4 text-center">Start Playing Now</h2>
           <p className="text-gray-600 text-center mb-4">No download needed - play directly in your browser</p>
-          <HarmoniumApp />
+          <MobileHarmoniumApp />
         </div>
 
         {/* Main feature card */}
