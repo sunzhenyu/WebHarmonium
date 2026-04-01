@@ -32,7 +32,7 @@ export default function FeedbackWidget() {
   if (submitted) {
     return (
       <div className="fixed bottom-6 right-6 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg">
-        感谢您的反馈！
+        Thank you for your feedback!
       </div>
     );
   }
@@ -47,20 +47,20 @@ export default function FeedbackWidget() {
           ✕
         </button>
         <h3 className="font-semibold mb-2 text-gray-900">
-          {feedbackType === 'positive' ? '很高兴您喜欢！' : '我们可以如何改进？'}
+          {feedbackType === 'positive' ? 'Glad you like it!' : 'How can we improve?'}
         </h3>
         <form onSubmit={handleSubmit}>
           <textarea
             value={comment}
             onChange={(e) => setComment(e.target.value)}
-            placeholder="告诉我们您的想法..."
+            placeholder="Tell us your thoughts..."
             className="w-full border border-gray-300 rounded p-2 text-sm mb-2 min-h-20"
           />
           <button
             type="submit"
             className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition-colors"
           >
-            提交反馈
+            Submit Feedback
           </button>
         </form>
       </div>
@@ -69,7 +69,7 @@ export default function FeedbackWidget() {
 
   return (
     <div className="fixed bottom-6 right-6 bg-white rounded-lg shadow-xl p-4 border border-gray-200">
-      <p className="text-sm text-gray-700 mb-3 font-medium">这个工具有用吗？</p>
+      <p className="text-sm text-gray-700 mb-3 font-medium">Is this tool useful?</p>
       <div className="flex gap-2">
         <button
           onClick={() => handleFeedback(true)}

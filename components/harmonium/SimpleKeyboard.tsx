@@ -76,6 +76,7 @@ export default function SimpleKeyboard({ engine, pressedKeys }: SimpleKeyboardPr
               onMouseLeave={() => handleMouseUp(key.keyChar)}
               onTouchStart={(e) => handleTouchStart(e, key.keyChar)}
               onTouchEnd={(e) => handleTouchEnd(e, key.keyChar)}
+              aria-label={`${key.sargam} (${key.note})`}
             >
               <div className="flex flex-col items-center justify-end h-full pb-3">
                 <span className="text-xs sm:text-sm text-gray-500 font-mono">{key.keyChar}</span>

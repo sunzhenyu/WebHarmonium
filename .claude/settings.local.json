@@ -5,7 +5,11 @@
       "Bash(git commit:*)",
       "Bash(git push:*)",
       "Bash(npm run:*)",
-      "Bash(curl -s http://localhost:3000/instrument/the-harmonium-in-my-memory)"
+      "Bash(curl -s http://localhost:3000/instrument/the-harmonium-in-my-memory)",
+      "Bash(npx tsc:*)",
+      "WebFetch(domain:playharmonium.com)",
+      "Bash(curl -s https://playharmonium.com)",
+      "Bash(python3:*)"
     ]
   }
 }
