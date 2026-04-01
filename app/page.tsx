@@ -19,7 +19,7 @@ export default function Home() {
         data={{
           name: 'Web Harmonium',
           description: 'Free online harmonium simulator. Play harmonium with your computer keyboard, adjust transpose, octave, and volume controls.',
-          url: 'https://webharmonium.com',
+          url: 'https://web-harmonium.net',
           features: [
             'Play harmonium with computer keyboard',
             'Transpose control (-11 to +11 semitones)',

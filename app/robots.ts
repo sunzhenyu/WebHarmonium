@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = 'https://webharmonium.com';
+  const baseUrl = 'https://web-harmonium.net';
 
   return {
     rules: {
