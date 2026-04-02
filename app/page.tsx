@@ -202,7 +202,7 @@ export default function Home() {
 
           <div className="space-y-4">
             {featuredPosts.map(post => (
-              <Link key={post.slug} href={`/blog/${post.slug}`} title={post.title}>
+              <Link key={post.slug} href={`/blog/${post.slug}`} title={post.title[t.lang]}>
                 <article className="border border-gray-100 rounded-lg p-5 hover:border-blue-200 hover:shadow-sm transition-all">
                   <div className="flex items-center gap-2 mb-2">
                     <span className={`text-xs font-semibold px-2 py-1 rounded-full ${categoryColors[post.category] ?? 'bg-gray-100 text-gray-600'}`}>
@@ -210,8 +210,8 @@ export default function Home() {
                     </span>
                     <span className="text-xs text-gray-400">{post.readTime} {t.home.minRead}</span>
                   </div>
-                  <h3 className="font-bold text-gray-900 mb-1 hover:text-blue-600 transition-colors">{post.title}</h3>
-                  <p className="text-sm text-gray-600">{post.description}</p>
+                  <h3 className="font-bold text-gray-900 mb-1 hover:text-blue-600 transition-colors">{post.title[t.lang]}</h3>
+                  <p className="text-sm text-gray-600">{post.description[t.lang]}</p>
                   <div className="mt-3 text-blue-600 text-sm font-medium">{t.home.readMore}</div>
                 </article>
               </Link>
