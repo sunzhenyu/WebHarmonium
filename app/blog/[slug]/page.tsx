@@ -20,20 +20,20 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const post = getBlogPost(slug);
   if (!post) return {};
   return {
-    title: `${post.title} | Web Harmonium`,
-    description: post.description,
+    title: `${post.title.en} | Web Harmonium`,
+    description: post.description.en,
     keywords: post.keywords,
     openGraph: {
-      title: post.title,
-      description: post.description,
+      title: post.title.en,
+      description: post.description.en,
       url: `https://web-harmonium.net/blog/${post.slug}`,
       type: 'article',
       publishedTime: post.date,
     },
     twitter: {
       card: 'summary_large_image',
-      title: post.title,
-      description: post.description,
+      title: post.title.en,
+      description: post.description.en,
       creator: '@DanDan344479',
     },
   };
@@ -89,10 +89,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             <h3 className="text-xl font-bold text-gray-900 mb-4">More Articles</h3>
             <div className="grid gap-4">
               {otherPosts.map(p => (
-                <Link key={p.slug} href={`/blog/${p.slug}`} title={p.title}>
+                <Link key={p.slug} href={`/blog/${p.slug}`} title={p.title.en}>
                   <div className="bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow border border-gray-100">
                     <div className="text-sm text-gray-400 mb-1">{p.readTime} min read</div>
-                    <div className="font-semibold text-gray-900 hover:text-blue-600">{p.title}</div>
+                    <div className="font-semibold text-gray-900 hover:text-blue-600">{p.title.en}</div>
                   </div>
                 </Link>
               ))}

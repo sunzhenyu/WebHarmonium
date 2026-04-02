@@ -26,7 +26,7 @@ export default function BlogPage() {
 
         <div className="grid gap-6">
           {blogPosts.map(post => (
-            <Link key={post.slug} href={`/blog/${post.slug}`} title={post.title}>
+            <Link key={post.slug} href={`/blog/${post.slug}`} title={post.title.en}>
               <article className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow p-6 border border-gray-100">
                 <div className="flex items-center gap-3 mb-3">
                   <span className={`text-xs font-semibold px-2 py-1 rounded-full ${categoryColors[post.category] ?? 'bg-gray-100 text-gray-600'}`}>
@@ -35,8 +35,8 @@ export default function BlogPage() {
                   <span className="text-sm text-gray-400">{post.readTime} min read</span>
                   <span className="text-sm text-gray-400">{new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
                 </div>
-                <h2 className="text-xl font-bold text-gray-900 mb-2 hover:text-blue-600 transition-colors">{post.title}</h2>
-                <p className="text-gray-600">{post.description}</p>
+                <h2 className="text-xl font-bold text-gray-900 mb-2 hover:text-blue-600 transition-colors">{post.title.en}</h2>
+                <p className="text-gray-600">{post.description.en}</p>
                 <div className="mt-4 text-blue-600 font-medium text-sm">Read more →</div>
               </article>
             </Link>
