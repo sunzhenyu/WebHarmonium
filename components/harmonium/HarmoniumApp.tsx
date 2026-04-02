@@ -145,7 +145,7 @@ export default function HarmoniumApp() {
                   {t.ui.blackKeys} <code className="bg-gray-200 px-1 rounded text-gray-900">1 2 4 5 7 8 9 - =</code>
                 </p>
                 <p className="text-sm text-gray-700 mt-2">
-                  <strong>Shortcuts:</strong> Ctrl+Alt+← → (transpose) | Ctrl+Alt+↑ ↓ (octave)
+                  <strong>{t.ui.shortcuts}</strong> {t.ui.shortcutsDesc}
                 </p>
               </div>
             </>

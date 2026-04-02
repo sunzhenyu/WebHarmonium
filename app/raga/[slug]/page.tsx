@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ragas, getRaga } from '@/lib/ragas';
 import StructuredData from '@/components/seo/StructuredData';
+import RagaDetailContent from '@/components/RagaDetailContent';
 
 export async function generateStaticParams() {
   return ragas.map(r => ({ slug: r.slug }));
@@ -50,34 +50,13 @@ export default async function RagaPage({ params }: { params: Promise<{ slug: str
       />
       <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white py-8">
         <div className="max-w-3xl mx-auto px-4">
-          <div className="mb-6 flex items-center gap-3">
-            <Link href="/raga" className="text-blue-600 hover:underline text-sm">← All Ragas</Link>
-            <span className="text-gray-300">|</span>
-            <Link href="/harmonium" className="text-blue-600 hover:underline text-sm">Open Harmonium →</Link>
-          </div>
+          <RagaDetailContent raga={raga} otherRagas={otherRagas} difficultyColor={difficultyColor} />
+        </div>
+      </div>
+    </div>
+  );
+}
 
-          <article className="bg-white rounded-xl shadow-lg p-8 mb-8">
-            {/* Header */}
-            <div className="flex items-start justify-between mb-2">
-              <h1 className="text-3xl font-bold text-gray-900">{raga.name}</h1>
-              <span className={`text-sm font-semibold px-3 py-1 rounded-full ml-3 whitespace-nowrap ${difficultyColor[raga.difficulty]}`}>
-                {raga.difficulty}
-              </span>
-            </div>
-            {raga.altName && <p className="text-blue-600 font-medium mb-4">{raga.altName}</p>}
-
-            {/* Quick Info */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-gray-50 rounded-lg p-4 mb-6">
-              <div className="text-center">
-                <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Time</div>
-                <div className="text-sm font-medium text-gray-800">{raga.time}</div>
-              </div>
-              <div className="text-center">
-                <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Mood</div>
-                <div className="text-sm font-medium text-gray-800">{raga.mood.split(',')[0]}</div>
-              </div>
-              <div className="text-center">
-                <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Vadi</div>
                 <div className="text-sm font-medium text-gray-800">{raga.vadi}</div>
               </div>
               <div className="text-center">

@@ -9,7 +9,9 @@
       "Bash(npx tsc:*)",
       "WebFetch(domain:playharmonium.com)",
       "Bash(curl -s https://playharmonium.com)",
-      "Bash(python3:*)"
+      "Bash(python3:*)",
+      "mcp__ide__getDiagnostics",
+      "Bash(git restore:*)"
     ]
   }
 }

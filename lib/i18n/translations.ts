@@ -52,6 +52,8 @@ export const translations = {
       keyboardControls: 'Keyboard Controls:',
       whiteKeys: 'White keys:',
       blackKeys: 'Black keys:',
+      shortcuts: 'Shortcuts:',
+      shortcutsDesc: 'Ctrl+Alt+← → (transpose) | Ctrl+Alt+↑ ↓ (octave)',
     },
     // Homepage
     home: {
@@ -264,6 +266,26 @@ export const translations = {
       title: 'Harmonium Blog',
       subtitle: 'Guides, tips, and tutorials',
     },
+    // Raga Pages
+    raga: {
+      allRagas: '← All Ragas',
+      openHarmonium: 'Open Harmonium →',
+      time: 'Time',
+      mood: 'Mood',
+      vadi: 'Vadi',
+      samvadi: 'Samvadi',
+      aroha: 'Aroha (Ascending)',
+      avaroha: 'Avaroha (Descending)',
+      pakad: 'Pakad (Signature Phrase)',
+      keyboardNotation: 'Keyboard Notation',
+      practiceTips: 'Practice Tips',
+      moreRagas: 'More Ragas to Learn',
+      learnThisRaga: 'Learn this raga →',
+      whatIsRaga: 'What is a Raga?',
+      whatIsRagaDesc: 'A raga is a melodic framework in Indian classical music — a specific set of notes with rules about how to use them. Each raga has a unique mood, time of day, and characteristic phrases. Click any raga below to learn it in detail.',
+      practiceRagasNow: 'Practice These Ragas Now',
+      practiceRagasDesc: 'Open the free harmonium and start playing',
+    },
   },
   hi: {
     // Sargam labels (Devanagari script)
@@ -318,6 +340,8 @@ export const translations = {
       keyboardControls: 'कीबोर्ड नियंत्रण:',
       whiteKeys: 'सफेद कुंजियाँ:',
       blackKeys: 'काली कुंजियाँ:',
+      shortcuts: 'शॉर्टकट:',
+      shortcutsDesc: 'Ctrl+Alt+← → (ट्रांसपोज़) | Ctrl+Alt+↑ ↓ (सप्तक)',
     },
     // Homepage
     home: {
@@ -529,6 +553,26 @@ export const translations = {
     blogPage: {
       title: 'हारमोनियम ब्लॉग',
       subtitle: 'गाइड, सुझाव और ट्यूटोरियल',
+    },
+    // Raga Pages
+    raga: {
+      allRagas: '← सभी राग',
+      openHarmonium: 'हारमोनियम खोलें →',
+      time: 'समय',
+      mood: 'भाव',
+      vadi: 'वादी',
+      samvadi: 'संवादी',
+      aroha: 'आरोह (आरोहण)',
+      avaroha: 'अवरोह (अवरोहण)',
+      pakad: 'पकड़ (विशिष्ट वाक्य)',
+      keyboardNotation: 'कीबोर्ड संकेतन',
+      practiceTips: 'अभ्यास सुझाव',
+      moreRagas: 'सीखने के लिए और राग',
+      learnThisRaga: 'यह राग सीखें →',
+      whatIsRaga: 'राग क्या है?',
+      whatIsRagaDesc: 'राग भारतीय शास्त्रीय संगीत में एक मधुर ढांचा है - नोट्स का एक विशिष्ट सेट जिसमें उनका उपयोग करने के नियम हैं। प्रत्येक राग का एक अनूठा मूड, दिन का समय और विशिष्ट वाक्यांश होता है। विस्तार से सीखने के लिए नीचे किसी भी राग पर क्लिक करें।',
+      practiceRagasNow: 'अभी इन रागों का अभ्यास करें',
+      practiceRagasDesc: 'मुफ्त हारमोनियम खोलें और बजाना शुरू करें',
     },
   },
 };
