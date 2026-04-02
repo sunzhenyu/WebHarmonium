@@ -147,6 +147,72 @@ export const translations = {
     faq: {
       title: 'Frequently Asked Questions',
       subtitle: 'Common questions about Web Harmonium',
+      stillHaveQuestions: 'Still have questions?',
+      contactText: 'Visit our',
+      contactLink: 'Contact page',
+      contactSuffix: 'to get in touch with us.',
+      questions: [
+        {
+          q: 'What is Web Harmonium?',
+          a: 'Web Harmonium is a free online harmonium simulator that runs in your web browser. You can play it using your computer keyboard or by clicking the virtual keys with your mouse.'
+        },
+        {
+          q: 'Do I need to download or install anything?',
+          a: 'No! Web Harmonium works entirely in your browser. Just visit the site, click \'Load Module\', and start playing. No downloads, no installations, no sign-ups required.'
+        },
+        {
+          q: 'Which browsers are supported?',
+          a: 'Web Harmonium works on all modern browsers including Chrome, Firefox, Safari, and Edge. We recommend using the latest version for the best experience.'
+        },
+        {
+          q: 'How do I play notes?',
+          a: 'Use your keyboard keys: ` q w e r t y u i o p [ ] \\ for white keys, and 1 2 4 5 7 8 9 - = for black keys. You can also click or tap the virtual keyboard on screen.'
+        },
+        {
+          q: 'What are the keyboard shortcuts?',
+          a: 'Press Ctrl+Alt+Left/Right arrows to change transpose, and Ctrl+Alt+Up/Down arrows to change octave. This lets you adjust settings without using your mouse.'
+        },
+        {
+          q: 'Can I play chords?',
+          a: 'Yes! You can press multiple keys simultaneously to play chords, just like on a real harmonium.'
+        },
+        {
+          q: 'What is transpose and how do I use it?',
+          a: 'Transpose shifts all notes up or down by semitones (half steps). Use it to match your vocal range or play in different keys. Range is -11 to +11 semitones.'
+        },
+        {
+          q: 'What are Reeds?',
+          a: 'Reeds control the richness of the sound. Traditional harmoniums have multiple reeds per note. Increasing reeds (1-4) creates a fuller, chorus-like effect.'
+        },
+        {
+          q: 'Why is there no sound?',
+          a: 'Make sure you clicked \'Load Module\' first. Check that your device volume is up and your browser allows audio playback. Try refreshing the page if issues persist.'
+        },
+        {
+          q: 'Can I use this on mobile?',
+          a: 'Yes! Web Harmonium works on mobile devices. Tap the virtual keyboard to play notes. Physical keyboard shortcuts only work on computers.'
+        },
+        {
+          q: 'Can I connect a MIDI keyboard?',
+          a: 'MIDI keyboard support is planned for a future update. Currently, you can only use your computer keyboard or click/tap the virtual keys.'
+        },
+        {
+          q: 'Can I record my playing?',
+          a: 'Recording functionality is planned for a future update. For now, you can use external screen recording software to capture your performances.'
+        },
+        {
+          q: 'What is Sargam?',
+          a: 'Sargam is the Indian music notation system: Sa Re Ga Ma Pa Dha Ni (equivalent to Do Re Mi Fa Sol La Ti in Western music). You\'ll see these labels on the keyboard.'
+        },
+        {
+          q: 'How do I learn to play harmonium?',
+          a: 'Check out our Tutorial page for step-by-step lessons, song tutorials, and Raga guides. Start with simple scales and progress to songs.'
+        },
+        {
+          q: 'Is Web Harmonium free?',
+          a: 'Yes, completely free! No subscriptions, no hidden fees, no ads blocking your playing experience.'
+        }
+      ]
     },
     // Tutorial Page
     tutorial: {
@@ -317,6 +383,72 @@ export const translations = {
     faq: {
       title: 'अक्सर पूछे जाने वाले प्रश्न',
       subtitle: 'वेब हारमोनियम के बारे में सामान्य प्रश्न',
+      stillHaveQuestions: 'अभी भी प्रश्न हैं?',
+      contactText: 'हमारे',
+      contactLink: 'संपर्क पृष्ठ',
+      contactSuffix: 'पर जाएं और हमसे संपर्क करें।',
+      questions: [
+        {
+          q: 'वेब हारमोनियम क्या है?',
+          a: 'वेब हारमोनियम एक मुफ्त ऑनलाइन हारमोनियम सिम्युलेटर है जो आपके वेब ब्राउज़र में चलता है। आप इसे अपने कंप्यूटर कीबोर्ड का उपयोग करके या माउस से वर्चुअल कुंजियों पर क्लिक करके बजा सकते हैं।'
+        },
+        {
+          q: 'क्या मुझे कुछ डाउनलोड या इंस्टॉल करने की आवश्यकता है?',
+          a: 'नहीं! वेब हारमोनियम पूरी तरह से आपके ब्राउज़र में काम करता है। बस साइट पर जाएं, \'लोड मॉड्यूल\' पर क्लिक करें और बजाना शुरू करें। कोई डाउनलोड, कोई इंस्टॉलेशन, कोई साइन-अप की आवश्यकता नहीं।'
+        },
+        {
+          q: 'कौन से ब्राउज़र समर्थित हैं?',
+          a: 'वेब हारमोनियम Chrome, Firefox, Safari और Edge सहित सभी आधुनिक ब्राउज़रों पर काम करता है। सर्वोत्तम अनुभव के लिए हम नवीनतम संस्करण का उपयोग करने की सलाह देते हैं।'
+        },
+        {
+          q: 'मैं नोट्स कैसे बजाऊं?',
+          a: 'अपने कीबोर्ड कुंजियों का उपयोग करें: सफेद कुंजियों के लिए ` q w e r t y u i o p [ ] \\, और काली कुंजियों के लिए 1 2 4 5 7 8 9 - =। आप स्क्रीन पर वर्चुअल कीबोर्ड पर क्लिक या टैप भी कर सकते हैं।'
+        },
+        {
+          q: 'कीबोर्ड शॉर्टकट क्या हैं?',
+          a: 'ट्रांसपोज़ बदलने के लिए Ctrl+Alt+बाएं/दाएं तीर दबाएं, और सप्तक बदलने के लिए Ctrl+Alt+ऊपर/नीचे तीर दबाएं। यह आपको अपने माउस का उपयोग किए बिना सेटिंग्स समायोजित करने देता है।'
+        },
+        {
+          q: 'क्या मैं कॉर्ड बजा सकता हूं?',
+          a: 'हां! आप एक साथ कई कुंजियां दबा सकते हैं और कॉर्ड बजा सकते हैं, बिल्कुल असली हारमोनियम की तरह।'
+        },
+        {
+          q: 'ट्रांसपोज़ क्या है और मैं इसका उपयोग कैसे करूं?',
+          a: 'ट्रांसपोज़ सभी नोट्स को सेमीटोन (आधे कदम) से ऊपर या नीचे स्थानांतरित करता है। इसका उपयोग अपनी स्वर सीमा से मेल खाने या विभिन्न कुंजियों में बजाने के लिए करें। सीमा -11 से +11 सेमीटोन है।'
+        },
+        {
+          q: 'रीड्स क्या हैं?',
+          a: 'रीड्स ध्वनि की समृद्धि को नियंत्रित करते हैं। पारंपरिक हारमोनियम में प्रति नोट कई रीड्स होते हैं। रीड्स बढ़ाने (1-4) से एक पूर्ण, कोरस जैसा प्रभाव बनता है।'
+        },
+        {
+          q: 'कोई आवाज क्यों नहीं है?',
+          a: 'सुनिश्चित करें कि आपने पहले \'लोड मॉड्यूल\' पर क्लिक किया है। जांचें कि आपके डिवाइस की वॉल्यूम चालू है और आपका ब्राउज़र ऑडियो प्लेबैक की अनुमति देता है। यदि समस्याएं बनी रहती हैं तो पृष्ठ को रीफ्रेश करने का प्रयास करें।'
+        },
+        {
+          q: 'क्या मैं इसे मोबाइल पर उपयोग कर सकता हूं?',
+          a: 'हां! वेब हारमोनियम मोबाइल उपकरणों पर काम करता है। नोट्स बजाने के लिए वर्चुअल कीबोर्ड पर टैप करें। फिजिकल कीबोर्ड शॉर्टकट केवल कंप्यूटर पर काम करते हैं।'
+        },
+        {
+          q: 'क्या मैं MIDI कीबोर्ड कनेक्ट कर सकता हूं?',
+          a: 'MIDI कीबोर्ड समर्थन भविष्य के अपडेट के लिए योजनाबद्ध है। वर्तमान में, आप केवल अपने कंप्यूटर कीबोर्ड का उपयोग कर सकते हैं या वर्चुअल कुंजियों पर क्लिक/टैप कर सकते हैं।'
+        },
+        {
+          q: 'क्या मैं अपनी बजाई रिकॉर्ड कर सकता हूं?',
+          a: 'रिकॉर्डिंग कार्यक्षमता भविष्य के अपडेट के लिए योजनाबद्ध है। अभी के लिए, आप अपने प्रदर्शन को कैप्चर करने के लिए बाहरी स्क्रीन रिकॉर्डिंग सॉफ़्टवेयर का उपयोग कर सकते हैं।'
+        },
+        {
+          q: 'सरगम क्या है?',
+          a: 'सरगम भारतीय संगीत संकेतन प्रणाली है: सा रे ग म प ध नि (पश्चिमी संगीत में Do Re Mi Fa Sol La Ti के बराबर)। आप कीबोर्ड पर ये लेबल देखेंगे।'
+        },
+        {
+          q: 'मैं हारमोनियम बजाना कैसे सीखूं?',
+          a: 'चरण-दर-चरण पाठ, गीत ट्यूटोरियल और राग गाइड के लिए हमारे ट्यूटोरियल पृष्ठ देखें। सरल स्केल से शुरू करें और गीतों तक प्रगति करें।'
+        },
+        {
+          q: 'क्या वेब हारमोनियम मुफ्त है?',
+          a: 'हां, पूरी तरह से मुफ्त! कोई सदस्यता नहीं, कोई छिपी हुई फीस नहीं, आपके बजाने के अनुभव को अवरुद्ध करने वाले कोई विज्ञापन नहीं।'
+        }
+      ]
     },
     // Tutorial Page
     tutorial: {
