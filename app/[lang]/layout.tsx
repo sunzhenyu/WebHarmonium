@@ -7,7 +7,7 @@ import LanguageProvider from '@/lib/i18n/LanguageContext';
 import { getMessages } from '@/lib/i18n/translations';
 import type { Metadata } from 'next';
 
-const inter = Inter({ subsets: ['latin'] };
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: "Web Harmonium Online for Daily Practice | Play Harmonium",
