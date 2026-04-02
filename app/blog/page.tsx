@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { blogPosts } from '@/lib/blog';
+import PageHeader from '@/components/PageHeader';
 
 export const metadata: Metadata = {
   title: 'Harmonium Blog - Tutorials, Tips & Guides | Web Harmonium',
@@ -19,10 +20,7 @@ export default function BlogPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white py-8">
       <div className="max-w-4xl mx-auto px-4">
-        <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold text-gray-900 mb-3">Harmonium Blog</h1>
-          <p className="text-xl text-gray-600">Tutorials, tips, and guides for harmonium players</p>
-        </div>
+        <PageHeader titleKey="blogPage" />
 
         <div className="grid gap-6">
           {blogPosts.map(post => (
