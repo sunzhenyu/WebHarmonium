@@ -6,7 +6,7 @@ import { translations, Language } from './translations';
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
-  t: typeof translations.en;
+  t: typeof translations.en & { lang: Language };
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -27,7 +27,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     localStorage.setItem('harmonium-language', lang);
   };
 
-  const t = translations[language];
+  const t = { ...translations[language], lang: language };
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, t }}>
