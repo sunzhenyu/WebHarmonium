@@ -218,6 +218,9 @@ export const translations = {
     tutorial: {
       title: 'How to Play Harmonium',
       subtitle: 'Complete tutorial guide for beginners',
+      newToHarmonium: 'New to harmonium?',
+      introText: 'This comprehensive guide will teach you everything from basic keyboard controls to playing your first song.',
+      openHarmonium: 'Open the harmonium →',
     },
     // About Page
     about: {
@@ -481,6 +484,9 @@ export const translations = {
     tutorial: {
       title: 'हारमोनियम कैसे बजाएं',
       subtitle: 'शुरुआती लोगों के लिए पूर्ण ट्यूटोरियल गाइड',
+      newToHarmonium: 'हारमोनियम में नए हैं?',
+      introText: 'यह व्यापक गाइड आपको बुनियादी कीबोर्ड नियंत्रण से लेकर अपना पहला गीत बजाने तक सब कुछ सिखाएगी।',
+      openHarmonium: 'हारमोनियम खोलें →',
     },
     // About Page
     about: {

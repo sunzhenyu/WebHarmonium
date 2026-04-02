@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import StructuredData from '@/components/seo/StructuredData';
 import PageHeader from '@/components/PageHeader';
+import TutorialIntro from '@/components/TutorialIntro';
 
 export const metadata: Metadata = {
   title: 'How to Play Harmonium - Complete Tutorial Guide | Web Harmonium',
@@ -52,6 +53,8 @@ export default function TutorialPage() {
       <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <div className="max-w-4xl mx-auto p-8">
         <PageHeader titleKey="tutorial" />
+
+        <TutorialIntro />
 
         <div className="bg-blue-50 border-l-4 border-blue-600 p-4 mb-8">
           <p className="text-gray-700">
