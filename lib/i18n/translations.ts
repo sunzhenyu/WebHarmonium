@@ -143,6 +143,31 @@ export const translations = {
       placeholder: 'Tell us your thoughts...',
       submit: 'Submit Feedback',
     },
+    // FAQ Page
+    faq: {
+      title: 'Frequently Asked Questions',
+      subtitle: 'Common questions about Web Harmonium',
+    },
+    // Tutorial Page
+    tutorial: {
+      title: 'How to Play Harmonium',
+      subtitle: 'Complete tutorial guide for beginners',
+    },
+    // About Page
+    about: {
+      title: 'About Web Harmonium',
+      subtitle: 'Free online harmonium simulator',
+    },
+    // Contact Page
+    contact: {
+      title: 'Contact Us',
+      subtitle: 'Get in touch with the Web Harmonium team',
+    },
+    // Blog Page
+    blogPage: {
+      title: 'Harmonium Blog',
+      subtitle: 'Guides, tips, and tutorials',
+    },
   },
   hi: {
     // Sargam labels (Devanagari script)
@@ -287,6 +312,31 @@ export const translations = {
       improve: 'हम कैसे सुधार कर सकते हैं?',
       placeholder: 'हमें अपने विचार बताएं...',
       submit: 'प्रतिक्रिया सबमिट करें',
+    },
+    // FAQ Page
+    faq: {
+      title: 'अक्सर पूछे जाने वाले प्रश्न',
+      subtitle: 'वेब हारमोनियम के बारे में सामान्य प्रश्न',
+    },
+    // Tutorial Page
+    tutorial: {
+      title: 'हारमोनियम कैसे बजाएं',
+      subtitle: 'शुरुआती लोगों के लिए पूर्ण ट्यूटोरियल गाइड',
+    },
+    // About Page
+    about: {
+      title: 'वेब हारमोनियम के बारे में',
+      subtitle: 'मुफ्त ऑनलाइन हारमोनियम सिम्युलेटर',
+    },
+    // Contact Page
+    contact: {
+      title: 'संपर्क करें',
+      subtitle: 'वेब हारमोनियम टीम से संपर्क करें',
+    },
+    // Blog Page
+    blogPage: {
+      title: 'हारमोनियम ब्लॉग',
+      subtitle: 'गाइड, सुझाव और ट्यूटोरियल',
     },
   },
 };
