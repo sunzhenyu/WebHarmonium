@@ -3,8 +3,7 @@ import '../globals.css';
 import Script from 'next/script';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import LanguageProvider from '@/lib/i18n/LanguageContext';
-import { getMessages } from '@/lib/i18n/translations';
+import { LanguageProvider } from '@/lib/i18n/LanguageContext';
 import type { Metadata } from 'next';
 
 const inter = Inter({ subsets: ['latin'] });
