@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import PageHeader from '@/components/PageHeader';
+import ContactContent from '@/components/ContactContent';
 
 export const metadata: Metadata = {
   title: 'Contact Us - Web Harmonium Support and Feedback',
@@ -14,6 +15,12 @@ export default function ContactPage() {
       <div className="max-w-4xl mx-auto px-4">
         <div className="bg-white rounded-lg shadow-lg p-8">
           <PageHeader titleKey="contact" />
+          <ContactContent />
+        </div>
+      </div>
+    </div>
+  );
+}
 
           <div className="prose max-w-none text-gray-700">
             <p className="mb-4">

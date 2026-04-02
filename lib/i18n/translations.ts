@@ -223,11 +223,38 @@ export const translations = {
     about: {
       title: 'About Web Harmonium',
       subtitle: 'Free online harmonium simulator',
+      intro: 'Web Harmonium is a free online harmonium simulator that brings the authentic sound of this traditional instrument to your web browser. Built with modern web technologies, it provides a realistic playing experience without requiring any downloads or installations.',
+      whatIsTitle: 'What is a Harmonium?',
+      whatIsText: 'The harmonium is a keyboard instrument similar to an organ. It produces sound by blowing air through reeds using bellows operated by hand. Originally developed in Europe in the 19th century, the harmonium became extremely popular in India and is now an essential instrument in Indian classical music, devotional music (bhajans and kirtans), and Bollywood film music.',
+      whyTitle: 'Why Web Harmonium?',
+      whyText: 'Traditional harmoniums can be expensive and require physical space. Web Harmonium makes this beautiful instrument accessible to everyone:',
+      whyPoints: [
+        'Practice anytime, anywhere - no physical instrument needed',
+        'Perfect for beginners learning harmonium basics',
+        'Great for songwriters and composers to sketch ideas',
+        'Ideal for devotional music practice at home',
+        'Useful for music teachers demonstrating concepts'
+      ],
+      featuresTitle: 'Features',
+      featuresPoints: [
+        'Authentic harmonium sound samples recorded from real instruments',
+        'Keyboard and mouse/touch control for flexible playing',
+        'Transpose control (-11 to +11 semitones) to match any vocal range',
+        'Octave shifting (7 octaves) for full range coverage',
+        'Volume control and reverb effects',
+        'Multiple reed simulation for richer sound',
+        'Settings persistence using browser storage - your preferences are saved',
+        'No installation or registration required'
+      ]
     },
     // Contact Page
     contact: {
       title: 'Contact Us',
       subtitle: 'Get in touch with the Web Harmonium team',
+      intro: 'We\'d love to hear from you! Whether you have questions, feedback, or suggestions for improving Web Harmonium, please don\'t hesitate to reach out.',
+      getInTouch: 'Get in Touch',
+      forInquiries: 'For inquiries, please contact us at:',
+      email: 'Email:',
     },
     // Blog Page
     blogPage: {
@@ -459,11 +486,38 @@ export const translations = {
     about: {
       title: 'वेब हारमोनियम के बारे में',
       subtitle: 'मुफ्त ऑनलाइन हारमोनियम सिम्युलेटर',
+      intro: 'वेब हारमोनियम एक मुफ्त ऑनलाइन हारमोनियम सिम्युलेटर है जो इस पारंपरिक वाद्य यंत्र की प्रामाणिक ध्वनि को आपके वेब ब्राउज़र में लाता है। आधुनिक वेब तकनीकों के साथ निर्मित, यह किसी भी डाउनलोड या इंस्टॉलेशन की आवश्यकता के बिना एक यथार्थवादी बजाने का अनुभव प्रदान करता है।',
+      whatIsTitle: 'हारमोनियम क्या है?',
+      whatIsText: 'हारमोनियम एक कीबोर्ड वाद्य यंत्र है जो एक ऑर्गन के समान है। यह हाथ से संचालित धौंकनी का उपयोग करके रीड्स के माध्यम से हवा फूंककर ध्वनि उत्पन्न करता है। मूल रूप से 19वीं शताब्दी में यूरोप में विकसित, हारमोनियम भारत में अत्यंत लोकप्रिय हो गया और अब भारतीय शास्त्रीय संगीत, भक्ति संगीत (भजन और कीर्तन), और बॉलीवुड फिल्म संगीत में एक आवश्यक वाद्य यंत्र है।',
+      whyTitle: 'वेब हारमोनियम क्यों?',
+      whyText: 'पारंपरिक हारमोनियम महंगे हो सकते हैं और भौतिक स्थान की आवश्यकता होती है। वेब हारमोनियम इस सुंदर वाद्य यंत्र को सभी के लिए सुलभ बनाता है:',
+      whyPoints: [
+        'कभी भी, कहीं भी अभ्यास करें - कोई भौतिक वाद्य यंत्र की आवश्यकता नहीं',
+        'हारमोनियम की मूल बातें सीखने वाले शुरुआती लोगों के लिए एकदम सही',
+        'गीतकारों और संगीतकारों के लिए विचारों को स्केच करने के लिए बढ़िया',
+        'घर पर भक्ति संगीत अभ्यास के लिए आदर्श',
+        'संगीत शिक्षकों के लिए अवधारणाओं को प्रदर्शित करने के लिए उपयोगी'
+      ],
+      featuresTitle: 'विशेषताएं',
+      featuresPoints: [
+        'वास्तविक वाद्य यंत्रों से रिकॉर्ड किए गए प्रामाणिक हारमोनियम ध्वनि नमूने',
+        'लचीले बजाने के लिए कीबोर्ड और माउस/टच नियंत्रण',
+        'किसी भी स्वर सीमा से मेल खाने के लिए ट्रांसपोज़ नियंत्रण (-11 से +11 सेमीटोन)',
+        'पूर्ण सीमा कवरेज के लिए सप्तक स्थानांतरण (7 सप्तक)',
+        'वॉल्यूम नियंत्रण और रीवर्ब प्रभाव',
+        'समृद्ध ध्वनि के लिए एकाधिक रीड सिम्युलेशन',
+        'ब्राउज़र स्टोरेज का उपयोग करके सेटिंग्स दृढ़ता - आपकी प्राथमिकताएं सहेजी जाती हैं',
+        'कोई इंस्टॉलेशन या पंजीकरण की आवश्यकता नहीं'
+      ]
     },
     // Contact Page
     contact: {
       title: 'संपर्क करें',
       subtitle: 'वेब हारमोनियम टीम से संपर्क करें',
+      intro: 'हम आपसे सुनना पसंद करेंगे! चाहे आपके पास प्रश्न हों, प्रतिक्रिया हो, या वेब हारमोनियम को बेहतर बनाने के लिए सुझाव हों, कृपया संपर्क करने में संकोच न करें।',
+      getInTouch: 'संपर्क में रहें',
+      forInquiries: 'पूछताछ के लिए, कृपया हमसे संपर्क करें:',
+      email: 'ईमेल:',
     },
     // Blog Page
     blogPage: {

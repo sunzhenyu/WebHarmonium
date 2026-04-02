@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import PageHeader from '@/components/PageHeader';
+import AboutContent from '@/components/AboutContent';
 
 export const metadata: Metadata = {
   title: 'About Web Harmonium - Free Online Harmonium Simulator',
@@ -14,6 +15,12 @@ export default function AboutPage() {
       <div className="max-w-4xl mx-auto px-4">
         <div className="bg-white rounded-lg shadow-lg p-8">
           <PageHeader titleKey="about" />
+          <AboutContent />
+        </div>
+      </div>
+    </div>
+  );
+}
 
           <div className="prose max-w-none">
             <p className="text-gray-700 mb-4">
