@@ -5,6 +5,7 @@ import { useAudioEngine } from '@/lib/hooks/useAudioEngine';
 import { useKeyboard } from '@/lib/hooks/useKeyboard';
 import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
 import { STORAGE_KEYS, DEFAULT_VALUES } from '@/lib/utils/constants';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
 import Keyboard from './Keyboard';
 import VolumeControl from './VolumeControl';
 import TransposeControl from './TransposeControl';
@@ -14,6 +15,7 @@ import ReedsControl from './ReedsControl';
 import DroneControl from './DroneControl';
 
 export default function HarmoniumApp() {
+  const { t } = useLanguage();
   const [volume, setVolume] = useLocalStorage<number>(STORAGE_KEYS.VOLUME, DEFAULT_VALUES.VOLUME);
   const [transpose, setTranspose] = useLocalStorage<number>(STORAGE_KEYS.TRANSPOSE, DEFAULT_VALUES.TRANSPOSE);
   const [octave, setOctave] = useLocalStorage<number>(STORAGE_KEYS.OCTAVE, DEFAULT_VALUES.OCTAVE);
@@ -135,12 +137,12 @@ export default function HarmoniumApp() {
               </div>
 
               <div className="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
-                <h3 className="font-semibold mb-2 text-gray-900">Keyboard Controls:</h3>
+                <h3 className="font-semibold mb-2 text-gray-900">{t.ui.keyboardControls}</h3>
                 <p className="text-sm text-gray-700">
-                  Use keys: <code className="bg-gray-200 px-1 rounded text-gray-900">` q w e r t y u i o p [ ] \</code>
+                  {t.ui.whiteKeys} <code className="bg-gray-200 px-1 rounded text-gray-900">` q w e r t y u i o p [ ] \</code>
                 </p>
                 <p className="text-sm text-gray-700 mt-1">
-                  Black keys: <code className="bg-gray-200 px-1 rounded text-gray-900">1 2 4 5 7 8 9 - =</code>
+                  {t.ui.blackKeys} <code className="bg-gray-200 px-1 rounded text-gray-900">1 2 4 5 7 8 9 - =</code>
                 </p>
                 <p className="text-sm text-gray-700 mt-2">
                   <strong>Shortcuts:</strong> Ctrl+Alt+← → (transpose) | Ctrl+Alt+↑ ↓ (octave)
