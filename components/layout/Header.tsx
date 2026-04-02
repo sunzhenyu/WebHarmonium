@@ -71,21 +71,23 @@ export default function Header() {
                       {t.nav[link.label as keyof typeof t.nav]}
                     </button>
                     {openDropdown === link.label && (
-                      <div className="absolute top-full left-0 mt-1 bg-white shadow-lg rounded-lg border border-gray-200 py-2 min-w-[160px]">
-                        {link.dropdown.map(item => (
-                          <Link
-                            key={item.href}
-                            href={item.href}
-                            title={item.title}
-                            className={`block px-4 py-2 text-sm transition-colors ${
-                              isActive(item.href)
-                                ? 'bg-blue-50 text-blue-600 font-medium'
-                                : 'text-gray-700 hover:bg-gray-50'
-                            }`}
-                          >
-                            {t.nav[item.label as keyof typeof t.nav]}
-                          </Link>
-                        ))}
+                      <div className="absolute top-full left-0 pt-1">
+                        <div className="bg-white shadow-lg rounded-lg border border-gray-200 py-2 min-w-[160px]">
+                          {link.dropdown.map(item => (
+                            <Link
+                              key={item.href}
+                              href={item.href}
+                              title={item.title}
+                              className={`block px-4 py-2 text-sm transition-colors ${
+                                isActive(item.href)
+                                  ? 'bg-blue-50 text-blue-600 font-medium'
+                                  : 'text-gray-700 hover:bg-gray-50'
+                              }`}
+                            >
+                              {t.nav[item.label as keyof typeof t.nav]}
+                            </Link>
+                          ))}
+                        </div>
                       </div>
                     )}
                   </div>
