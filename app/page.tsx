@@ -5,6 +5,7 @@ import StructuredData from '@/components/seo/StructuredData';
 import { blogPosts } from '@/lib/blog';
 import dynamic from 'next/dynamic';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
+import { translations } from '@/lib/i18n/translations';
 
 const MobileHarmoniumApp = dynamic(() => import('@/components/harmonium/MobileHarmoniumApp'), {
   ssr: false,
@@ -19,6 +20,13 @@ const categoryColors: Record<string, string> = {
   'Songs': 'bg-green-100 text-green-700',
   'Buying Guide': 'bg-orange-100 text-orange-700',
   'History': 'bg-purple-100 text-purple-700',
+};
+
+const categoryTranslations: Record<string, keyof typeof translations.en.home> = {
+  'Learning': 'categoryLearning',
+  'Songs': 'categorySongs',
+  'Buying Guide': 'categoryBuyingGuide',
+  'History': 'categoryHistory',
 };
 
 export default function Home() {
@@ -198,7 +206,7 @@ export default function Home() {
                 <article className="border border-gray-100 rounded-lg p-5 hover:border-blue-200 hover:shadow-sm transition-all">
                   <div className="flex items-center gap-2 mb-2">
                     <span className={`text-xs font-semibold px-2 py-1 rounded-full ${categoryColors[post.category] ?? 'bg-gray-100 text-gray-600'}`}>
-                      {post.category}
+                      {t.home[categoryTranslations[post.category] as keyof typeof t.home] || post.category}
                     </span>
                     <span className="text-xs text-gray-400">{post.readTime} {t.home.minRead}</span>
                   </div>
@@ -222,25 +230,25 @@ export default function Home() {
           <h2 className="text-xl font-semibold mb-6 text-gray-800 text-center">{t.home.learnMoreTitle}</h2>
           <div className="flex flex-wrap justify-center gap-3">
             <Link href="/instrument/harmonium" title="Harmonium" className="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600 hover:text-blue-600 hover:border-blue-300 transition-colors shadow-sm">
-              Harmonium
+              {t.home.harmonium}
             </Link>
             <Link href="/instrument/harmonium-instrument" title="Harmonium Instrument" className="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600 hover:text-blue-600 hover:border-blue-300 transition-colors shadow-sm">
-              Harmonium Instrument
+              {t.home.harmoniumInstrument}
             </Link>
             <Link href="/instrument/reed-organ-harmonium" title="Reed Organ Harmonium" className="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600 hover:text-blue-600 hover:border-blue-300 transition-colors shadow-sm">
-              Reed Organ Harmonium
+              {t.home.reedOrganHarmonium}
             </Link>
             <Link href="/instrument/harmonium-pedal-organ" title="Harmonium Pedal Organ" className="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600 hover:text-blue-600 hover:border-blue-300 transition-colors shadow-sm">
-              Harmonium Pedal Organ
+              {t.home.harmoniumPedalOrgan}
             </Link>
             <Link href="/instrument/harmonium-musical-instrument" title="Harmonium Musical Instrument" className="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600 hover:text-blue-600 hover:border-blue-300 transition-colors shadow-sm">
-              Harmonium Musical Instrument
+              {t.home.harmoniumMusicalInstrument}
             </Link>
             <Link href="/instrument/indian-harmonium" title="Indian Harmonium" className="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600 hover:text-blue-600 hover:border-blue-300 transition-colors shadow-sm">
-              Indian Harmonium
+              {t.home.indianHarmonium}
             </Link>
             <Link href="/instrument/the-harmonium-in-my-memory" title="The Harmonium In My Memory" className="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600 hover:text-blue-600 hover:border-blue-300 transition-colors shadow-sm">
-              The Harmonium in My Memory
+              {t.home.theHarmoniumInMyMemory}
             </Link>
           </div>
         </div>

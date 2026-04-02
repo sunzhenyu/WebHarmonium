@@ -98,6 +98,19 @@ export const translations = {
       viewAllArticles: 'View All Articles',
       learnMoreTitle: 'Learn More About Harmoniums',
       minRead: 'min read',
+      // Blog categories
+      categoryLearning: 'Learning',
+      categorySongs: 'Songs',
+      categoryBuyingGuide: 'Buying Guide',
+      categoryHistory: 'History',
+      // PSEO links
+      harmonium: 'Harmonium',
+      harmoniumInstrument: 'Harmonium Instrument',
+      reedOrganHarmonium: 'Reed Organ Harmonium',
+      harmoniumPedalOrgan: 'Harmonium Pedal Organ',
+      harmoniumMusicalInstrument: 'Harmonium Musical Instrument',
+      indianHarmonium: 'Indian Harmonium',
+      theHarmoniumInMyMemory: 'The Harmonium in My Memory',
     },
     // Footer
     footer: {
@@ -230,6 +243,19 @@ export const translations = {
       viewAllArticles: 'सभी लेख देखें',
       learnMoreTitle: 'हारमोनियम के बारे में और जानें',
       minRead: 'मिनट पढ़ें',
+      // Blog categories
+      categoryLearning: 'सीखना',
+      categorySongs: 'गाने',
+      categoryBuyingGuide: 'खरीदारी गाइड',
+      categoryHistory: 'इतिहास',
+      // PSEO links
+      harmonium: 'हारमोनियम',
+      harmoniumInstrument: 'हारमोनियम वाद्य यंत्र',
+      reedOrganHarmonium: 'रीड ऑर्गन हारमोनियम',
+      harmoniumPedalOrgan: 'हारमोनियम पेडल ऑर्गन',
+      harmoniumMusicalInstrument: 'हारमोनियम संगीत वाद्य यंत्र',
+      indianHarmonium: 'भारतीय हारमोनियम',
+      theHarmoniumInMyMemory: 'मेरी स्मृति में हारमोनियम',
     },
     // Footer
     footer: {
