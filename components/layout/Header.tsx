@@ -29,13 +29,24 @@ const navLinks = [
 ];
 
 export default function Header() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [menuOpen, setMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const pathname = usePathname();
 
-  const isActive = (href: string) =>
-    href === '/' ? pathname === '/' : pathname.startsWith(href);
+  // Extract current language from pathname
+  const segments = pathname.split('/');
+  const currentLang = segments[1] && (segments[1] === 'en' || segments[1] === 'hi') ? segments[1] : 'en';
+
+  const getLocalizedHref = (href: string) => {
+    if (href === '/') return `/${currentLang}`;
+    return `/${currentLang}${href}`;
+  };
+
+  const isActive = (href: string) => {
+    const localizedPath = `/${currentLang}${href === '/' ? '' : href}`;
+    return pathname === localizedPath || pathname.startsWith(`${localizedPath}/`);
+  };
 
   const isDropdownActive = (dropdown: any[]) =>
     dropdown.some(item => isActive(item.href));
@@ -44,7 +55,7 @@ export default function Header() {
     <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
       <div className="max-w-6xl mx-auto px-4 py-4">
         <nav className="flex items-center justify-between">
-          <Link href="/" title="Web Harmonium - Play Indian Harmonium Online" className="text-2xl font-bold text-gray-900 hover:text-blue-600 transition-colors">
+          <Link href={`/${currentLang}`} title="Web Harmonium - Play Indian Harmonium Online" className="text-2xl font-bold text-gray-900 hover:text-blue-600 transition-colors">
             Web Harmonium
           </Link>
 
@@ -76,7 +87,7 @@ export default function Header() {
                           {link.dropdown.map(item => (
                             <Link
                               key={item.href}
-                              href={item.href}
+                              href={getLocalizedHref(item.href)}
                               title={item.title}
                               className={`block px-4 py-2 text-sm transition-colors ${
                                 isActive(item.href)
@@ -98,23 +109,20 @@ export default function Header() {
               if (link.highlight) {
                 return (
                   <Link
-                    key={link.href}
-                    href={link.href!}
+                    key={index}
+                    href={getLocalizedHref(link.href)}
                     title={link.title}
-                    className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                      active
-                        ? 'bg-blue-700 text-white'
-                        : 'bg-blue-600 text-white hover:bg-blue-700'
-                    }`}
+                    className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors"
                   >
                     {t.nav[link.label as keyof typeof t.nav]}
                   </Link>
                 );
               }
+
               return (
                 <Link
-                  key={link.href}
-                  href={link.href!}
+                  key={index}
+                  href={getLocalizedHref(link.href!)}
                   title={link.title}
                   className={`transition-colors font-medium pb-1 ${
                     active
@@ -128,69 +136,79 @@ export default function Header() {
             })}
           </div>
 
-          {/* Mobile hamburger */}
+          {/* Mobile menu button */}
           <button
-            className="md:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
+            className="md:hidden p-2"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
           >
-            {menuOpen ? (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {menuOpen ? (
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              ) : (
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            )}
+              )}
+            </svg>
           </button>
         </nav>
 
         {/* Mobile menu */}
         {menuOpen && (
-          <div className="md:hidden mt-4 pb-2 border-t border-gray-100 pt-4 flex flex-col gap-3">
-            <div className="px-2 mb-2">
-              <LanguageSwitcher />
-            </div>
+          <div className="md:hidden mt-4 pb-4 space-y-3">
+            <LanguageSwitcher />
             {navLinks.map((link, index) => {
               if (link.dropdown) {
                 return (
-                  <div key={index}>
-                    <div className="px-2 py-1 text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                  <div key={index} className="space-y-2">
+                    <div className="font-medium text-gray-900">
                       {t.nav[link.label as keyof typeof t.nav]}
                     </div>
-                    {link.dropdown.map(item => {
-                      const active = isActive(item.href);
-                      return (
+                    <div className="pl-4 space-y-2">
+                      {link.dropdown.map(item => (
                         <Link
                           key={item.href}
-                          href={item.href}
+                          href={getLocalizedHref(item.href)}
                           title={item.title}
-                          onClick={() => setMenuOpen(false)}
-                          className={`py-2 px-4 rounded transition-colors ${
-                            active ? 'text-blue-600 bg-blue-50 font-medium' : 'text-gray-700 hover:text-blue-600'
+                          className={`block py-1 text-sm ${
+                            isActive(item.href)
+                              ? 'text-blue-600 font-medium'
+                              : 'text-gray-700'
                           }`}
+                          onClick={() => setMenuOpen(false)}
                         >
                           {t.nav[item.label as keyof typeof t.nav]}
                         </Link>
-                      );
-                    })}
+                      ))}
+                    </div>
                   </div>
                 );
               }
 
-              const active = link.href ? isActive(link.href) : false;
+              if (link.highlight) {
+                return (
+                  <Link
+                    key={index}
+                    href={getLocalizedHref(link.href)}
+                    title={link.title}
+                    className="block bg-blue-600 text-white px-4 py-2 rounded-lg font-medium text-center"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {t.nav[link.label as keyof typeof t.nav]}
+                  </Link>
+                );
+              }
+
               return (
                 <Link
-                  key={link.href || index}
-                  href={link.href!}
+                  key={index}
+                  href={getLocalizedHref(link.href!)}
                   title={link.title}
+                  className={`block py-1 ${
+                    isActive(link.href)
+                      ? 'text-blue-600 font-medium'
+                      : 'text-gray-700'
+                  }`}
                   onClick={() => setMenuOpen(false)}
-                  className={
-                    link.highlight
-                      ? `px-4 py-2 rounded-lg text-center font-medium transition-colors ${active ? 'bg-blue-700 text-white' : 'bg-blue-600 text-white'}`
-                      : `py-2 px-2 rounded transition-colors ${active ? 'text-blue-600 bg-blue-50 font-medium' : 'text-gray-700 hover:text-blue-600'}`
-                  }
                 >
                   {t.nav[link.label as keyof typeof t.nav]}
                 </Link>

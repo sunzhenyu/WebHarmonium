@@ -11,7 +11,8 @@
       "Bash(curl -s https://playharmonium.com)",
       "Bash(python3:*)",
       "mcp__ide__getDiagnostics",
-      "Bash(git restore:*)"
+      "Bash(git restore:*)",
+      "Bash(cp:*)"
     ]
   }
 }

@@ -577,5 +577,9 @@ export const translations = {
   },
 };
 
+export function getMessages(lang: 'en' | 'hi') {
+  return translations[lang];
+}
+
 export type Language = keyof typeof translations;
 export type TranslationKey = keyof typeof translations.en;
