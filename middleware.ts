@@ -1,9 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-const locales = ['en', 'hi'];
-const defaultLocale = 'en';
-
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
@@ -14,24 +11,26 @@ export function middleware(request: NextRequest) {
     pathname.startsWith('/static') ||
     pathname.includes('.') ||
     pathname.startsWith('/sitemap') ||
-    pathname.startsWith('/robots')
+    pathname.startsWith('/robots') ||
+    pathname.startsWith('/instrument') ||
+    pathname.startsWith('/privacy')
   ) {
     return NextResponse.next();
   }
 
-  // Check if pathname already has a locale
-  const pathnameHasLocale = locales.some(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
-  );
-
-  if (pathnameHasLocale) {
+  // If path starts with /hi, let it through (Hindi pages)
+  if (pathname.startsWith('/hi')) {
     return NextResponse.next();
   }
 
-  // Redirect to default locale
-  const locale = defaultLocale;
-  request.nextUrl.pathname = `/${locale}${pathname}`;
-  return NextResponse.redirect(request.nextUrl);
+  // For all other paths, rewrite to /en (English default, but URL stays clean)
+  if (!pathname.startsWith('/en')) {
+    const url = request.nextUrl.clone();
+    url.pathname = `/en${pathname}`;
+    return NextResponse.rewrite(url);
+  }
+
+  return NextResponse.next();
 }
 
 export const config = {

@@ -15,10 +15,9 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 interface LanguageProviderProps {
   children: ReactNode;
   initialLanguage?: Language;
-  initialMessages?: any;
 }
 
-export function LanguageProvider({ children, initialLanguage = 'en', initialMessages }: LanguageProviderProps) {
+export function LanguageProvider({ children, initialLanguage = 'en' }: LanguageProviderProps) {
   const [language, setLanguageState] = useState<Language>(initialLanguage);
   const router = useRouter();
   const pathname = usePathname();
@@ -31,15 +30,18 @@ export function LanguageProvider({ children, initialLanguage = 'en', initialMess
     setLanguageState(lang);
     localStorage.setItem('harmonium-language', lang);
 
-    // Extract current language from pathname
-    const segments = pathname.split('/');
-    const currentLang = segments[1];
-
-    // Build new pathname with new language
-    if (currentLang && (currentLang === 'en' || currentLang === 'hi')) {
-      segments[1] = lang;
-      const newPathname = segments.join('/');
-      router.push(newPathname);
+    // Build new pathname based on language
+    if (lang === 'hi') {
+      // Switch to Hindi: add /hi prefix if not already there
+      if (!pathname.startsWith('/hi')) {
+        router.push(`/hi${pathname}`);
+      }
+    } else {
+      // Switch to English: remove /hi prefix if present
+      if (pathname.startsWith('/hi')) {
+        const newPath = pathname.replace(/^\/hi/, '') || '/';
+        router.push(newPath);
+      }
     }
   };
 

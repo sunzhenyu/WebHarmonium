@@ -34,17 +34,16 @@ export default function Header() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const pathname = usePathname();
 
-  // Extract current language from pathname
-  const segments = pathname.split('/');
-  const currentLang = segments[1] && (segments[1] === 'en' || segments[1] === 'hi') ? segments[1] : 'en';
-
+  // Get localized href: Hindi gets /hi prefix, English has no prefix
   const getLocalizedHref = (href: string) => {
-    if (href === '/') return `/${currentLang}`;
-    return `/${currentLang}${href}`;
+    if (language === 'hi') {
+      return `/hi${href}`;
+    }
+    return href;
   };
 
   const isActive = (href: string) => {
-    const localizedPath = `/${currentLang}${href === '/' ? '' : href}`;
+    const localizedPath = language === 'hi' ? `/hi${href}` : href;
     return pathname === localizedPath || pathname.startsWith(`${localizedPath}/`);
   };
 
@@ -55,7 +54,7 @@ export default function Header() {
     <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
       <div className="max-w-6xl mx-auto px-4 py-4">
         <nav className="flex items-center justify-between">
-          <Link href={`/${currentLang}`} title="Web Harmonium - Play Indian Harmonium Online" className="text-2xl font-bold text-gray-900 hover:text-blue-600 transition-colors">
+          <Link href={getLocalizedHref('/')} title="Web Harmonium - Play Indian Harmonium Online" className="text-2xl font-bold text-gray-900 hover:text-blue-600 transition-colors">
             Web Harmonium
           </Link>
 

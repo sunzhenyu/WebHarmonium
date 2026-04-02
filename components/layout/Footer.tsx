@@ -5,16 +5,15 @@ import { usePathname } from 'next/navigation';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
 
 export default function Footer() {
-  const { t } = useLanguage();
-  const pathname = usePathname();
+  const { t, language } = useLanguage();
 
-  // Extract current language from pathname
-  const segments = pathname.split('/');
-  const currentLang = segments[1] && (segments[1] === 'en' || segments[1] === 'hi') ? segments[1] : 'en';
-
+  // Get localized href: Hindi gets /hi prefix, English has no prefix
   const getLocalizedHref = (href: string) => {
     if (href.startsWith('http')) return href; // External link
-    return `/${currentLang}${href}`;
+    if (language === 'hi') {
+      return `/hi${href}`;
+    }
+    return href;
   };
 
   return (
@@ -65,7 +64,7 @@ export default function Footer() {
         <div className="mt-10 pt-8 border-t border-gray-700 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
           <p>© {new Date().getFullYear()} {t.footer.copyright}</p>
           <p>
-            <Link href={`https://web-harmonium.net`} title="Web Harmonium" className="hover:text-gray-300 transition-colors">web-harmonium.net</Link>
+            <Link href="https://web-harmonium.net" title="Web Harmonium" className="hover:text-gray-300 transition-colors">web-harmonium.net</Link>
           </p>
         </div>
       </div>
