@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { ragas } from '@/lib/ragas';
-import PageHeader from '@/components/PageHeader';
 import RagaIndexContent from '@/components/RagaIndexContent';
+import RagaHeader from '@/components/RagaHeader';
 
 export const metadata: Metadata = {
   title: 'Raga Guide - Learn Indian Classical Ragas on Harmonium | Web Harmonium',
@@ -20,10 +20,7 @@ export default function RagaIndexPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white py-8">
       <div className="max-w-4xl mx-auto px-4">
-        <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold text-gray-900 mb-3">Raga Guide</h1>
-          <p className="text-xl text-gray-600">Learn the essential ragas for harmonium — with keyboard notation and practice tips</p>
-        </div>
+        <RagaHeader />
         <RagaIndexContent ragas={ragas} difficultyColor={difficultyColor} />
       </div>
     </div>

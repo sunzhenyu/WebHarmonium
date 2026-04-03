@@ -268,6 +268,8 @@ export const translations = {
     },
     // Raga Pages
     raga: {
+      title: 'Raga Guide',
+      subtitle: 'Learn the essential ragas for harmonium — with keyboard notation and practice tips',
       allRagas: '← All Ragas',
       openHarmonium: 'Open Harmonium →',
       time: 'Time',
@@ -647,6 +649,8 @@ export const translations = {
     },
     // Raga Pages
     raga: {
+      title: 'राग गाइड',
+      subtitle: 'हारमोनियम के लिए आवश्यक राग सीखें — कीबोर्ड संकेतन और अभ्यास सुझावों के साथ',
       allRagas: '← सभी राग',
       openHarmonium: 'हारमोनियम खोलें →',
       time: 'समय',
