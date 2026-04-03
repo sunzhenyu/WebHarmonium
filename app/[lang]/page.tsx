@@ -66,8 +66,11 @@ export default function Home() {
         <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
           <h2 className="text-2xl font-semibold mb-4 text-center">{t.home.startPlayingNow}</h2>
           <div className="bg-blue-50 border-l-4 border-blue-600 p-4 mb-4 rounded">
-            <p className="text-sm text-blue-900">
+            <p className="text-sm text-blue-900 mb-2">
               💡 <strong>{t.ui.quickStart}</strong> {t.ui.quickStartTip} <code className="bg-blue-100 px-1 rounded">e r t y u i o</code> {t.ui.onYourKeyboard}
+            </p>
+            <p className="text-sm text-blue-900">
+              {t.ui.mobileSupport}
             </p>
           </div>
           <MobileHarmoniumApp />
