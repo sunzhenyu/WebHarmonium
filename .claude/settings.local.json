@@ -12,7 +12,9 @@
       "Bash(python3:*)",
       "mcp__ide__getDiagnostics",
       "Bash(git restore:*)",
-      "Bash(cp:*)"
+      "Bash(cp:*)",
+      "Bash(find app/[lang] -name \"*.tsx\" -type f)",
+      "Bash(find app/[lang] -name page.tsx -type f)"
     ]
   }
 }
