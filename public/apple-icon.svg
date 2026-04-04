@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">
+  <!-- Background -->
+  <rect width="240" height="240" rx="40" fill="#2563EB"/>
+
+  <!-- Harmonium body -->
+  <rect x="30" y="110" width="180" height="80" rx="8" fill="#1E40AF"/>
+  <rect x="30" y="100" width="180" height="18" rx="4" fill="#1D4ED8"/>
+
+  <!-- White keys -->
+  <rect x="38" y="118" width="18" height="55" rx="3" fill="white"/>
+  <rect x="60" y="118" width="18" height="55" rx="3" fill="white"/>
+  <rect x="82" y="118" width="18" height="55" rx="3" fill="white"/>
+  <rect x="104" y="118" width="18" height="55" rx="3" fill="white"/>
+  <rect x="126" y="118" width="18" height="55" rx="3" fill="white"/>
+  <rect x="148" y="118" width="18" height="55" rx="3" fill="white"/>
+  <rect x="170" y="118" width="18" height="55" rx="3" fill="white"/>
+
+  <!-- Black keys -->
+  <rect x="52" y="118" width="12" height="34" rx="2" fill="#1e293b"/>
+  <rect x="74" y="118" width="12" height="34" rx="2" fill="#1e293b"/>
+  <rect x="118" y="118" width="12" height="34" rx="2" fill="#1e293b"/>
+  <rect x="140" y="118" width="12" height="34" rx="2" fill="#1e293b"/>
+  <rect x="162" y="118" width="12" height="34" rx="2" fill="#1e293b"/>
+
+  <!-- Sargam label Sa -->
+  <text x="44" y="185" font-family="Arial" font-size="9" fill="#2563EB" text-anchor="middle">Sa</text>
+  <text x="66" y="185" font-family="Arial" font-size="9" fill="#2563EB" text-anchor="middle">Re</text>
+  <text x="88" y="185" font-family="Arial" font-size="9" fill="#2563EB" text-anchor="middle">Ga</text>
+  <text x="110" y="185" font-family="Arial" font-size="9" fill="#2563EB" text-anchor="middle">Ma</text>
+  <text x="132" y="185" font-family="Arial" font-size="9" fill="#2563EB" text-anchor="middle">Pa</text>
+  <text x="154" y="185" font-family="Arial" font-size="9" fill="#2563EB" text-anchor="middle">Dha</text>
+  <text x="176" y="185" font-family="Arial" font-size="9" fill="#2563EB" text-anchor="middle">Ni</text>
+
+  <!-- Title text -->
+  <text x="120" y="60" font-family="sans-serif" font-weight="bold" font-size="22" fill="white" text-anchor="middle">Web</text>
+  <text x="120" y="88" font-family="sans-serif" font-weight="bold" font-size="22" fill="white" text-anchor="middle">Harmonium</text>
+</svg>
