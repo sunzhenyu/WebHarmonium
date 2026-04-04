@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import StructuredData from '@/components/seo/StructuredData';
 import PageHeader from '@/components/PageHeader';
-import TutorialIntro from '@/components/TutorialIntro';
 import TutorialContent from '@/components/TutorialContent';
 
 export const metadata: Metadata = {
@@ -53,7 +52,6 @@ export default function TutorialPage() {
       <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
         <div className="max-w-4xl mx-auto p-8">
           <PageHeader titleKey="tutorial" />
-          <TutorialIntro />
           <TutorialContent />
         </div>
       </div>
