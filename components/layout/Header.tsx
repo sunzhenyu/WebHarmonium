@@ -60,7 +60,6 @@ export default function Header() {
 
           {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-4">
-            <LanguageSwitcher />
             {navLinks.map((link, index) => {
               if (link.dropdown) {
                 const active = isDropdownActive(link.dropdown);
@@ -133,6 +132,7 @@ export default function Header() {
                 </Link>
               );
             })}
+            <LanguageSwitcher />
           </div>
 
           {/* Mobile menu button */}

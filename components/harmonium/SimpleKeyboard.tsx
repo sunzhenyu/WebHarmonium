@@ -24,8 +24,8 @@ const simpleKeys = [
 ];
 
 const keyboardMap: Record<string, number> = {
-  'e': 4, 'r': 6, 't': 8, 'y': 9, 'u': 11, 'i': 13, 'o': 15,
-  '2': 5, '4': 7, '7': 10, '8': 12, '9': 14,
+  'e': 60, '2': 61, 'r': 62, '4': 63, 't': 64,
+  'y': 65, '7': 66, 'u': 67, '8': 68, 'i': 69, '9': 70, 'o': 71,
 };
 
 export default function SimpleKeyboard({ engine, pressedKeys }: SimpleKeyboardProps) {

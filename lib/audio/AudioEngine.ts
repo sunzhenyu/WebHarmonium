@@ -147,6 +147,10 @@ export class AudioEngine {
     }
 
     if (this.notes[i].state === 'idle') {
+      // Lazily build the slot on first press (slots start empty after init)
+      if (this.notes[i].sources.length === 0) {
+        this.notes[i] = this.buildNoteSlot(i);
+      }
       for (const src of this.notes[i].sources) {
         src.start(0);
       }
