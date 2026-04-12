@@ -86,7 +86,7 @@ export const blogPosts: BlogPost[] = [
       hi: 'व्यायाम, स्केल और अभ्यास दिनचर्या के साथ हारमोनियम पर सरगम (सा रे ग म प ध नि) में महारत हासिल करें। भारतीय शास्त्रीय और भक्ति संगीत के लिए एकदम सही।',
     },
     date: '2026-03-30',
-    keywords: ['sargam practice', 'sargam on harmonium', 'Sa Re Ga Ma harmonium', 'Indian solfege', 'sargam exercises', 'harmonium scales'],
+    keywords: ['sargam practice', 'learn sargam', 'sargam on harmonium', 'sargam for practice', 'Sa Re Ga Ma harmonium', 'Indian solfege', 'sargam exercises', 'harmonium scales', 'sargam practice notes', 'how to practice sargam', 'sargam alankars', 'aroha avaroha practice'],
     readTime: 9,
     category: 'Learning',
   },

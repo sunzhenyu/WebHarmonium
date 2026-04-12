@@ -198,6 +198,41 @@ export default function Home() {
           </div>
         </div>
 
+        {/* Sargam Practice Section */}
+        <div className="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-lg shadow-lg p-8 mb-8 border border-orange-100">
+          <h2 className="text-3xl font-bold mb-2 text-gray-900">{t.home.sargamPracticeTitle}</h2>
+          <p className="text-lg text-gray-700 mb-4">{t.home.sargamPracticeSubtitle}</p>
+          <p className="text-gray-600 mb-6">{t.home.sargamPracticeDesc}</p>
+
+          <div className="grid md:grid-cols-2 gap-4 mb-6">
+            <div className="bg-white rounded-lg p-5 shadow-sm border border-orange-100">
+              <h3 className="font-semibold text-gray-900 mb-2">{t.home.sargamExercise1}</h3>
+              <p className="text-sm text-gray-600">{t.home.sargamExercise1Desc}</p>
+            </div>
+
+            <div className="bg-white rounded-lg p-5 shadow-sm border border-orange-100">
+              <h3 className="font-semibold text-gray-900 mb-2">{t.home.sargamExercise2}</h3>
+              <p className="text-sm text-gray-600">{t.home.sargamExercise2Desc}</p>
+            </div>
+
+            <div className="bg-white rounded-lg p-5 shadow-sm border border-orange-100">
+              <h3 className="font-semibold text-gray-900 mb-2">{t.home.sargamExercise3}</h3>
+              <p className="text-sm text-gray-600">{t.home.sargamExercise3Desc}</p>
+            </div>
+
+            <div className="bg-white rounded-lg p-5 shadow-sm border border-orange-100">
+              <h3 className="font-semibold text-gray-900 mb-2">{t.home.sargamExercise4}</h3>
+              <p className="text-sm text-gray-600">{t.home.sargamExercise4Desc}</p>
+            </div>
+          </div>
+
+          <div className="text-center">
+            <Link href="/blog/how-to-practice-sargam" title="Complete Sargam Practice Guide" className="inline-block px-6 py-3 bg-orange-600 text-white rounded-lg font-semibold hover:bg-orange-700 transition-colors shadow-md">
+              {t.home.learnSargamCTA}
+            </Link>
+          </div>
+        </div>
+
         {/* Featured Blog Posts */}
         <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
           <h2 className="text-2xl font-semibold mb-2">{t.home.fromTheBlog}</h2>

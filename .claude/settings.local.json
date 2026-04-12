@@ -18,7 +18,8 @@
       "Bash(rsvg-convert -w 240 -h 240 /Users/sunhaoyu/haoyu/CodeX/webharmonium/public/logo-240.svg -o /Users/sunhaoyu/haoyu/CodeX/webharmonium/public/logo-240.png)",
       "Bash(convert -background none /Users/sunhaoyu/haoyu/CodeX/webharmonium/public/logo-240.svg /Users/sunhaoyu/haoyu/CodeX/webharmonium/public/logo-240.png)",
       "Bash(magick -background none /Users/sunhaoyu/haoyu/CodeX/webharmonium/public/logo-240.svg /Users/sunhaoyu/haoyu/CodeX/webharmonium/public/logo-240.png)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "WebFetch(domain:web-harmonium.com)"
     ]
   }
 }
