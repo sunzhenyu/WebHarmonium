@@ -21,7 +21,8 @@
       "Bash(node:*)",
       "WebFetch(domain:web-harmonium.com)",
       "WebSearch",
-      "Bash(git config:*)"
+      "Bash(git config:*)",
+      "Bash(grep -r \"className.*\\\\${\" app/ components/ --include=\"*.tsx\" --include=\"*.ts\")"
     ]
   }
 }
