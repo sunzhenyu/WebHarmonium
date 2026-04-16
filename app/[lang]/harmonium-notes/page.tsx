@@ -47,7 +47,7 @@ export default function HarmoniumNotesPage() {
     <div className="bg-zinc-900 min-h-screen">
       {/* Hero */}
       <div className="bg-zinc-900 text-white py-10">
-        <div className="max-w-4xl mx-auto px-4 text-center">
+        <div className="max-w-5xl mx-auto px-4 text-center">
           <h1 className="text-4xl font-bold mb-3">Harmonium Notes &amp; Sargam Guide</h1>
           <p className="text-zinc-400 text-lg mb-6">Complete reference for all harmonium notes, sargam notation, and keyboard mapping</p>
           <Link href="/harmonium" className="inline-block bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
@@ -56,7 +56,7 @@ export default function HarmoniumNotesPage() {
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 py-8 space-y-8">
+      <div className="max-w-5xl mx-auto px-4 py-8 space-y-8">
 
         {/* All 12 Notes */}
         <section className="bg-white rounded-xl shadow-sm border border-stone-200 p-8">

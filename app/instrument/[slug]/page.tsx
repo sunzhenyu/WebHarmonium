@@ -71,7 +71,7 @@ export default async function InstrumentPSEOPage({ params }: PageProps) {
   return (
     <div className="min-h-screen bg-zinc-900 py-12">
       <StructuredData type="Article" data={structuredData} />
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Breadcrumb */}
         <nav className="flex text-sm text-gray-500 mb-8" aria-label="Breadcrumb">

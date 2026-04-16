@@ -27,7 +27,8 @@
       "Bash(curl -s \"https://web-harmonium.net\")",
       "Bash(curl -s \"https://web-harmonium.net/_next/static/chunks/0e_u-g5-kgp0l.css\")",
       "Read(//tmp/**)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(grep -n \"max-w-\" app/[lang]/page.tsx)"
     ]
   }
 }

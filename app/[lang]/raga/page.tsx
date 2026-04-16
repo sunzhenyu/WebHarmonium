@@ -19,7 +19,7 @@ const difficultyColor: Record<string, string> = {
 export default function RagaIndexPage() {
   return (
     <div className="min-h-screen bg-zinc-900 py-8">
-      <div className="max-w-4xl mx-auto px-4">
+      <div className="max-w-5xl mx-auto px-4">
         <RagaHeader />
         <RagaIndexContent ragas={ragas} difficultyColor={difficultyColor} />
       </div>
