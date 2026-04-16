@@ -105,15 +105,15 @@ export default function HarmoniumApp() {
   const rootNote = engine?.getTransposeNoteName() || 'D';
 
   return (
-    <div className="py-6 px-4">
+    <div className="py-6 px-4 bg-zinc-900 min-h-screen">
       <div className="max-w-5xl mx-auto">
-        <h1 className="text-3xl font-bold text-center mb-6 text-gray-900">Web Harmonium</h1>
+        <h1 className="text-3xl font-bold text-center mb-6 text-white">Web Harmonium</h1>
 
-        <div className="bg-white rounded-xl shadow-2xl p-6 border border-gray-200">
+        <div className="bg-zinc-900 rounded-xl p-6">
           {isLoading && (
             <div className="text-center py-8">
-              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-              <p className="mt-4 text-gray-600">Loading harmonium...</p>
+              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500"></div>
+              <p className="mt-4 text-zinc-400">Loading harmonium...</p>
             </div>
           )}
 
@@ -136,15 +136,15 @@ export default function HarmoniumApp() {
                 />
               </div>
 
-              <div className="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
-                <h3 className="font-semibold mb-2 text-gray-900">{t.ui.keyboardControls}</h3>
-                <p className="text-sm text-gray-700">
-                  {t.ui.whiteKeys} <code className="bg-gray-200 px-1 rounded text-gray-900">` q w e r t y u i o p [ ] \</code>
+              <div className="mt-6 p-4 bg-zinc-800 rounded-lg border border-zinc-700">
+                <h3 className="font-semibold mb-2 text-zinc-200">{t.ui.keyboardControls}</h3>
+                <p className="text-sm text-zinc-400">
+                  {t.ui.whiteKeys} <code className="bg-zinc-700 text-zinc-200 px-1 rounded">` q w e r t y u i o p [ ] \</code>
                 </p>
-                <p className="text-sm text-gray-700 mt-1">
-                  {t.ui.blackKeys} <code className="bg-gray-200 px-1 rounded text-gray-900">1 2 4 5 7 8 9 - =</code>
+                <p className="text-sm text-zinc-400 mt-1">
+                  {t.ui.blackKeys} <code className="bg-zinc-700 text-zinc-200 px-1 rounded">1 2 4 5 7 8 9 - =</code>
                 </p>
-                <p className="text-sm text-gray-700 mt-2">
+                <p className="text-sm text-zinc-400 mt-2">
                   <strong>{t.ui.shortcuts}</strong> {t.ui.shortcutsDesc}
                 </p>
               </div>

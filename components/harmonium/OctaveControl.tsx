@@ -9,38 +9,17 @@ interface OctaveControlProps {
 
 export default function OctaveControl({ octave, onChange }: OctaveControlProps) {
   const { t } = useLanguage();
-
-  const handleIncrement = () => {
-    if (octave < OCTAVE_RANGE.MAX) {
-      onChange(octave + 1);
-    }
-  };
-
-  const handleDecrement = () => {
-    if (octave > OCTAVE_RANGE.MIN) {
-      onChange(octave - 1);
-    }
-  };
-
   return (
-    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 text-center min-w-[140px]">
-      <h3 className="font-semibold mb-3 text-gray-900">{t.controls.octave}</h3>
+    <div className="bg-zinc-800 border border-zinc-700 rounded-lg p-4 text-center min-w-[140px]">
+      <h3 className="font-semibold mb-3 text-zinc-200">{t.controls.octave}</h3>
       <div className="flex items-center justify-center gap-3">
-        <button
-          onClick={handleDecrement}
+        <button onClick={() => onChange(Math.max(OCTAVE_RANGE.MIN, octave - 1))}
           disabled={octave <= OCTAVE_RANGE.MIN}
-          className="w-8 h-8 rounded bg-green-600 hover:bg-green-700 disabled:opacity-40 font-bold text-white"
-        >
-          -
-        </button>
-        <span className="w-8 text-center font-semibold text-lg text-gray-900">{octave}</span>
-        <button
-          onClick={handleIncrement}
+          className="w-8 h-8 rounded bg-teal-500 hover:bg-teal-600 disabled:opacity-30 font-bold text-white">-</button>
+        <span className="w-8 text-center font-bold text-xl text-white">{octave}</span>
+        <button onClick={() => onChange(Math.min(OCTAVE_RANGE.MAX, octave + 1))}
           disabled={octave >= OCTAVE_RANGE.MAX}
-          className="w-8 h-8 rounded bg-green-600 hover:bg-green-700 disabled:opacity-40 font-bold text-white"
-        >
-          +
-        </button>
+          className="w-8 h-8 rounded bg-teal-500 hover:bg-teal-600 disabled:opacity-30 font-bold text-white">+</button>
       </div>
     </div>
   );

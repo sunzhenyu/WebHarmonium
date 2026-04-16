@@ -61,7 +61,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const otherPosts = blogPosts.filter(p => p.slug !== slug).slice(0, 3);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white py-8">
+    <div className="min-h-screen bg-stone-50 py-8">
       <div className="max-w-3xl mx-auto px-4">
         <div className="mb-6">
           <Link href="/blog" className="text-blue-600 hover:underline text-sm">← Back to Blog</Link>
@@ -76,10 +76,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           <PostContent />
         </article>
 
-        <div className="bg-blue-600 text-white rounded-xl p-6 mb-8 text-center">
+        <div className="bg-zinc-900 text-white rounded-xl p-6 mb-8 text-center">
           <h3 className="text-xl font-bold mb-2">Practice What You Learn</h3>
           <p className="mb-4 text-blue-100">Open the free online harmonium and try it right now</p>
-          <Link href="/harmonium" className="inline-block px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors">
+          <Link href="/harmonium" className="inline-block px-6 py-3 bg-orange-500 text-white font-semibold rounded-lg hover:bg-orange-600 transition-colors">
             Open Harmonium →
           </Link>
         </div>
@@ -92,7 +92,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 <Link key={p.slug} href={`/blog/${p.slug}`} title={p.title.en}>
                   <div className="bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow border border-gray-100">
                     <div className="text-sm text-gray-400 mb-1">{p.readTime} min read</div>
-                    <div className="font-semibold text-gray-900 hover:text-blue-600">{p.title.en}</div>
+                    <div className="font-semibold text-gray-900 hover:text-orange-600">{p.title.en}</div>
                   </div>
                 </Link>
               ))}

@@ -10,41 +10,20 @@ interface TransposeControlProps {
 
 export default function TransposeControl({ transpose, rootNote, onChange }: TransposeControlProps) {
   const { t } = useLanguage();
-
-  const handleIncrement = () => {
-    if (transpose < TRANSPOSE_RANGE.MAX) {
-      onChange(transpose + 1);
-    }
-  };
-
-  const handleDecrement = () => {
-    if (transpose > TRANSPOSE_RANGE.MIN) {
-      onChange(transpose - 1);
-    }
-  };
-
   return (
-    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 text-center min-w-[140px]">
-      <h3 className="font-semibold mb-3 text-gray-900">{t.controls.transpose}</h3>
+    <div className="bg-zinc-800 border border-zinc-700 rounded-lg p-4 text-center min-w-[140px]">
+      <h3 className="font-semibold mb-3 text-zinc-200">{t.controls.transpose}</h3>
       <div className="flex items-center justify-center gap-3">
-        <button
-          onClick={handleDecrement}
+        <button onClick={() => onChange(Math.max(TRANSPOSE_RANGE.MIN, transpose - 1))}
           disabled={transpose <= TRANSPOSE_RANGE.MIN}
-          className="w-8 h-8 rounded bg-blue-600 hover:bg-blue-700 disabled:opacity-40 font-bold text-white"
-        >
-          -
-        </button>
+          className="w-8 h-8 rounded bg-orange-500 hover:bg-orange-600 disabled:opacity-30 font-bold text-white">-</button>
         <div className="text-center min-w-[48px]">
-          <div className="text-xl font-bold text-gray-900">{transpose}</div>
-          <div className="text-xs text-gray-600">{rootNote}</div>
+          <div className="text-xl font-bold text-white">{transpose}</div>
+          <div className="text-xs text-zinc-400">{rootNote}</div>
         </div>
-        <button
-          onClick={handleIncrement}
+        <button onClick={() => onChange(Math.min(TRANSPOSE_RANGE.MAX, transpose + 1))}
           disabled={transpose >= TRANSPOSE_RANGE.MAX}
-          className="w-8 h-8 rounded bg-blue-600 hover:bg-blue-700 disabled:opacity-40 font-bold text-white"
-        >
-          +
-        </button>
+          className="w-8 h-8 rounded bg-orange-500 hover:bg-orange-600 disabled:opacity-30 font-bold text-white">+</button>
       </div>
     </div>
   );

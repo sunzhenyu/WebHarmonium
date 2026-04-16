@@ -49,7 +49,7 @@ export default function TutorialPage() {
           steps: howToSteps,
         }}
       />
-      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+      <div className="min-h-screen bg-stone-50">
         <div className="max-w-4xl mx-auto p-8">
           <PageHeader titleKey="tutorial" />
           <TutorialContent />

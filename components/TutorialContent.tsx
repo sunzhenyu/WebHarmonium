@@ -9,10 +9,10 @@ export default function TutorialContent() {
   return (
     <>
       {/* Top Banner */}
-      <div className="bg-blue-50 border-l-4 border-blue-600 p-4 mb-8">
+      <div className="bg-amber-50 border-l-4 border-orange-500 p-4 mb-8">
         <p className="text-gray-700">
           <strong>{t.tutorialPage.newToHarmonium}</strong> {t.tutorialPage.guideDescription}
-          <Link href="/harmonium" className="text-blue-600 hover:underline ml-1">
+          <Link href="/harmonium" className="text-orange-600 hover:underline ml-1">
             {t.tutorialPage.openHarmonium}
           </Link>
         </p>
@@ -62,7 +62,7 @@ export default function TutorialContent() {
             <h3 className="text-xl font-semibold mb-2 text-gray-800">{t.tutorialPage.transposeControlTitle}</h3>
             <p className="text-gray-700 mb-2">{t.tutorialPage.transposeControlDesc1}</p>
             <p className="text-gray-700 mb-2">{t.tutorialPage.transposeControlDesc2}</p>
-            <div className="bg-blue-50 p-3 rounded mt-2">
+            <div className="bg-amber-50 p-3 rounded mt-2">
               <p className="text-sm text-gray-700">
                 <strong>{t.tutorialPage.transposeExample.split(':')[0]}:</strong> {t.tutorialPage.transposeExample.split(':')[1]}
               </p>
@@ -167,37 +167,37 @@ export default function TutorialContent() {
 
         <h3 className="text-xl font-semibold mb-3 mt-6 text-gray-800">{t.tutorialPage.commonRagasTitle}</h3>
         <div className="space-y-4">
-          <div className="bg-blue-50 p-4 rounded">
+          <div className="bg-amber-50 p-4 rounded">
             <h4 className="font-semibold mb-2">{t.tutorialPage.ragaBhupaliTitle}</h4>
             <p className="text-gray-700 mb-2">{t.tutorialPage.ragaBhupaliDesc}</p>
             <p className="text-sm text-gray-600">{t.tutorialPage.ragaBhupaliNotes}</p>
           </div>
 
-          <div className="bg-blue-50 p-4 rounded">
+          <div className="bg-amber-50 p-4 rounded">
             <h4 className="font-semibold mb-2">{t.tutorialPage.ragaYamanTitle}</h4>
             <p className="text-gray-700 mb-2">{t.tutorialPage.ragaYamanDesc}</p>
             <p className="text-sm text-gray-600">{t.tutorialPage.ragaYamanNotes}</p>
           </div>
 
-          <div className="bg-blue-50 p-4 rounded">
+          <div className="bg-amber-50 p-4 rounded">
             <h4 className="font-semibold mb-2">{t.tutorialPage.ragaBhairavTitle}</h4>
             <p className="text-gray-700 mb-2">{t.tutorialPage.ragaBhairavDesc}</p>
             <p className="text-sm text-gray-600">{t.tutorialPage.ragaBhairavNotes}</p>
           </div>
 
-          <div className="bg-blue-50 p-4 rounded">
+          <div className="bg-amber-50 p-4 rounded">
             <h4 className="font-semibold mb-2">{t.tutorialPage.ragaKafiTitle}</h4>
             <p className="text-gray-700 mb-2">{t.tutorialPage.ragaKafiDesc}</p>
             <p className="text-sm text-gray-600">{t.tutorialPage.ragaKafiNotes}</p>
           </div>
 
-          <div className="bg-blue-50 p-4 rounded">
+          <div className="bg-amber-50 p-4 rounded">
             <h4 className="font-semibold mb-2">{t.tutorialPage.ragaDurgaTitle}</h4>
             <p className="text-gray-700 mb-2">{t.tutorialPage.ragaDurgaDesc}</p>
             <p className="text-sm text-gray-600">{t.tutorialPage.ragaDurgaNotes}</p>
           </div>
 
-          <div className="bg-blue-50 p-4 rounded">
+          <div className="bg-amber-50 p-4 rounded">
             <h4 className="font-semibold mb-2">{t.tutorialPage.ragaBilawalTitle}</h4>
             <p className="text-gray-700 mb-2">{t.tutorialPage.ragaBilawalDesc}</p>
             <p className="text-sm text-gray-600">{t.tutorialPage.ragaBilawalNotes}</p>
@@ -299,12 +299,12 @@ export default function TutorialContent() {
       </section>
 
       {/* CTA */}
-      <div className="bg-blue-600 text-white rounded-lg p-8 text-center">
+      <div className="bg-zinc-900 text-white rounded-lg p-8 text-center">
         <h2 className="text-2xl font-bold mb-4">{t.tutorialPage.ctaTitle}</h2>
         <p className="mb-6">{t.tutorialPage.ctaDesc}</p>
         <Link
           href="/harmonium"
-          className="inline-block px-8 py-4 bg-white text-blue-600 text-lg font-semibold rounded-lg hover:bg-gray-100 transition-colors"
+          className="inline-block px-8 py-4 bg-orange-500 text-white text-lg font-semibold rounded-lg hover:bg-orange-600 transition-colors"
         >
           {t.tutorialPage.ctaButton}
         </Link>

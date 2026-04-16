@@ -8,19 +8,15 @@ interface ReverbControlProps {
 
 export default function ReverbControl({ enabled, onChange }: ReverbControlProps) {
   const { t } = useLanguage();
-
   return (
-    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 text-center min-w-[140px]">
-      <h3 className="font-semibold mb-3 text-gray-900">{t.controls.reverb}</h3>
-      <label className="flex items-center justify-center gap-2 cursor-pointer">
-        <input
-          type="checkbox"
-          checked={enabled}
-          onChange={(e) => onChange(e.target.checked)}
-          className="w-4 h-4 cursor-pointer accent-blue-600"
-        />
-        <span className="text-sm text-gray-700">{enabled ? t.controls.on : t.controls.off}</span>
-      </label>
+    <div className="bg-zinc-800 border border-zinc-700 rounded-lg p-4 text-center min-w-[140px]">
+      <h3 className="font-semibold mb-3 text-zinc-200">{t.controls.reverb}</h3>
+      <button onClick={() => onChange(!enabled)}
+        className={`w-full py-1.5 px-3 rounded-lg text-sm font-semibold transition-colors ${
+          enabled ? 'bg-teal-500 text-white' : 'bg-zinc-700 text-zinc-300 hover:bg-zinc-600'
+        }`}>
+        {enabled ? t.controls.on : t.controls.off}
+      </button>
     </div>
   );
 }
