@@ -61,7 +61,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const otherPosts = blogPosts.filter(p => p.slug !== slug).slice(0, 3);
 
   return (
-    <div className="min-h-screen bg-stone-100 py-8">
+    <div className="min-h-screen bg-zinc-900 py-8">
       <div className="max-w-3xl mx-auto px-4">
         <div className="mb-6">
           <Link href="/blog" className="text-blue-600 hover:underline text-sm">← Back to Blog</Link>

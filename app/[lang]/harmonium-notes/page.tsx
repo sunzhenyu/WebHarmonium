@@ -44,7 +44,7 @@ const bhajans = [
 
 export default function HarmoniumNotesPage() {
   return (
-    <div className="bg-stone-100 min-h-screen">
+    <div className="bg-zinc-900 min-h-screen">
       {/* Hero */}
       <div className="bg-zinc-900 text-white py-10">
         <div className="max-w-4xl mx-auto px-4 text-center">
@@ -75,11 +75,11 @@ export default function HarmoniumNotesPage() {
               </thead>
               <tbody>
                 {notes.map((n, i) => (
-                  <tr key={i} className={`border-b border-stone-100 ${n.type === 'natural' ? '' : 'bg-stone-100'}`}>
+                  <tr key={i} className={`border-b border-stone-100 ${n.type === 'natural' ? '' : 'bg-zinc-900'}`}>
                     <td className="py-3 pr-4 font-semibold text-stone-900">{n.sargam}</td>
                     <td className="py-3 pr-4 text-stone-600">{n.western}</td>
                     <td className="py-3 pr-4">
-                      <code className={`px-2 py-0.5 rounded text-xs font-mono font-bold ${n.type === 'natural' ? 'bg-stone-100 text-stone-800' : 'bg-zinc-800 text-zinc-200'}`}>
+                      <code className={`px-2 py-0.5 rounded text-xs font-mono font-bold ${n.type === 'natural' ? 'bg-zinc-900 text-stone-800' : 'bg-zinc-800 text-zinc-200'}`}>
                         {n.key}
                       </code>
                     </td>
@@ -135,7 +135,7 @@ export default function HarmoniumNotesPage() {
                     <p className="text-xs text-stone-400">{t.western}</p>
                   </div>
                   <div className="text-xs text-stone-500 text-right">
-                    <span className="bg-stone-100 px-2 py-0.5 rounded">{t.ragas}</span>
+                    <span className="bg-zinc-900 px-2 py-0.5 rounded">{t.ragas}</span>
                   </div>
                 </div>
               </div>
