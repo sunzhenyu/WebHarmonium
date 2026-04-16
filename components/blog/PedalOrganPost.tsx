@@ -57,7 +57,7 @@ export default function PedalOrganPost() {
 
       <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 mt-8">
         <h3 className="text-xl font-bold mt-0 mb-2 text-gray-800">Can't Find an Antique? Try Digital!</h3>
-        <p className="mb-0">While finding a working harmonium pedal organ today is a challenge, you can easily play its modern descendant right now. <a href="/harmonium" className="text-blue-600 font-bold hover:underline">Experience our Virtual Harmonium Online</a> for free!</p>
+        <p className="mb-0">While finding a working harmonium pedal organ today is a challenge, you can easily play its modern descendant right now. <a href="/harmonium" className="text-orange-600 font-bold hover:underline">Experience our Virtual Harmonium Online</a> for free!</p>
       </div>
     </div>
   );

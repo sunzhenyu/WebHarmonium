@@ -15,9 +15,9 @@ export default function RagaDetailContent({ raga, otherRagas, difficultyColor }:
   return (
     <>
       <div className="mb-6 flex items-center gap-3">
-        <Link href="/raga" className="text-blue-600 hover:underline text-sm">{t.raga.allRagas}</Link>
+        <Link href="/raga" className="text-orange-600 hover:underline text-sm">{t.raga.allRagas}</Link>
         <span className="text-gray-300">|</span>
-        <Link href="/harmonium" className="text-blue-600 hover:underline text-sm">{t.raga.openHarmonium}</Link>
+        <Link href="/harmonium" className="text-orange-600 hover:underline text-sm">{t.raga.openHarmonium}</Link>
       </div>
 
       <article className="bg-white rounded-xl shadow-lg p-8 mb-8">
@@ -27,7 +27,7 @@ export default function RagaDetailContent({ raga, otherRagas, difficultyColor }:
             {raga.difficulty}
           </span>
         </div>
-        {raga.altName && <p className="text-blue-600 font-medium mb-4">{raga.altName}</p>}
+        {raga.altName && <p className="text-orange-600 font-medium mb-4">{raga.altName}</p>}
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-gray-50 rounded-lg p-4 mb-6">
           <div className="text-center">
@@ -52,10 +52,10 @@ export default function RagaDetailContent({ raga, otherRagas, difficultyColor }:
 
         <h2 className="text-2xl font-bold text-gray-900 mb-4">Scale (Swar)</h2>
         <div className="grid md:grid-cols-2 gap-4 mb-8">
-          <div className="bg-blue-50 rounded-lg p-4">
+          <div className="bg-amber-50 rounded-lg p-4">
             <h3 className="font-semibold text-gray-800 mb-2">{t.raga.aroha}</h3>
             <p className="text-gray-700 font-medium mb-2">{raga.aroha}</p>
-            <code className="bg-white px-3 py-1 rounded border border-blue-200 text-sm text-gray-800 block">{raga.arohaKeys}</code>
+            <code className="bg-white px-3 py-1 rounded border border-amber-200 text-sm text-gray-800 block">{raga.arohaKeys}</code>
           </div>
           <div className="bg-green-50 rounded-lg p-4">
             <h3 className="font-semibold text-gray-800 mb-2">{t.raga.avaroha}</h3>
@@ -80,7 +80,7 @@ export default function RagaDetailContent({ raga, otherRagas, difficultyColor }:
         <div className="space-y-3 mb-8">
           {raga.famousSongs.map((song: any, i: number) => (
             <div key={i} className="flex items-center gap-3 bg-gray-50 rounded-lg p-3">
-              <span className="text-blue-600 font-bold text-lg">♪</span>
+              <span className="text-orange-500 font-bold text-lg">♪</span>
               <div>
                 <div className="font-medium text-gray-900">{song.title}</div>
                 <div className="text-sm text-gray-500">{song.artist}</div>
@@ -89,10 +89,10 @@ export default function RagaDetailContent({ raga, otherRagas, difficultyColor }:
           ))}
         </div>
 
-        <div className="bg-blue-600 text-white rounded-xl p-6 text-center">
+        <div className="bg-zinc-900 text-white rounded-xl p-6 text-center">
           <h3 className="text-xl font-bold mb-2">Practice {raga.name} Now</h3>
-          <p className="mb-4 text-blue-100">Open the free harmonium and try the scale and pakad</p>
-          <Link href="/harmonium" className="inline-block px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors">
+          <p className="mb-4 text-zinc-300">Open the free harmonium and try the scale and pakad</p>
+          <Link href="/harmonium" className="inline-block px-6 py-3 bg-orange-500 text-white font-semibold rounded-lg hover:bg-orange-600 transition-colors">
             {t.raga.openHarmonium}
           </Link>
         </div>

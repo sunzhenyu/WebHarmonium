@@ -13,7 +13,7 @@ export default function ContactContent() {
       <p className="mb-4">{t.contact.forInquiries}</p>
       <p className="mb-4">
         <strong>{t.contact.email}</strong>{' '}
-        <a href="mailto:kuyadan136@gmail.com" className="text-blue-600 hover:underline">
+        <a href="mailto:kuyadan136@gmail.com" className="text-orange-600 hover:underline">
           kuyadan136@gmail.com
         </a>
       </p>

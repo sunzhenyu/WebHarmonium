@@ -23,7 +23,7 @@ export default function RagaIndexContent({ ragas, difficultyColor }: RagaIndexCo
 
   return (
     <>
-      <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-8 rounded">
+      <div className="bg-amber-50 border-l-4 border-orange-500 p-4 mb-8 rounded">
         <p className="text-gray-700 text-sm">
           <strong>{t.raga.whatIsRaga}</strong> {t.raga.whatIsRagaDesc}
         </p>
@@ -39,22 +39,22 @@ export default function RagaIndexContent({ ragas, difficultyColor }: RagaIndexCo
                   {raga.difficulty}
                 </span>
               </div>
-              {raga.altName && <p className="text-sm text-blue-600 mb-2">{raga.altName}</p>}
+              {raga.altName && <p className="text-sm text-orange-600 mb-2">{raga.altName}</p>}
               <div className="text-sm text-gray-500 mb-3 space-y-1">
                 <div>⏰ {raga.time}</div>
                 <div>🎭 {raga.mood}</div>
               </div>
               <p className="text-gray-600 text-sm line-clamp-2">{raga.description}</p>
-              <div className="mt-4 text-blue-600 font-medium text-sm">{t.raga.learnThisRaga}</div>
+              <div className="mt-4 text-orange-600 font-medium text-sm">{t.raga.learnThisRaga}</div>
             </div>
           </Link>
         ))}
       </div>
 
-      <div className="mt-10 bg-blue-600 text-white rounded-xl p-6 text-center">
+      <div className="mt-10 bg-zinc-900 text-white rounded-xl p-6 text-center">
         <h3 className="text-xl font-bold mb-2">{t.raga.practiceRagasNow}</h3>
-        <p className="mb-4 text-blue-100">{t.raga.practiceRagasDesc}</p>
-        <Link href="/harmonium" className="inline-block px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors">
+        <p className="mb-4 text-zinc-300">{t.raga.practiceRagasDesc}</p>
+        <Link href="/harmonium" className="inline-block px-6 py-3 bg-orange-500 text-white font-semibold rounded-lg hover:bg-orange-600 transition-colors">
           {t.raga.openHarmonium}
         </Link>
       </div>

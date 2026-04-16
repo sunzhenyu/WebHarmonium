@@ -22,7 +22,7 @@ export default function LoadButton({ isLoading, isLoaded, onLoad }: LoadButtonPr
       <button
         onClick={onLoad}
         disabled={isLoading}
-        className="px-8 py-4 bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:text-gray-200 disabled:cursor-not-allowed transition-colors"
+        className="px-8 py-4 bg-orange-500 text-white text-lg font-semibold rounded-lg hover:bg-orange-600 disabled:bg-gray-400 disabled:text-gray-200 disabled:cursor-not-allowed transition-colors"
       >
         {isLoading ? 'Loading...' : 'Load Module'}
       </button>

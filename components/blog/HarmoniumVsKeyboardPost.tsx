@@ -23,7 +23,7 @@ export default function HarmoniumVsKeyboardPost() {
 
       <h2>3. Musical Focus</h2>
       <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 mb-6">
-        <h3 className="text-xl font-bold mt-0 mb-2 text-blue-800">Learn Harmonium if you want to:</h3>
+        <h3 className="text-xl font-bold mt-0 mb-2 text-orange-700">Learn Harmonium if you want to:</h3>
         <ul>
           <li>Sing Indian classical music, ghazals, or bhajans (it is the ultimate accompaniment instrument).</li>
           <li>Focus deeply on melody, microtones (shrutis), and ragas.</li>

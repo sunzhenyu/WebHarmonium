@@ -21,7 +21,7 @@ export default function SargamPost() {
         <li><strong>Ni (Nishad):</strong> The seventh note (B).</li>
       </ul>
 
-      <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-8 rounded">
+      <div className="bg-amber-50 border-l-4 border-orange-500 p-4 mb-8 rounded">
         <h3 className="font-bold text-gray-900 mb-2">Finding Sa on Web Harmonium</h3>
         <p className="text-gray-700 text-sm">On your computer keyboard using Web Harmonium, the default C Major scale (Sa Re Ga Ma Pa Dha Ni Sa) maps to the keys: <code>e r t y u i o p</code>. This makes sargam practice easy and accessible for beginners learning sargam on harmonium.</p>
       </div>
@@ -78,7 +78,7 @@ export default function SargamPost() {
       <h2>Start Your Sargam Practice Now</h2>
       <p>You can begin practicing these sargam exercises immediately on <strong>Web Harmonium</strong>. It's completely free, requires no installation, and maps the keys perfectly to your computer keyboard. Start your sargam practice journey today and learn sargam on harmonium with our interactive tool.</p>
       <div className="mt-8">
-        <Link href="/harmonium" target="_blank" className="inline-block px-6 py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors">
+        <Link href="/harmonium" target="_blank" className="inline-block px-6 py-3 bg-orange-500 text-white font-bold rounded-lg hover:bg-orange-600 transition-colors">
           Open Web Harmonium for Sargam Practice →
         </Link>
       </div>

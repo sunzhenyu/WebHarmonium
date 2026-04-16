@@ -17,10 +17,10 @@ export default function FAQContent() {
         ))}
       </div>
 
-      <div className="mt-8 p-4 bg-blue-50 rounded-lg">
+      <div className="mt-8 p-4 bg-amber-50 rounded-lg">
         <h3 className="font-semibold mb-2">{t.faq.stillHaveQuestions}</h3>
         <p className="text-gray-700">
-          {t.faq.contactText} <Link href="/contact" className="text-blue-600 hover:underline">{t.faq.contactLink}</Link> {t.faq.contactSuffix}
+          {t.faq.contactText} <Link href="/contact" className="text-orange-600 hover:underline">{t.faq.contactLink}</Link> {t.faq.contactSuffix}
         </p>
       </div>
     </>

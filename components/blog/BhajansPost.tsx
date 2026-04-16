@@ -9,7 +9,7 @@ export default function BhajansPost() {
         Bhajans (devotional songs) are the soul of Indian music. For many, learning harmonium is entirely about playing bhajans during pujas or spiritual gatherings. In this guide, we'll teach you how to play some of the most popular and timeless bhajans using simple keyboard notation.
       </p>
 
-      <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-8 rounded">
+      <div className="bg-amber-50 border-l-4 border-orange-500 p-4 mb-8 rounded">
         <h3 className="font-bold text-gray-900 mb-2">Before We Start: Understanding the Notation</h3>
         <p className="text-gray-700 text-sm mb-2">We use computer keyboard keys to represent notes. This makes it incredibly easy to follow along on Web Harmonium.</p>
         <ul className="text-sm text-gray-600 space-y-1 list-disc list-inside">
@@ -127,10 +127,10 @@ export default function BhajansPost() {
         </div>
       </div>
 
-      <div className="mt-8 p-6 bg-blue-600 text-white rounded-xl text-center">
+      <div className="mt-8 p-6 bg-orange-500 text-white rounded-xl text-center">
         <h3 className="text-xl font-bold mb-3">Ready to Play?</h3>
-        <p className="mb-5 text-blue-100">Open the Web Harmonium in another tab and try playing these bhajans using your computer keyboard.</p>
-        <Link href="/harmonium" target="_blank" className="inline-block px-6 py-3 bg-white text-blue-600 font-bold rounded-lg hover:bg-gray-100 transition-colors">
+        <p className="mb-5 text-zinc-300">Open the Web Harmonium in another tab and try playing these bhajans using your computer keyboard.</p>
+        <Link href="/harmonium" target="_blank" className="inline-block px-6 py-3 bg-white text-orange-600 font-bold rounded-lg hover:bg-gray-100 transition-colors">
           Open Harmonium →
         </Link>
       </div>

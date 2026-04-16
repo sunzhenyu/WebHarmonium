@@ -37,7 +37,7 @@ export default function BuyingGuidePost() {
       <h2>3. Top Recommendations for Beginners</h2>
 
       <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 mb-6">
-        <h3 className="text-xl font-bold mt-0 mb-2 text-blue-800">1. Paul & Co. (Kolkata)</h3>
+        <h3 className="text-xl font-bold mt-0 mb-2 text-orange-700">1. Paul & Co. (Kolkata)</h3>
         <p>Considered by many as the gold standard for Kolkata-style harmoniums. They are expensive and often have a waiting list, but the tone is unmatched. Best for serious students of Hindustani classical music.</p>
       </div>
 

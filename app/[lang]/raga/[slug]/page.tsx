@@ -48,7 +48,7 @@ export default async function RagaPage({ params }: { params: Promise<{ slug: str
           url: `https://web-harmonium.net/raga/${raga.slug}`,
         }}
       />
-      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white py-8">
+      <div className="min-h-screen bg-stone-50 py-8">
         <div className="max-w-3xl mx-auto px-4">
           <RagaDetailContent raga={raga} otherRagas={otherRagas} difficultyColor={difficultyColor} />
         </div>

@@ -92,7 +92,7 @@ export default function BestRagasPost() {
         Starting Indian classical music can feel overwhelming — there are hundreds of ragas, each with its own rules, mood, and time of day. But you don't need to learn them all. These 8 ragas are the best starting points for harmonium beginners, chosen for their simplicity, popularity, and musical richness.
       </p>
 
-      <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-8 rounded">
+      <div className="bg-amber-50 border-l-4 border-orange-500 p-4 mb-8 rounded">
         <p className="text-gray-700 font-medium">What is a Raga?</p>
         <p className="text-gray-600 text-sm mt-1">A raga is a melodic framework in Indian classical music — a specific set of notes with rules about how to use them. Each raga has a unique mood (rasa), time of day, and characteristic phrases. Think of it as a musical personality.</p>
       </div>
@@ -118,8 +118,8 @@ export default function BestRagasPost() {
 
             <p className="text-gray-700 mb-3">{raga.description}</p>
 
-            <div className="bg-white border border-blue-100 rounded p-3">
-              <span className="text-blue-600 font-semibold text-sm">Practice Tip: </span>
+            <div className="bg-white border border-amber-100 rounded p-3">
+              <span className="text-orange-600 font-semibold text-sm">Practice Tip: </span>
               <span className="text-gray-700 text-sm">{raga.tip}</span>
             </div>
           </div>
@@ -135,8 +135,8 @@ export default function BestRagasPost() {
         <li><strong>5. Listen to recordings</strong> — Search for each raga on YouTube and listen to how masters play it before practicing.</li>
       </ol>
 
-      <div className="mt-8 p-4 bg-blue-50 rounded-lg">
-        <p className="text-gray-700">Ready to practice? <Link href="/harmonium" className="text-blue-600 hover:underline font-medium">Open the free harmonium →</Link> and try these ragas right now. Check our <Link href="/tutorial" className="text-blue-600 hover:underline">tutorial page</Link> for more guidance.</p>
+      <div className="mt-8 p-4 bg-amber-50 rounded-lg">
+        <p className="text-gray-700">Ready to practice? <Link href="/harmonium" className="text-orange-600 hover:underline font-medium">Open the free harmonium →</Link> and try these ragas right now. Check our <Link href="/tutorial" className="text-orange-600 hover:underline">tutorial page</Link> for more guidance.</p>
       </div>
     </div>
   );
