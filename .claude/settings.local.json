@@ -19,7 +19,8 @@
       "Bash(convert -background none /Users/sunhaoyu/haoyu/CodeX/webharmonium/public/logo-240.svg /Users/sunhaoyu/haoyu/CodeX/webharmonium/public/logo-240.png)",
       "Bash(magick -background none /Users/sunhaoyu/haoyu/CodeX/webharmonium/public/logo-240.svg /Users/sunhaoyu/haoyu/CodeX/webharmonium/public/logo-240.png)",
       "Bash(node:*)",
-      "WebFetch(domain:web-harmonium.com)"
+      "WebFetch(domain:web-harmonium.com)",
+      "WebSearch"
     ]
   }
 }

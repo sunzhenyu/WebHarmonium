@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Web Harmonium Online for Daily Practice | Play Harmonium",
-  description: "Play harmonium online in your browser with keyboard shortcuts, Sargam labels, octave switching, transpose, and beginner-friendly guides. Perfect for daily practice.",
-  keywords: ["harmonium", "online instrument", "virtual keyboard", "web audio", "music"],
+  title: "Web Harmonium — Play Harmonium Online Free",
+  description: "Play harmonium online free in your browser. Virtual harmonium keyboard with Sargam labels, transpose, octave, reverb, and drone. No download needed.",
+  keywords: ["web harmonium", "harmonium online", "play harmonium online", "online harmonium", "virtual harmonium", "harmonium keyboard", "sargam practice", "harmonium notes"],
   metadataBase: new URL("https://web-harmonium.net"),
   alternates: {
     canonical: "/",

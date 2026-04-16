@@ -6,39 +6,13 @@ import { usePathname } from 'next/navigation';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
 
-const navLinks = [
-  { href: '/harmonium', label: 'play', title: 'Play Web Harmonium Online', highlight: true },
-  {
-    label: 'learn',
-    title: 'Learn Harmonium',
-    dropdown: [
-      { href: '/tutorial', label: 'tutorial', title: 'Harmonium Tutorial for Beginners' },
-      { href: '/raga', label: 'ragas', title: 'Indian Ragas Guide' },
-    ]
-  },
-  { href: '/blog', label: 'blog', title: 'Harmonium Blog & Tips', highlight: false },
-  {
-    label: 'more',
-    title: 'More',
-    dropdown: [
-      { href: '/faq', label: 'faq', title: 'Frequently Asked Questions' },
-      { href: '/about', label: 'about', title: 'About Web Harmonium' },
-      { href: '/contact', label: 'contact', title: 'Contact Us' },
-    ]
-  },
-];
-
 export default function Header() {
   const { t, language } = useLanguage();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const pathname = usePathname();
 
-  // Get localized href: Hindi gets /hi prefix, English has no prefix
   const getLocalizedHref = (href: string) => {
-    if (language === 'hi') {
-      return `/hi${href}`;
-    }
+    if (language === 'hi') return `/hi${href}`;
     return href;
   };
 
@@ -47,97 +21,51 @@ export default function Header() {
     return pathname === localizedPath || pathname.startsWith(`${localizedPath}/`);
   };
 
-  const isDropdownActive = (dropdown: any[]) =>
-    dropdown.some(item => isActive(item.href));
+  const navLinkClass = (href: string) =>
+    `px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+      isActive(href)
+        ? 'text-orange-400 bg-zinc-800'
+        : 'text-zinc-300 hover:text-white hover:bg-zinc-800'
+    }`;
 
   return (
-    <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
-      <div className="max-w-6xl mx-auto px-4 py-4">
+    <header className="bg-zinc-900 text-white sticky top-0 z-50 border-b border-zinc-800">
+      <div className="max-w-6xl mx-auto px-4 py-3">
         <nav className="flex items-center justify-between">
-          <Link href={getLocalizedHref('/')} title="Web Harmonium - Play Indian Harmonium Online" className="text-2xl font-bold text-gray-900 hover:text-blue-600 transition-colors">
-            Web Harmonium
+          <Link href={getLocalizedHref('/')} title="Web Harmonium - Play Indian Harmonium Online" className="group">
+            <div className="text-xl font-bold text-white group-hover:text-orange-400 transition-colors leading-tight">
+              Web Harmonium
+            </div>
+            <div className="text-xs text-zinc-500 hidden sm:block">Play Harmonium Online Free</div>
           </Link>
 
           {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-4">
-            {navLinks.map((link, index) => {
-              if (link.dropdown) {
-                const active = isDropdownActive(link.dropdown);
-                return (
-                  <div
-                    key={index}
-                    className="relative"
-                    onMouseEnter={() => setOpenDropdown(link.label)}
-                    onMouseLeave={() => setOpenDropdown(null)}
-                  >
-                    <button
-                      className={`transition-colors font-medium pb-1 ${
-                        active
-                          ? 'text-blue-600 border-b-2 border-blue-600'
-                          : 'text-gray-700 hover:text-blue-600'
-                      }`}
-                    >
-                      {t.nav[link.label as keyof typeof t.nav]}
-                    </button>
-                    {openDropdown === link.label && (
-                      <div className="absolute top-full left-0 pt-1">
-                        <div className="bg-white shadow-lg rounded-lg border border-gray-200 py-2 min-w-[160px]">
-                          {link.dropdown.map(item => (
-                            <Link
-                              key={item.href}
-                              href={getLocalizedHref(item.href)}
-                              title={item.title}
-                              className={`block px-4 py-2 text-sm transition-colors ${
-                                isActive(item.href)
-                                  ? 'bg-blue-50 text-blue-600 font-medium'
-                                  : 'text-gray-700 hover:bg-gray-50'
-                              }`}
-                            >
-                              {t.nav[item.label as keyof typeof t.nav]}
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                );
-              }
-
-              const active = link.href ? isActive(link.href) : false;
-              if (link.highlight) {
-                return (
-                  <Link
-                    key={index}
-                    href={getLocalizedHref(link.href)}
-                    title={link.title}
-                    className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors"
-                  >
-                    {t.nav[link.label as keyof typeof t.nav]}
-                  </Link>
-                );
-              }
-
-              return (
-                <Link
-                  key={index}
-                  href={getLocalizedHref(link.href!)}
-                  title={link.title}
-                  className={`transition-colors font-medium pb-1 ${
-                    active
-                      ? 'text-blue-600 border-b-2 border-blue-600'
-                      : 'text-gray-700 hover:text-blue-600'
-                  }`}
-                >
-                  {t.nav[link.label as keyof typeof t.nav]}
-                </Link>
-              );
-            })}
+          <div className="hidden md:flex items-center gap-1">
+            <Link
+              href={getLocalizedHref('/harmonium')}
+              title="Play Web Harmonium Online"
+              className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg font-semibold transition-colors text-sm"
+            >
+              {t.nav.play}
+            </Link>
+            <Link href={getLocalizedHref('/harmonium-notes')} title="Harmonium Notes & Sargam Guide" className={navLinkClass('/harmonium-notes')}>
+              Harmonium Notes
+            </Link>
+            <Link href={getLocalizedHref('/tutorial')} title="Harmonium Tutorial Guide" className={navLinkClass('/tutorial')}>
+              {t.nav.tutorial}
+            </Link>
+            <Link href={getLocalizedHref('/blog')} title="Harmonium Blog" className={navLinkClass('/blog')}>
+              {t.nav.blog}
+            </Link>
+            <Link href={getLocalizedHref('/faq')} title="FAQ" className={navLinkClass('/faq')}>
+              {t.nav.faq}
+            </Link>
             <LanguageSwitcher />
           </div>
 
           {/* Mobile menu button */}
           <button
-            className="md:hidden p-2"
+            className="md:hidden p-2 text-zinc-300 hover:text-white"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
           >
@@ -153,66 +81,25 @@ export default function Header() {
 
         {/* Mobile menu */}
         {menuOpen && (
-          <div className="md:hidden mt-4 pb-4 space-y-3">
-            <LanguageSwitcher />
-            {navLinks.map((link, index) => {
-              if (link.dropdown) {
-                return (
-                  <div key={index} className="space-y-2">
-                    <div className="font-medium text-gray-900">
-                      {t.nav[link.label as keyof typeof t.nav]}
-                    </div>
-                    <div className="pl-4 space-y-2">
-                      {link.dropdown.map(item => (
-                        <Link
-                          key={item.href}
-                          href={getLocalizedHref(item.href)}
-                          title={item.title}
-                          className={`block py-1 text-sm ${
-                            isActive(item.href)
-                              ? 'text-blue-600 font-medium'
-                              : 'text-gray-700'
-                          }`}
-                          onClick={() => setMenuOpen(false)}
-                        >
-                          {t.nav[item.label as keyof typeof t.nav]}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                );
-              }
-
-              if (link.highlight) {
-                return (
-                  <Link
-                    key={index}
-                    href={getLocalizedHref(link.href)}
-                    title={link.title}
-                    className="block bg-blue-600 text-white px-4 py-2 rounded-lg font-medium text-center"
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    {t.nav[link.label as keyof typeof t.nav]}
-                  </Link>
-                );
-              }
-
-              return (
-                <Link
-                  key={index}
-                  href={getLocalizedHref(link.href!)}
-                  title={link.title}
-                  className={`block py-1 ${
-                    isActive(link.href)
-                      ? 'text-blue-600 font-medium'
-                      : 'text-gray-700'
-                  }`}
-                  onClick={() => setMenuOpen(false)}
-                >
-                  {t.nav[link.label as keyof typeof t.nav]}
-                </Link>
-              );
-            })}
+          <div className="md:hidden mt-3 pb-3 border-t border-zinc-800 pt-3 space-y-1">
+            <Link href={getLocalizedHref('/harmonium')} className="block bg-orange-500 text-white px-4 py-2 rounded-lg font-semibold text-center" onClick={() => setMenuOpen(false)}>
+              {t.nav.play}
+            </Link>
+            <Link href={getLocalizedHref('/harmonium-notes')} className="block px-3 py-2 text-zinc-300 hover:text-white rounded-lg text-sm" onClick={() => setMenuOpen(false)}>
+              Harmonium Notes
+            </Link>
+            <Link href={getLocalizedHref('/tutorial')} className="block px-3 py-2 text-zinc-300 hover:text-white rounded-lg text-sm" onClick={() => setMenuOpen(false)}>
+              {t.nav.tutorial}
+            </Link>
+            <Link href={getLocalizedHref('/blog')} className="block px-3 py-2 text-zinc-300 hover:text-white rounded-lg text-sm" onClick={() => setMenuOpen(false)}>
+              {t.nav.blog}
+            </Link>
+            <Link href={getLocalizedHref('/faq')} className="block px-3 py-2 text-zinc-300 hover:text-white rounded-lg text-sm" onClick={() => setMenuOpen(false)}>
+              {t.nav.faq}
+            </Link>
+            <div className="px-3 py-2">
+              <LanguageSwitcher />
+            </div>
           </div>
         )}
       </div>

@@ -7,7 +7,6 @@ interface SimpleKeyboardProps {
   pressedKeys: Set<string>;
 }
 
-// 简化版键盘：只显示1个八度（12个按键）
 const simpleKeys = [
   { keyChar: 'e', note: 'C', sargam: 'Sa', isBlack: false },
   { keyChar: '2', note: 'C#', sargam: 'Re♭', isBlack: true },
@@ -34,17 +33,13 @@ export default function SimpleKeyboard({ engine, pressedKeys }: SimpleKeyboardPr
   const handleMouseDown = (keyChar: string) => {
     if (!engine) return;
     const note = keyboardMap[keyChar];
-    if (note !== undefined) {
-      engine.noteOn(note);
-    }
+    if (note !== undefined) engine.noteOn(note);
   };
 
   const handleMouseUp = (keyChar: string) => {
     if (!engine) return;
     const note = keyboardMap[keyChar];
-    if (note !== undefined) {
-      engine.noteOff(note);
-    }
+    if (note !== undefined) engine.noteOff(note);
   };
 
   const handleTouchStart = (e: React.TouchEvent, keyChar: string) => {
@@ -57,22 +52,21 @@ export default function SimpleKeyboard({ engine, pressedKeys }: SimpleKeyboardPr
     handleMouseUp(keyChar);
   };
 
-  const isKeyPressed = (keyChar: string) => {
-    return pressedKeys.has(keyChar) || pressedKeys.has(keyChar.toUpperCase());
-  };
+  const isKeyPressed = (keyChar: string) =>
+    pressedKeys.has(keyChar) || pressedKeys.has(keyChar.toUpperCase());
 
   return (
-    <div className="flex justify-center my-4">
+    <div className="flex justify-center my-2">
       <div className="relative w-full max-w-2xl">
         {/* 白键 */}
         <div className="flex gap-1">
           {simpleKeys.filter(k => !k.isBlack).map((key) => (
             <button
               key={key.keyChar}
-              className={`flex-1 h-32 sm:h-40 rounded-b-lg border-2 border-gray-300 shadow-md transition-all ${
+              className={`flex-1 h-32 sm:h-40 rounded-b-xl border transition-all shadow-md ${
                 isKeyPressed(key.keyChar)
-                  ? 'bg-gray-300 scale-95'
-                  : 'bg-white hover:bg-gray-50 active:bg-gray-200'
+                  ? 'bg-orange-200 border-orange-400 scale-95'
+                  : 'bg-stone-100 border-stone-300 hover:bg-stone-200 active:bg-orange-100'
               }`}
               onMouseDown={() => handleMouseDown(key.keyChar)}
               onMouseUp={() => handleMouseUp(key.keyChar)}
@@ -82,27 +76,26 @@ export default function SimpleKeyboard({ engine, pressedKeys }: SimpleKeyboardPr
               aria-label={`${key.sargam} (${key.note})`}
             >
               <div className="flex flex-col items-center justify-end h-full pb-3">
-                <span className="text-xs sm:text-sm text-gray-500 font-mono">{key.keyChar}</span>
-                <span className="text-sm sm:text-base font-semibold text-gray-700 mt-1">{t.sargam[key.note as keyof typeof t.sargam]}</span>
-                <span className="text-xs text-gray-400 mt-1">{key.note}</span>
+                <span className="text-xs sm:text-sm text-stone-400 font-mono">{key.keyChar}</span>
+                <span className="text-sm sm:text-base font-bold text-stone-800 mt-1">{t.sargam[key.note as keyof typeof t.sargam]}</span>
+                <span className="text-xs text-stone-400 mt-0.5">{key.note}</span>
               </div>
             </button>
           ))}
         </div>
 
-        {/* 黑键 - 绝对定位在白键上方 */}
+        {/* 黑键 */}
         <div className="absolute top-0 left-0 w-full h-20 sm:h-24 pointer-events-none">
           <div className="relative h-full">
             {simpleKeys.filter(k => k.isBlack).map((key, index) => {
-              // 计算黑键位置（在相邻白键之间）
-              const positions = [10, 24, 52, 66, 80]; // 百分比位置
+              const positions = [10, 24, 52, 66, 80];
               return (
                 <button
                   key={key.keyChar}
-                  className={`absolute h-full w-12 sm:w-16 rounded-b-lg border-2 border-gray-800 shadow-lg transition-all pointer-events-auto ${
+                  className={`absolute h-full w-12 sm:w-16 rounded-b-lg border transition-all pointer-events-auto shadow-lg ${
                     isKeyPressed(key.keyChar)
-                      ? 'bg-gray-600 scale-95'
-                      : 'bg-black hover:bg-gray-800 active:bg-gray-700'
+                      ? 'bg-zinc-600 border-zinc-500 scale-95'
+                      : 'bg-zinc-800 border-zinc-700 hover:bg-zinc-700 active:bg-zinc-600'
                   }`}
                   style={{ left: `${positions[index]}%`, transform: 'translateX(-50%)' }}
                   onMouseDown={() => handleMouseDown(key.keyChar)}
@@ -112,8 +105,8 @@ export default function SimpleKeyboard({ engine, pressedKeys }: SimpleKeyboardPr
                   onTouchEnd={(e) => handleTouchEnd(e, key.keyChar)}
                 >
                   <div className="flex flex-col items-center justify-end h-full pb-2">
-                    <span className="text-xs text-white font-mono">{key.keyChar}</span>
-                    <span className="text-xs text-gray-300 mt-1">{t.sargam[key.note as keyof typeof t.sargam]}</span>
+                    <span className="text-xs text-zinc-400 font-mono">{key.keyChar}</span>
+                    <span className="text-xs text-zinc-300 mt-0.5 font-medium">{t.sargam[key.note as keyof typeof t.sargam]}</span>
                   </div>
                 </button>
               );

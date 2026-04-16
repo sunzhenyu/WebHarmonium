@@ -32,11 +32,8 @@ export default function MobileHarmoniumApp() {
   const handleKeyStateChange = (key: string, isPressed: boolean) => {
     setPressedKeys(prev => {
       const newSet = new Set(prev);
-      if (isPressed) {
-        newSet.add(key);
-      } else {
-        newSet.delete(key);
-      }
+      if (isPressed) newSet.add(key);
+      else newSet.delete(key);
       return newSet;
     });
   };
@@ -51,71 +48,24 @@ export default function MobileHarmoniumApp() {
 
   useKeyboard(engine, isLoaded, handleKeyStateChange, handleTransposeShortcut, handleOctaveShortcut);
 
-  // Auto-load engine on mount
   useEffect(() => {
-    if (!isLoaded && !isLoading) {
-      loadEngine(octave, transpose);
-    }
+    if (!isLoaded && !isLoading) loadEngine(octave, transpose);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Track practice session duration on unmount
   useEffect(() => {
     return () => {
       const duration = Math.floor((Date.now() - startTimeRef.current) / 1000);
-      if (duration > 5) { // Only track if used for more than 5 seconds
-        trackPracticeSession(duration);
-      }
+      if (duration > 5) trackPracticeSession(duration);
     };
   }, []);
 
-  useEffect(() => {
-    if (engine) {
-      engine.setVolume(volume);
-      trackControlChange('volume', volume);
-    }
-  }, [engine, volume]);
-
-  useEffect(() => {
-    if (engine) {
-      engine.setTranspose(transpose);
-      trackControlChange('transpose', transpose);
-    }
-  }, [engine, transpose]);
-
-  useEffect(() => {
-    if (engine) {
-      engine.setOctave(octave);
-      trackControlChange('octave', octave);
-    }
-  }, [engine, octave]);
-
-  useEffect(() => {
-    if (engine) {
-      engine.setReeds(reeds);
-      trackControlChange('reeds', reeds);
-    }
-  }, [engine, reeds]);
-
-  useEffect(() => {
-    if (engine) {
-      engine.setReverb(reverbEnabled);
-      trackControlChange('reverb', reverbEnabled);
-    }
-  }, [engine, reverbEnabled]);
-
-  useEffect(() => {
-    if (engine) {
-      engine.setDrone(droneEnabled);
-      trackControlChange('drone', droneEnabled);
-    }
-  }, [engine, droneEnabled]);
-
-  useEffect(() => {
-    if (engine) {
-      engine.setDroneVolume(droneVolume);
-      trackControlChange('drone_volume', droneVolume);
-    }
-  }, [engine, droneVolume]);
+  useEffect(() => { if (engine) { engine.setVolume(volume); trackControlChange('volume', volume); } }, [engine, volume]);
+  useEffect(() => { if (engine) { engine.setTranspose(transpose); trackControlChange('transpose', transpose); } }, [engine, transpose]);
+  useEffect(() => { if (engine) { engine.setOctave(octave); trackControlChange('octave', octave); } }, [engine, octave]);
+  useEffect(() => { if (engine) { engine.setReeds(reeds); trackControlChange('reeds', reeds); } }, [engine, reeds]);
+  useEffect(() => { if (engine) { engine.setReverb(reverbEnabled); trackControlChange('reverb', reverbEnabled); } }, [engine, reverbEnabled]);
+  useEffect(() => { if (engine) { engine.setDrone(droneEnabled); trackControlChange('drone', droneEnabled); } }, [engine, droneEnabled]);
+  useEffect(() => { if (engine) { engine.setDroneVolume(droneVolume); trackControlChange('drone_volume', droneVolume); } }, [engine, droneVolume]);
 
   const rootNote = engine?.getTransposeNoteName() || 'D';
 
@@ -123,16 +73,24 @@ export default function MobileHarmoniumApp() {
     <div className="w-full">
       {isLoading && (
         <div className="text-center py-8">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-          <p className="mt-4 text-gray-600">{t.ui.loading}</p>
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500"></div>
+          <p className="mt-4 text-zinc-400">{t.ui.loading}</p>
         </div>
       )}
 
       {isLoaded && (
         <>
-          <SimpleKeyboard engine={engine} pressedKeys={pressedKeys} />
+          {/* 深色琴键区域 */}
+          <div className="bg-zinc-900 rounded-xl p-4 pb-6">
+            <SimpleKeyboard engine={engine} pressedKeys={pressedKeys} />
+            <div className="mt-3 flex flex-wrap gap-3 justify-center text-xs text-zinc-500">
+              <span>{t.ui.whiteKeys} <code className="bg-zinc-800 text-zinc-300 px-1.5 py-0.5 rounded">e r t y u i o</code></span>
+              <span>{t.ui.blackKeys} <code className="bg-zinc-800 text-zinc-300 px-1.5 py-0.5 rounded">2 4 7 8 9</code></span>
+            </div>
+          </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-6">
+          {/* 控制区 */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-4">
             <VolumeControl volume={volume} onChange={setVolume} />
             <TransposeControl transpose={transpose} rootNote={rootNote} onChange={setTranspose} />
             <OctaveControl octave={octave} onChange={setOctave} />
@@ -145,16 +103,6 @@ export default function MobileHarmoniumApp() {
               onToggle={setDroneEnabled}
               onVolumeChange={setDroneVolume}
             />
-          </div>
-
-          <div className="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
-            <h3 className="font-semibold mb-2 text-gray-900 text-sm">{t.ui.keyboardControls}</h3>
-            <p className="text-xs sm:text-sm text-gray-700">
-              {t.ui.whiteKeys} <code className="bg-gray-200 px-1 rounded text-gray-900">e r t y u i o</code>
-            </p>
-            <p className="text-xs sm:text-sm text-gray-700 mt-1">
-              {t.ui.blackKeys} <code className="bg-gray-200 px-1 rounded text-gray-900">2 4 7 8 9</code>
-            </p>
           </div>
         </>
       )}
