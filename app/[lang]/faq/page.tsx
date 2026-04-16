@@ -85,7 +85,7 @@ export default function FAQPage() {
           }))
         }}
       />
-      <div className="min-h-screen bg-stone-50 py-8">
+      <div className="min-h-screen bg-stone-100 py-8">
         <div className="max-w-4xl mx-auto px-4">
           <div className="bg-white rounded-lg shadow-lg p-8">
             <PageHeader titleKey="faq" />

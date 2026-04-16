@@ -34,7 +34,7 @@ export default function Home() {
   const featuredPosts = blogPosts.slice(0, 3);
 
   return (
-    <div className="bg-stone-50 min-h-screen">
+    <div className="bg-stone-100 min-h-screen">
       <StructuredData
         type="WebApplication"
         data={{

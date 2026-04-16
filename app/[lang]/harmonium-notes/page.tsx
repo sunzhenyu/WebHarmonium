@@ -44,7 +44,7 @@ const bhajans = [
 
 export default function HarmoniumNotesPage() {
   return (
-    <div className="bg-stone-50 min-h-screen">
+    <div className="bg-stone-100 min-h-screen">
       {/* Hero */}
       <div className="bg-zinc-900 text-white py-10">
         <div className="max-w-4xl mx-auto px-4 text-center">
@@ -75,7 +75,7 @@ export default function HarmoniumNotesPage() {
               </thead>
               <tbody>
                 {notes.map((n, i) => (
-                  <tr key={i} className={`border-b border-stone-100 ${n.type === 'natural' ? '' : 'bg-stone-50'}`}>
+                  <tr key={i} className={`border-b border-stone-100 ${n.type === 'natural' ? '' : 'bg-stone-100'}`}>
                     <td className="py-3 pr-4 font-semibold text-stone-900">{n.sargam}</td>
                     <td className="py-3 pr-4 text-stone-600">{n.western}</td>
                     <td className="py-3 pr-4">

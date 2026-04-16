@@ -22,7 +22,12 @@
       "WebFetch(domain:web-harmonium.com)",
       "WebSearch",
       "Bash(git config:*)",
-      "Bash(grep -r \"className.*\\\\${\" app/ components/ --include=\"*.tsx\" --include=\"*.ts\")"
+      "Bash(grep -r \"className.*\\\\${\" app/ components/ --include=\"*.tsx\" --include=\"*.ts\")",
+      "Bash(curl -s \"https://web-harmonium.net/_next/static/chunks/017zo7jhe4e9o.css\")",
+      "Bash(curl -s \"https://web-harmonium.net\")",
+      "Bash(curl -s \"https://web-harmonium.net/_next/static/chunks/0e_u-g5-kgp0l.css\")",
+      "Read(//tmp/**)",
+      "Bash(find:*)"
     ]
   }
 }
