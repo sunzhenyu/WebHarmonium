@@ -11,9 +11,9 @@ export const metadata: Metadata = {
 };
 
 const categoryColors: Record<string, string> = {
-  'Learning': 'bg-orange-100 text-orange-700',
-  'Songs': 'bg-green-100 text-green-700',
-  'Buying Guide': 'bg-orange-100 text-orange-700',
+  'Learning': 'bg-orange-500 text-white',
+  'Songs': 'bg-green-500 text-white',
+  'Buying Guide': 'bg-orange-500 text-white',
 };
 
 export default function BlogPage() {
@@ -25,17 +25,17 @@ export default function BlogPage() {
         <div className="grid gap-6">
           {blogPosts.map(post => (
             <Link key={post.slug} href={`/blog/${post.slug}`} title={post.title.en}>
-              <article className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow p-6 border border-gray-100">
+              <article className="bg-zinc-800 rounded-xl hover:shadow-lg transition-shadow p-6 border border-zinc-700">
                 <div className="flex items-center gap-3 mb-3">
-                  <span className={`text-xs font-semibold px-2 py-1 rounded-full ${categoryColors[post.category] ?? 'bg-gray-100 text-gray-600'}`}>
+                  <span className={`text-xs font-semibold px-2 py-1 rounded-full ${categoryColors[post.category] ?? 'bg-zinc-600 text-white'}`}>
                     {post.category}
                   </span>
-                  <span className="text-sm text-gray-400">{post.readTime} min read</span>
-                  <span className="text-sm text-gray-400">{new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                  <span className="text-sm text-zinc-400">{post.readTime} min read</span>
+                  <span className="text-sm text-zinc-400">{new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
                 </div>
-                <h2 className="text-xl font-bold text-gray-900 mb-2 hover:text-orange-600 transition-colors">{post.title.en}</h2>
-                <p className="text-gray-600">{post.description.en}</p>
-                <div className="mt-4 text-orange-600 font-medium text-sm">Read more →</div>
+                <h2 className="text-xl font-bold text-white mb-2 hover:text-orange-400 transition-colors">{post.title.en}</h2>
+                <p className="text-zinc-300">{post.description.en}</p>
+                <div className="mt-4 text-orange-400 font-medium text-sm">Read more →</div>
               </article>
             </Link>
           ))}
