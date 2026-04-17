@@ -59,9 +59,9 @@ export default function HarmoniumNotesPage() {
       <div className="max-w-5xl mx-auto px-4 py-8 space-y-8">
 
         {/* All 12 Notes */}
-        <section className="bg-white rounded-xl shadow-sm border border-stone-200 p-8">
-          <h2 className="text-2xl font-bold text-stone-900 mb-2">All Harmonium Notes — Sargam &amp; Keyboard Mapping</h2>
-          <p className="text-stone-500 text-sm mb-6">The harmonium has 12 notes per octave. Below is the complete sargam notation with keyboard shortcuts for Web Harmonium.</p>
+        <section className="bg-zinc-800 rounded-xl border border-zinc-700 p-8">
+          <h2 className="text-2xl font-bold text-white mb-2">All Harmonium Notes — Sargam &amp; Keyboard Mapping</h2>
+          <p className="text-zinc-400 text-sm mb-6">The harmonium has 12 notes per octave. Below is the complete sargam notation with keyboard shortcuts for Web Harmonium.</p>
 
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -76,14 +76,14 @@ export default function HarmoniumNotesPage() {
               <tbody>
                 {notes.map((n, i) => (
                   <tr key={i} className={`border-b border-stone-100 ${n.type === 'natural' ? '' : 'bg-zinc-900'}`}>
-                    <td className="py-3 pr-4 font-semibold text-stone-900">{n.sargam}</td>
-                    <td className="py-3 pr-4 text-stone-600">{n.western}</td>
+                    <td className="py-3 pr-4 font-semibold text-white">{n.sargam}</td>
+                    <td className="py-3 pr-4 text-zinc-300">{n.western}</td>
                     <td className="py-3 pr-4">
                       <code className={`px-2 py-0.5 rounded text-xs font-mono font-bold ${n.type === 'natural' ? 'bg-zinc-900 text-stone-800' : 'bg-zinc-800 text-zinc-200'}`}>
                         {n.key}
                       </code>
                     </td>
-                    <td className="py-3 text-stone-500 text-xs">{n.desc}</td>
+                    <td className="py-3 text-zinc-400 text-xs">{n.desc}</td>
                   </tr>
                 ))}
               </tbody>
@@ -97,15 +97,15 @@ export default function HarmoniumNotesPage() {
         </section>
 
         {/* Sargam Scale */}
-        <section className="bg-white rounded-xl shadow-sm border border-stone-200 p-8">
-          <h2 className="text-2xl font-bold text-stone-900 mb-2">The Sargam Scale — Sa Re Ga Ma Pa Dha Ni</h2>
-          <p className="text-stone-500 text-sm mb-6">Sargam is the Indian equivalent of Western solfege (Do Re Mi). The 7 natural notes form the foundation of all Indian classical music and bhajans.</p>
+        <section className="bg-zinc-800 rounded-xl border border-zinc-700 p-8">
+          <h2 className="text-2xl font-bold text-white mb-2">The Sargam Scale — Sa Re Ga Ma Pa Dha Ni</h2>
+          <p className="text-zinc-400 text-sm mb-6">Sargam is the Indian equivalent of Western solfege (Do Re Mi). The 7 natural notes form the foundation of all Indian classical music and bhajans.</p>
 
           <div className="grid grid-cols-7 gap-2 mb-6">
             {['Sa', 'Re', 'Ga', 'Ma', 'Pa', 'Dha', 'Ni'].map((s, i) => (
               <div key={i} className="bg-orange-50 border border-orange-200 rounded-lg p-3 text-center">
                 <div className="text-lg font-bold text-orange-700">{s}</div>
-                <div className="text-xs text-stone-500 mt-1">{['C','D','E','F','G','A','B'][i]}</div>
+                <div className="text-xs text-zinc-400 mt-1">{['C','D','E','F','G','A','B'][i]}</div>
                 <div className="text-xs font-mono text-stone-400 mt-1">{['e','r','t','y','u','i','o'][i]}</div>
               </div>
             ))}
@@ -119,22 +119,22 @@ export default function HarmoniumNotesPage() {
         </section>
 
         {/* 10 Thaats */}
-        <section className="bg-white rounded-xl shadow-sm border border-stone-200 p-8">
-          <h2 className="text-2xl font-bold text-stone-900 mb-2">10 Thaats — Parent Scales of Indian Classical Music</h2>
-          <p className="text-stone-500 text-sm mb-6">All ragas in Hindustani classical music are derived from one of these 10 parent scales (Thaats). Learning these scales is essential for advanced harmonium playing.</p>
+        <section className="bg-zinc-800 rounded-xl border border-zinc-700 p-8">
+          <h2 className="text-2xl font-bold text-white mb-2">10 Thaats — Parent Scales of Indian Classical Music</h2>
+          <p className="text-zinc-400 text-sm mb-6">All ragas in Hindustani classical music are derived from one of these 10 parent scales (Thaats). Learning these scales is essential for advanced harmonium playing.</p>
 
           <div className="space-y-3">
             {thaats.map((t, i) => (
               <div key={i} className="border border-stone-100 rounded-lg p-4 hover:border-orange-200 transition-colors">
                 <div className="flex flex-wrap items-start gap-3">
                   <div className="w-24 flex-shrink-0">
-                    <span className="font-bold text-stone-900">{t.name}</span>
+                    <span className="font-bold text-white">{t.name}</span>
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-mono text-orange-700 mb-1">{t.notes}</p>
                     <p className="text-xs text-stone-400">{t.western}</p>
                   </div>
-                  <div className="text-xs text-stone-500 text-right">
+                  <div className="text-xs text-zinc-400 text-right">
                     <span className="bg-zinc-900 px-2 py-0.5 rounded">{t.ragas}</span>
                   </div>
                 </div>
@@ -144,14 +144,14 @@ export default function HarmoniumNotesPage() {
         </section>
 
         {/* Bhajan Notes */}
-        <section className="bg-white rounded-xl shadow-sm border border-stone-200 p-8">
-          <h2 className="text-2xl font-bold text-stone-900 mb-2">Popular Bhajan Notes for Harmonium</h2>
-          <p className="text-stone-500 text-sm mb-6">Practice these well-known bhajans using sargam notation. All notes are in the default C key — use the Transpose control to match your vocal range.</p>
+        <section className="bg-zinc-800 rounded-xl border border-zinc-700 p-8">
+          <h2 className="text-2xl font-bold text-white mb-2">Popular Bhajan Notes for Harmonium</h2>
+          <p className="text-zinc-400 text-sm mb-6">Practice these well-known bhajans using sargam notation. All notes are in the default C key — use the Transpose control to match your vocal range.</p>
 
           <div className="space-y-4">
             {bhajans.map((b, i) => (
               <div key={i} className="bg-amber-50 border border-amber-100 rounded-lg p-5">
-                <h3 className="font-bold text-stone-900 mb-2">{b.name}</h3>
+                <h3 className="font-bold text-white mb-2">{b.name}</h3>
                 <p className="font-mono text-sm text-orange-800 mb-1">{b.notes}</p>
                 <p className="text-xs text-stone-400">Key: {b.key}</p>
               </div>
