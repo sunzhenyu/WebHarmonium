@@ -67,10 +67,10 @@ export default function HarmoniumNotesPage() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b-2 border-stone-200">
-                  <th className="text-left py-3 pr-4 font-semibold text-stone-700">Sargam Note</th>
-                  <th className="text-left py-3 pr-4 font-semibold text-stone-700">Western</th>
-                  <th className="text-left py-3 pr-4 font-semibold text-stone-700">Key</th>
-                  <th className="text-left py-3 font-semibold text-stone-700">Description</th>
+                  <th className="text-left py-3 pr-4 font-semibold text-zinc-300">Sargam Note</th>
+                  <th className="text-left py-3 pr-4 font-semibold text-zinc-300">Western</th>
+                  <th className="text-left py-3 pr-4 font-semibold text-zinc-300">Key</th>
+                  <th className="text-left py-3 font-semibold text-zinc-300">Description</th>
                 </tr>
               </thead>
               <tbody>
@@ -79,7 +79,7 @@ export default function HarmoniumNotesPage() {
                     <td className="py-3 pr-4 font-semibold text-white">{n.sargam}</td>
                     <td className="py-3 pr-4 text-zinc-300">{n.western}</td>
                     <td className="py-3 pr-4">
-                      <code className={`px-2 py-0.5 rounded text-xs font-mono font-bold ${n.type === 'natural' ? 'bg-zinc-900 text-stone-800' : 'bg-zinc-800 text-zinc-200'}`}>
+                      <code className={`px-2 py-0.5 rounded text-xs font-mono font-bold ${n.type === 'natural' ? 'bg-zinc-700 text-white' : 'bg-zinc-800 text-zinc-200'}`}>
                         {n.key}
                       </code>
                     </td>
@@ -92,7 +92,7 @@ export default function HarmoniumNotesPage() {
 
           <div className="mt-6 bg-amber-50 border border-amber-200 rounded-lg p-4 text-sm">
             <strong className="text-amber-800">Tip:</strong>
-            <span className="text-amber-700"> White keys (natural notes): <code className="bg-amber-100 px-1 rounded">e r t y u i o</code> — Black keys (flat/sharp): <code className="bg-amber-100 px-1 rounded">2 4 7 8 9</code></span>
+            <span className="text-amber-700"> White keys (natural notes): <code className="bg-orange-500 text-white px-1.5 py-0.5 rounded font-mono text-xs">e r t y u i o</code> — Black keys (flat/sharp): <code className="bg-orange-500 text-white px-1.5 py-0.5 rounded font-mono text-xs">2 4 7 8 9</code></span>
           </div>
         </section>
 
@@ -103,10 +103,10 @@ export default function HarmoniumNotesPage() {
 
           <div className="grid grid-cols-7 gap-2 mb-6">
             {['Sa', 'Re', 'Ga', 'Ma', 'Pa', 'Dha', 'Ni'].map((s, i) => (
-              <div key={i} className="bg-orange-50 border border-orange-200 rounded-lg p-3 text-center">
-                <div className="text-lg font-bold text-orange-700">{s}</div>
+              <div key={i} className="bg-zinc-700 border border-zinc-600 rounded-lg p-3 text-center">
+                <div className="text-lg font-bold text-orange-400">{s}</div>
                 <div className="text-xs text-zinc-400 mt-1">{['C','D','E','F','G','A','B'][i]}</div>
-                <div className="text-xs font-mono text-stone-400 mt-1">{['e','r','t','y','u','i','o'][i]}</div>
+                <div className="text-xs font-mono text-zinc-400 mt-1">{['e','r','t','y','u','i','o'][i]}</div>
               </div>
             ))}
           </div>
@@ -131,8 +131,8 @@ export default function HarmoniumNotesPage() {
                     <span className="font-bold text-white">{t.name}</span>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-mono text-orange-700 mb-1">{t.notes}</p>
-                    <p className="text-xs text-stone-400">{t.western}</p>
+                    <p className="text-sm font-mono text-orange-400 mb-1">{t.notes}</p>
+                    <p className="text-xs text-zinc-400">{t.western}</p>
                   </div>
                   <div className="text-xs text-zinc-400 text-right">
                     <span className="bg-zinc-900 px-2 py-0.5 rounded">{t.ragas}</span>
@@ -153,7 +153,7 @@ export default function HarmoniumNotesPage() {
               <div key={i} className="bg-amber-50 border border-amber-100 rounded-lg p-5">
                 <h3 className="font-bold text-white mb-2">{b.name}</h3>
                 <p className="font-mono text-sm text-orange-800 mb-1">{b.notes}</p>
-                <p className="text-xs text-stone-400">Key: {b.key}</p>
+                <p className="text-xs text-zinc-400">Key: {b.key}</p>
               </div>
             ))}
           </div>

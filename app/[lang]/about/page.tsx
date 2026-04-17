@@ -13,7 +13,7 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-zinc-900 py-8">
       <div className="max-w-5xl mx-auto px-4">
-        <div className="bg-white rounded-lg shadow-lg p-8">
+        <div className="bg-zinc-800 rounded-lg border border-zinc-700 p-8">
           <PageHeader titleKey="about" />
           <AboutContent />
         </div>
