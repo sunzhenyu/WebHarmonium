@@ -62,16 +62,16 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   return (
     <div className="min-h-screen bg-zinc-900 py-8">
-      <div className="max-w-3xl mx-auto px-4">
+      <div className="max-w-5xl mx-auto px-4">
         <div className="mb-6">
-          <Link href="/blog" className="text-blue-600 hover:underline text-sm">← Back to Blog</Link>
+          <Link href="/blog" className="text-orange-400 hover:underline text-sm">← Back to Blog</Link>
         </div>
 
-        <article className="bg-white rounded-xl shadow-lg p-8 mb-8">
+        <article className="bg-zinc-800 rounded-xl border border-zinc-700 p-8 mb-8">
           <div className="flex items-center gap-3 mb-4">
-            <span className="text-sm text-gray-500">{new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
-            <span className="text-gray-300">·</span>
-            <span className="text-sm text-gray-500">{post.readTime} min read</span>
+            <span className="text-sm text-zinc-400">{new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+            <span className="text-zinc-600">·</span>
+            <span className="text-sm text-zinc-400">{post.readTime} min read</span>
           </div>
           <PostContent />
         </article>
