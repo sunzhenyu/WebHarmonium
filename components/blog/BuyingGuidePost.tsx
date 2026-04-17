@@ -1,7 +1,7 @@
 export default function BuyingGuidePost() {
   return (
     <div className="prose max-w-none">
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Best Harmonium for Beginners in 2026: Complete Buying Guide</h1>
+      <h1 className="text-3xl font-bold text-white mb-4">Best Harmonium for Beginners in 2026: Complete Buying Guide</h1>
       <p>Buying your first harmonium is an exciting step, but it can be overwhelming with so many options available. Unlike digital keyboards, harmoniums are acoustic, hand-crafted instruments. No two sound exactly the same, and the quality of wood, reeds, and bellows drastically affects the tone.</p>
 
       <h2>1. Types of Harmoniums</h2>
@@ -36,17 +36,17 @@ export default function BuyingGuidePost() {
 
       <h2>3. Top Recommendations for Beginners</h2>
 
-      <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 mb-6">
+      <div className="bg-zinc-700 p-6 rounded-xl border border-zinc-600 mb-6">
         <h3 className="text-xl font-bold mt-0 mb-2 text-orange-700">1. Paul & Co. (Kolkata)</h3>
         <p>Considered by many as the gold standard for Kolkata-style harmoniums. They are expensive and often have a waiting list, but the tone is unmatched. Best for serious students of Hindustani classical music.</p>
       </div>
 
-      <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 mb-6">
+      <div className="bg-zinc-700 p-6 rounded-xl border border-zinc-600 mb-6">
         <h3 className="text-xl font-bold mt-0 mb-2 text-green-800">2. Bina (Delhi)</h3>
         <p>Bina is a massive, widely available brand. Their entry-level models (like the Bina 23B) are very popular among beginners and kirtan groups. They offer a brighter sound and are generally more affordable and accessible than Kolkata makers.</p>
       </div>
 
-      <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 mb-6">
+      <div className="bg-zinc-700 p-6 rounded-xl border border-zinc-600 mb-6">
         <h3 className="text-xl font-bold mt-0 mb-2 text-purple-800">3. Bhargava & Co.</h3>
         <p>Another excellent, reliable maker offering great build quality and tone, often sitting between Bina and Paul & Co. in terms of price and accessibility.</p>
       </div>

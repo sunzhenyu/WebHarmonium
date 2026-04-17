@@ -61,7 +61,7 @@ export default function Footer() {
 
         </div>
 
-        <div className="mt-10 pt-8 border-t border-gray-700 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
+        <div className="mt-10 pt-8 border-t border-gray-700 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-zinc-400">
           <p>© {new Date().getFullYear()} {t.footer.copyright}</p>
           <p>
             <Link href="https://web-harmonium.net" title="Web Harmonium" className="hover:text-gray-300 transition-colors">web-harmonium.net</Link>

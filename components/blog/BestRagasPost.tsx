@@ -86,48 +86,48 @@ export default function BestRagasPost() {
 
   return (
     <div className="prose max-w-none">
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Best Ragas for Beginners: A Complete Guide</h1>
+      <h1 className="text-3xl font-bold text-white mb-4">Best Ragas for Beginners: A Complete Guide</h1>
 
-      <p className="text-lg text-gray-700 mb-6">
+      <p className="text-lg text-zinc-300 mb-6">
         Starting Indian classical music can feel overwhelming — there are hundreds of ragas, each with its own rules, mood, and time of day. But you don't need to learn them all. These 8 ragas are the best starting points for harmonium beginners, chosen for their simplicity, popularity, and musical richness.
       </p>
 
-      <div className="bg-amber-50 border-l-4 border-orange-500 p-4 mb-8 rounded">
-        <p className="text-gray-700 font-medium">What is a Raga?</p>
-        <p className="text-gray-600 text-sm mt-1">A raga is a melodic framework in Indian classical music — a specific set of notes with rules about how to use them. Each raga has a unique mood (rasa), time of day, and characteristic phrases. Think of it as a musical personality.</p>
+      <div className="bg-zinc-700 border-l-4 border-orange-500 p-4 mb-8 rounded">
+        <p className="text-zinc-300 font-medium">What is a Raga?</p>
+        <p className="text-zinc-300 text-sm mt-1">A raga is a melodic framework in Indian classical music — a specific set of notes with rules about how to use them. Each raga has a unique mood (rasa), time of day, and characteristic phrases. Think of it as a musical personality.</p>
       </div>
 
-      <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-6">The 8 Best Ragas for Beginners</h2>
+      <h2 className="text-2xl font-bold text-white mt-8 mb-6">The 8 Best Ragas for Beginners</h2>
 
       <div className="space-y-8">
         {ragas.map((raga, i) => (
-          <div key={i} className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+          <div key={i} className="bg-zinc-700 rounded-xl p-6 border border-zinc-600">
             <div className="flex items-start justify-between mb-3">
-              <h3 className="text-xl font-bold text-gray-900">{i + 1}. {raga.name}</h3>
+              <h3 className="text-xl font-bold text-white">{i + 1}. {raga.name}</h3>
               <span className={`text-xs font-semibold px-2 py-1 rounded-full ${raga.difficulty === 'Beginner' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>
                 {raga.difficulty}
               </span>
             </div>
 
             <div className="grid grid-cols-2 gap-3 mb-4 text-sm">
-              <div><span className="text-gray-500">Time:</span> <span className="font-medium text-gray-800">{raga.time}</span></div>
-              <div><span className="text-gray-500">Mood:</span> <span className="font-medium text-gray-800">{raga.mood}</span></div>
-              <div><span className="text-gray-500">Notes:</span> <span className="font-medium text-gray-800">{raga.notes}</span></div>
-              <div><span className="text-gray-500">Keys:</span> <code className="bg-gray-200 px-1 rounded text-gray-800">{raga.keys}</code></div>
+              <div><span className="text-zinc-400">Time:</span> <span className="font-medium text-white">{raga.time}</span></div>
+              <div><span className="text-zinc-400">Mood:</span> <span className="font-medium text-white">{raga.mood}</span></div>
+              <div><span className="text-zinc-400">Notes:</span> <span className="font-medium text-white">{raga.notes}</span></div>
+              <div><span className="text-zinc-400">Keys:</span> <code className="bg-gray-200 px-1 rounded text-white">{raga.keys}</code></div>
             </div>
 
-            <p className="text-gray-700 mb-3">{raga.description}</p>
+            <p className="text-zinc-300 mb-3">{raga.description}</p>
 
             <div className="bg-white border border-amber-100 rounded p-3">
               <span className="text-orange-600 font-semibold text-sm">Practice Tip: </span>
-              <span className="text-gray-700 text-sm">{raga.tip}</span>
+              <span className="text-zinc-300 text-sm">{raga.tip}</span>
             </div>
           </div>
         ))}
       </div>
 
-      <h2 className="text-2xl font-bold text-gray-900 mt-10 mb-4">How to Practice Ragas on Harmonium</h2>
-      <ol className="space-y-3 text-gray-700">
+      <h2 className="text-2xl font-bold text-white mt-10 mb-4">How to Practice Ragas on Harmonium</h2>
+      <ol className="space-y-3 text-zinc-300">
         <li><strong>1. Learn the scale first</strong> — Play the notes ascending and descending until they feel natural.</li>
         <li><strong>2. Practice slowly</strong> — Speed is not the goal. Clarity and intonation matter more.</li>
         <li><strong>3. Use a drone</strong> — Play Sa continuously in the background while practicing. This trains your ear to stay in tune.</li>
@@ -135,8 +135,8 @@ export default function BestRagasPost() {
         <li><strong>5. Listen to recordings</strong> — Search for each raga on YouTube and listen to how masters play it before practicing.</li>
       </ol>
 
-      <div className="mt-8 p-4 bg-amber-50 rounded-lg">
-        <p className="text-gray-700">Ready to practice? <Link href="/harmonium" className="text-orange-600 hover:underline font-medium">Open the free harmonium →</Link> and try these ragas right now. Check our <Link href="/tutorial" className="text-orange-600 hover:underline">tutorial page</Link> for more guidance.</p>
+      <div className="mt-8 p-4 bg-zinc-700 rounded-lg">
+        <p className="text-zinc-300">Ready to practice? <Link href="/harmonium" className="text-orange-600 hover:underline font-medium">Open the free harmonium →</Link> and try these ragas right now. Check our <Link href="/tutorial" className="text-orange-600 hover:underline">tutorial page</Link> for more guidance.</p>
       </div>
     </div>
   );

@@ -26,7 +26,7 @@ export default function LoadButton({ isLoading, isLoaded, onLoad }: LoadButtonPr
       >
         {isLoading ? 'Loading...' : 'Load Module'}
       </button>
-      <p className="mt-2 text-sm text-gray-600">
+      <p className="mt-2 text-sm text-zinc-300">
         Click to initialize the audio engine
       </p>
     </div>

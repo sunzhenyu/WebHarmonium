@@ -1,7 +1,7 @@
 export default function HarmoniumVsKeyboardPost() {
   return (
     <div className="prose max-w-none">
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Harmonium vs Keyboard: Which Should You Learn First?</h1>
+      <h1 className="text-3xl font-bold text-white mb-4">Harmonium vs Keyboard: Which Should You Learn First?</h1>
       <p>If you're starting your musical journey and are drawn to Indian music, you might be deciding between learning the harmonium or an electronic keyboard/piano. Both have black and white keys, but that's where the similarities end. Here is a comprehensive comparison to help you decide.</p>
 
       <h2>1. The Fundamental Difference: Mechanism & Sound</h2>
@@ -22,7 +22,7 @@ export default function HarmoniumVsKeyboardPost() {
       <p>While you <em>can</em> play chords on a harmonium, it's not the primary way it's used in Indian music. Indian classical music is melodic, not harmonic. You focus on playing a single, complex melodic line (a Raga). Keyboards are built for harmony—playing complex chords with both hands.</p>
 
       <h2>3. Musical Focus</h2>
-      <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 mb-6">
+      <div className="bg-zinc-700 p-6 rounded-xl border border-zinc-600 mb-6">
         <h3 className="text-xl font-bold mt-0 mb-2 text-orange-700">Learn Harmonium if you want to:</h3>
         <ul>
           <li>Sing Indian classical music, ghazals, or bhajans (it is the ultimate accompaniment instrument).</li>
@@ -32,7 +32,7 @@ export default function HarmoniumVsKeyboardPost() {
         </ul>
       </div>
 
-      <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 mb-6">
+      <div className="bg-zinc-700 p-6 rounded-xl border border-zinc-600 mb-6">
         <h3 className="text-xl font-bold mt-0 mb-2 text-green-800">Learn Keyboard if you want to:</h3>
         <ul>
           <li>Play Western classical music, pop, rock, or jazz.</li>

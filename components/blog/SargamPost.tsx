@@ -3,7 +3,7 @@ import Link from 'next/link';
 export default function SargamPost() {
   return (
     <div className="prose max-w-none">
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">How to Practice Sargam on Harmonium: Complete Guide</h1>
+      <h1 className="text-3xl font-bold text-white mb-4">How to Practice Sargam on Harmonium: Complete Guide</h1>
       <p>Learning sargam is the foundation of Indian classical music. Just as Western musicians practice scales (Do, Re, Mi), Indian musicians practice Sargam (Sa, Re, Ga, Ma, Pa, Dha, Ni). Practicing sargam on the harmonium is essential for developing your ear, your finger dexterity, and your vocal pitch accuracy. This complete guide will teach you how to learn sargam effectively with structured sargam practice exercises.</p>
 
       <h2>What is Sargam Practice?</h2>
@@ -21,9 +21,9 @@ export default function SargamPost() {
         <li><strong>Ni (Nishad):</strong> The seventh note (B).</li>
       </ul>
 
-      <div className="bg-amber-50 border-l-4 border-orange-500 p-4 mb-8 rounded">
-        <h3 className="font-bold text-gray-900 mb-2">Finding Sa on Web Harmonium</h3>
-        <p className="text-gray-700 text-sm">On your computer keyboard using Web Harmonium, the default C Major scale (Sa Re Ga Ma Pa Dha Ni Sa) maps to the keys: <code>e r t y u i o p</code>. This makes sargam practice easy and accessible for beginners learning sargam on harmonium.</p>
+      <div className="bg-zinc-700 border-l-4 border-orange-500 p-4 mb-8 rounded">
+        <h3 className="font-bold text-white mb-2">Finding Sa on Web Harmonium</h3>
+        <p className="text-zinc-300 text-sm">On your computer keyboard using Web Harmonium, the default C Major scale (Sa Re Ga Ma Pa Dha Ni Sa) maps to the keys: <code>e r t y u i o p</code>. This makes sargam practice easy and accessible for beginners learning sargam on harmonium.</p>
       </div>
 
       <h2>2. Essential Sargam Practice Exercises: Alankars</h2>
@@ -31,28 +31,28 @@ export default function SargamPost() {
 
       <h3>Exercise 1: Aroha (Ascending) & Avaroha (Descending)</h3>
       <p>The most basic sargam practice exercise. Play each note once, slowly and clearly. This is the first step to learn sargam properly.</p>
-      <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 mb-6">
+      <div className="bg-zinc-700 p-6 rounded-xl border border-zinc-600 mb-6">
         <p><strong>Aroha:</strong> Sa - Re - Ga - Ma - Pa - Dha - Ni - Sa (upper octave)</p>
         <p><strong>Avaroha:</strong> Sa (upper) - Ni - Dha - Pa - Ma - Ga - Re - Sa</p>
       </div>
 
       <h3>Exercise 2: Double Notes (Jod)</h3>
       <p>Play each note twice before moving to the next. This sargam practice technique helps solidify the pitch in your mind.</p>
-      <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 mb-6">
+      <div className="bg-zinc-700 p-6 rounded-xl border border-zinc-600 mb-6">
         <p><strong>Aroha:</strong> SaSa - ReRe - GaGa - MaMa - PaPa - DhaDha - NiNi - SaSa</p>
         <p><strong>Avaroha:</strong> SaSa - NiNi - DhaDha - PaPa - MaMa - GaGa - ReRe - SaSa</p>
       </div>
 
       <h3>Exercise 3: Three-Note Patterns (Khand Meru)</h3>
       <p>This sargam practice pattern moves forward in steps of three. It builds finger independence when you practice sargam on harmonium.</p>
-      <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 mb-6">
+      <div className="bg-zinc-700 p-6 rounded-xl border border-zinc-600 mb-6">
         <p><strong>Aroha:</strong> SaReGa - ReGaMa - GaMaPa - MaPaDha - PaDhaNi - DhaNiSa</p>
         <p><strong>Avaroha:</strong> SaNiDha - NiDhaPa - DhaPaMa - PaMaGa - MaGaRe - GaReSa</p>
       </div>
 
       <h3>Exercise 4: Four-Note Patterns</h3>
       <p>Advanced sargam exercises for building speed and fluency in sargam practice.</p>
-      <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 mb-6">
+      <div className="bg-zinc-700 p-6 rounded-xl border border-zinc-600 mb-6">
         <p><strong>Aroha:</strong> SaReGaMa - ReGaMaPa - GaMaPaDha - MaPaDhaNi - PaDhaNiSa</p>
         <p><strong>Avaroha:</strong> SaNiDhaPa - NiDhaPaMa - DhaPaMaGa - PaMaGaRe - MaGaReSa</p>
       </div>

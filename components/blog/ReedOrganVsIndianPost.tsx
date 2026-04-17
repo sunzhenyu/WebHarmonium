@@ -1,7 +1,7 @@
 export default function ReedOrganVsIndianPost() {
   return (
     <div className="prose max-w-none">
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">Reed Organ Harmonium vs Indian Harmonium: A Musical Journey</h1>
+      <h1 className="text-3xl font-bold text-white mb-4">Reed Organ Harmonium vs Indian Harmonium: A Musical Journey</h1>
       <p>If you're interested in the fascinating history of musical instruments, the story of the <strong>reed organ harmonium</strong> turning into the <strong>Indian harmonium</strong> is one of the most culturally significant transitions in the world of music. Let's explore the origins of this hand-pumped keyboard instrument.</p>
 
       <h2>The European Invention: The Reed Organ Harmonium</h2>
@@ -28,7 +28,7 @@ export default function ReedOrganVsIndianPost() {
       <h2>The Harmonium Instrument Today</h2>
       <p>Today, the Western <strong>reed organ harmonium</strong> is largely considered a historical antique. But the <strong>Indian harmonium</strong> is thriving worldwide, essential to Yoga Kirtan groups, classical concerts, and Bollywood playback music.</p>
 
-      <div className="bg-yellow-50 p-6 rounded-xl border border-yellow-200 mt-8">
+      <div className="bg-zinc-700 p-6 rounded-xl border border-yellow-200 mt-8">
         <h3 className="text-xl font-bold mt-0 mb-2 text-yellow-800">Experience History in Your Browser</h3>
         <p className="mb-0">You can play a digital recreation of this historic instrument today. <a href="/harmonium" className="text-yellow-700 font-bold hover:underline">Launch our Virtual Indian Harmonium</a> to play melodies and drone notes right from your computer keyboard!</p>
       </div>

@@ -18,7 +18,7 @@ export default function LanguageSwitcher() {
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-lg shadow-sm border border-gray-200 hover:bg-gray-50 transition-colors text-sm font-medium text-gray-700"
+        className="flex items-center gap-2 px-3 py-1.5 bg-zinc-800 rounded-lg shadow-sm border border-zinc-600 hover:bg-zinc-700 transition-colors text-sm font-medium text-zinc-300"
         aria-label="Change language"
       >
         <span>{currentLang.flag}</span>
@@ -31,7 +31,7 @@ export default function LanguageSwitcher() {
       {isOpen && (
         <>
           <div className="fixed inset-0 z-10" onClick={() => setIsOpen(false)} />
-          <div className="absolute right-0 top-full mt-1 bg-white rounded-lg shadow-lg border border-gray-200 py-1 min-w-[140px] z-20">
+          <div className="absolute right-0 top-full mt-1 bg-zinc-800 rounded-lg shadow-lg border border-zinc-600 py-1 min-w-[140px] z-20">
             {Object.entries(languages).map(([code, lang]) => (
               <button
                 key={code}
@@ -39,8 +39,8 @@ export default function LanguageSwitcher() {
                   setLanguage(code as 'en' | 'hi');
                   setIsOpen(false);
                 }}
-                className={`w-full flex items-center gap-2 px-3 py-2 text-sm hover:bg-gray-50 transition-colors ${
-                  language === code ? 'bg-amber-50 text-orange-600 font-medium' : 'text-gray-700'
+                className={`w-full flex items-center gap-2 px-3 py-2 text-sm hover:bg-zinc-700 transition-colors ${
+                  language === code ? 'bg-zinc-700 text-orange-600 font-medium' : 'text-zinc-300'
                 }`}
               >
                 <span>{lang.flag}</span>

@@ -33,7 +33,7 @@ export default function FeedbackWidget() {
 
   if (submitted) {
     return (
-      <div className="fixed bottom-6 right-6 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg">
+      <div className="fixed bottom-6 right-6 bg-zinc-7000 text-white px-6 py-3 rounded-lg shadow-lg">
         {t.feedback.thanks}
       </div>
     );
@@ -41,14 +41,14 @@ export default function FeedbackWidget() {
 
   if (showForm) {
     return (
-      <div className="fixed bottom-6 right-6 bg-white rounded-lg shadow-xl p-4 max-w-sm border border-gray-200">
+      <div className="fixed bottom-6 right-6 bg-zinc-800 rounded-lg shadow-xl p-4 max-w-sm border border-zinc-600">
         <button
           onClick={() => setShowForm(false)}
-          className="absolute top-2 right-2 text-gray-400 hover:text-gray-600"
+          className="absolute top-2 right-2 text-gray-400 hover:text-zinc-300"
         >
           ✕
         </button>
-        <h3 className="font-semibold mb-2 text-gray-900">
+        <h3 className="font-semibold mb-2 text-white">
           {feedbackType === 'positive' ? t.feedback.glad : t.feedback.improve}
         </h3>
         <form onSubmit={handleSubmit}>
@@ -70,12 +70,12 @@ export default function FeedbackWidget() {
   }
 
   return (
-    <div className="fixed bottom-6 right-6 bg-white rounded-lg shadow-xl p-4 border border-gray-200">
-      <p className="text-sm text-gray-700 mb-3 font-medium">{t.feedback.useful}</p>
+    <div className="fixed bottom-6 right-6 bg-zinc-800 rounded-lg shadow-xl p-4 border border-zinc-600">
+      <p className="text-sm text-zinc-300 mb-3 font-medium">{t.feedback.useful}</p>
       <div className="flex gap-2">
         <button
           onClick={() => handleFeedback(true)}
-          className="flex-1 px-4 py-2 bg-green-50 hover:bg-green-100 text-green-700 rounded-lg transition-colors text-2xl"
+          className="flex-1 px-4 py-2 bg-zinc-700 hover:bg-green-100 text-green-700 rounded-lg transition-colors text-2xl"
           aria-label="Useful"
         >
           👍

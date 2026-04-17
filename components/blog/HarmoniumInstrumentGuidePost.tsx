@@ -1,7 +1,7 @@
 export default function HarmoniumInstrumentGuidePost() {
   return (
     <div className="prose max-w-none">
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">The Ultimate Harmonium Musical Instrument Guide for 2026</h1>
+      <h1 className="text-3xl font-bold text-white mb-4">The Ultimate Harmonium Musical Instrument Guide for 2026</h1>
       <p>Whether you are a beginner looking for your first instrument or a seasoned musician wanting to understand the mechanics behind the sound, this guide will walk you through everything you need to know about the <strong>harmonium musical instrument</strong>.</p>
 
       <h2>Understanding the Indian Harmonium</h2>
@@ -19,7 +19,7 @@ export default function HarmoniumInstrumentGuidePost() {
       <h2>Why Choose a Harmonium Musical Instrument Today?</h2>
       <p>In 2026, digital synthesizers can mimic almost any sound, yet the acoustic <strong>harmonium musical instrument</strong> remains irreplaceable. Its organic tone, portability (especially the folding "Safari" models), and its cultural resonance make it a must-have for anyone serious about Indian vocal music or Yoga/Kirtan chanting.</p>
 
-      <div className="bg-amber-50 p-6 rounded-xl border border-amber-100 my-8">
+      <div className="bg-zinc-700 p-6 rounded-xl border border-amber-100 my-8">
         <h3 className="text-xl font-bold mt-0 mb-2 text-orange-700">Ready to try it out?</h3>
         <p className="mb-0">You don't need to buy one right away to experience the magic. <a href="/harmonium" className="text-orange-600 font-bold hover:underline">Play our free Virtual Harmonium Simulator</a> right in your browser. It features authentic reed sounds, adjustable transpose, and a built-in Shruti drone!</p>
       </div>

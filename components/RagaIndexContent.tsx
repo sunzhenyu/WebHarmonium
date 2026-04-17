@@ -23,8 +23,8 @@ export default function RagaIndexContent({ ragas, difficultyColor }: RagaIndexCo
 
   return (
     <>
-      <div className="bg-amber-50 border-l-4 border-orange-500 p-4 mb-8 rounded">
-        <p className="text-gray-700 text-sm">
+      <div className="bg-zinc-700 border-l-4 border-orange-500 p-4 mb-8 rounded">
+        <p className="text-zinc-300 text-sm">
           <strong>{t.raga.whatIsRaga}</strong> {t.raga.whatIsRagaDesc}
         </p>
       </div>
@@ -32,19 +32,19 @@ export default function RagaIndexContent({ ragas, difficultyColor }: RagaIndexCo
       <div className="grid md:grid-cols-2 gap-6">
         {ragas.map(raga => (
           <Link key={raga.slug} href={`/raga/${raga.slug}`} title={`Learn Raga ${raga.name}`}>
-            <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow p-6 border border-gray-100 h-full">
+            <div className="bg-zinc-800 rounded-xl shadow-md hover:shadow-lg transition-shadow p-6 border border-zinc-700 h-full">
               <div className="flex items-start justify-between mb-3">
-                <h2 className="text-xl font-bold text-gray-900">{raga.name}</h2>
+                <h2 className="text-xl font-bold text-white">{raga.name}</h2>
                 <span className={`text-xs font-semibold px-2 py-1 rounded-full whitespace-nowrap ml-2 ${difficultyColor[raga.difficulty]}`}>
                   {raga.difficulty}
                 </span>
               </div>
               {raga.altName && <p className="text-sm text-orange-600 mb-2">{raga.altName}</p>}
-              <div className="text-sm text-gray-500 mb-3 space-y-1">
+              <div className="text-sm text-zinc-400 mb-3 space-y-1">
                 <div>⏰ {raga.time}</div>
                 <div>🎭 {raga.mood}</div>
               </div>
-              <p className="text-gray-600 text-sm line-clamp-2">{raga.description}</p>
+              <p className="text-zinc-300 text-sm line-clamp-2">{raga.description}</p>
               <div className="mt-4 text-orange-600 font-medium text-sm">{t.raga.learnThisRaga}</div>
             </div>
           </Link>

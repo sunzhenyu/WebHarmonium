@@ -7,21 +7,21 @@ export default function AboutContent() {
 
   return (
     <div className="prose max-w-none">
-      <p className="text-gray-700 mb-4">{t.about.intro}</p>
+      <p className="text-zinc-300 mb-4">{t.about.intro}</p>
 
       <h2 className="text-2xl font-semibold mt-6 mb-3">{t.about.whatIsTitle}</h2>
-      <p className="text-gray-700 mb-4">{t.about.whatIsText}</p>
+      <p className="text-zinc-300 mb-4">{t.about.whatIsText}</p>
 
       <h2 className="text-2xl font-semibold mt-6 mb-3">{t.about.whyTitle}</h2>
-      <p className="text-gray-700 mb-4">{t.about.whyText}</p>
-      <ul className="list-disc list-inside space-y-2 text-gray-700 mb-4">
+      <p className="text-zinc-300 mb-4">{t.about.whyText}</p>
+      <ul className="list-disc list-inside space-y-2 text-zinc-300 mb-4">
         {t.about.whyPoints.map((point, index) => (
           <li key={index}>{point}</li>
         ))}
       </ul>
 
       <h2 className="text-2xl font-semibold mt-6 mb-3">{t.about.featuresTitle}</h2>
-      <ul className="list-disc list-inside space-y-2 text-gray-700 mb-4">
+      <ul className="list-disc list-inside space-y-2 text-zinc-300 mb-4">
         {t.about.featuresPoints.map((point, index) => (
           <li key={index}>{point}</li>
         ))}

@@ -7,8 +7,8 @@ export default function RagaHeader() {
 
   return (
     <div className="text-center mb-10">
-      <h1 className="text-4xl font-bold text-gray-900 mb-3">{t.raga.title}</h1>
-      <p className="text-xl text-gray-600">{t.raga.subtitle}</p>
+      <h1 className="text-4xl font-bold text-white mb-3">{t.raga.title}</h1>
+      <p className="text-xl text-zinc-300">{t.raga.subtitle}</p>
     </div>
   );
 }
