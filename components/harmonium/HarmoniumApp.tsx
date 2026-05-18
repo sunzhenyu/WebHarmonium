@@ -28,6 +28,10 @@ export default function HarmoniumApp() {
   const { engine, isLoaded, isLoading, loadEngine } = useAudioEngine();
 
   const handleKeyStateChange = (key: string, isPressed: boolean) => {
+    if (key === '__all__' && !isPressed) {
+      setPressedKeys(new Set());
+      return;
+    }
     setPressedKeys(prev => {
       const newSet = new Set(prev);
       if (isPressed) {

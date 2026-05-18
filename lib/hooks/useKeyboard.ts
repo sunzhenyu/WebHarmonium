@@ -54,12 +54,31 @@ export function useKeyboard(
       }
     };
 
+    // Stop all sounds when window loses focus or tab becomes hidden
+    // This fixes the bug where keyup never fires if user switches windows
+    // while holding a key, causing notes to play indefinitely.
+    const handleBlur = () => {
+      engine.allNotesOff();
+      onKeyStateChange?.('__all__', false);
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        engine.allNotesOff();
+        onKeyStateChange?.('__all__', false);
+      }
+    };
+
     window.addEventListener('keydown', handleKeyDown);
     window.addEventListener('keyup', handleKeyUp);
+    window.addEventListener('blur', handleBlur);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('keyup', handleKeyUp);
+      window.removeEventListener('blur', handleBlur);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, [engine, enabled, onKeyStateChange]);
+  }, [engine, enabled, onKeyStateChange, onTransposeChange, onOctaveChange]);
 }

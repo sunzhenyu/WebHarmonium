@@ -180,6 +180,28 @@ export class AudioEngine {
     }, (fadeTime + 0.05) * 1000);
   }
 
+  allNotesOff(): void {
+    const now = this.context?.currentTime ?? 0;
+    const fadeTime = 0.3;
+
+    for (let i = 0; i < this.notes.length; i++) {
+      const slot = this.notes[i];
+      if (slot.state !== 'playing') continue;
+
+      slot.state = 'releasing';
+      for (let r = 0; r < slot.gains.length; r++) {
+        slot.gains[r].gain.setValueAtTime(slot.gains[r].gain.value, now);
+        slot.gains[r].gain.exponentialRampToValueAtTime(0.001, now + fadeTime);
+        try { slot.sources[r].stop(now + fadeTime); } catch (_) { /* ignore */ }
+      }
+
+      const index = i;
+      slot.releaseTimer = setTimeout(() => {
+        this.notes[index] = this.buildNoteSlot(index);
+      }, (fadeTime + 0.05) * 1000);
+    }
+  }
+
   setVolume(volume: number): void {
     if (this.masterGain) {
       this.masterGain.gain.value = volume / 100;
