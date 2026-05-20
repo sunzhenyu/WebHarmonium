@@ -19,6 +19,11 @@ export class AudioEngine {
   private keyMap: number[] = [];
   private baseKeyMap: number[] = [];
 
+  // Tracks which slot index each note is currently playing in,
+  // so noteOff can stop the correct slot even if octave/transpose
+  // changed while the key was held down.
+  private activeNotes: Map<number, number> = new Map();
+
   // Shruti Box / Drone state
   private droneSlot: NoteSlot | null = null;
   private droneEnabled: boolean = false;
@@ -135,6 +140,13 @@ export class AudioEngine {
 
     this.resumeContext();
 
+    // If this note is already playing in another slot (e.g. user changed
+    // octave while holding the key), stop the old slot first.
+    const existingSlot = this.activeNotes.get(note);
+    if (existingSlot !== undefined && existingSlot !== i) {
+      this.releaseSlot(existingSlot);
+    }
+
     const slot = this.notes[i];
 
     // If releasing, cancel the release and restart cleanly
@@ -156,12 +168,22 @@ export class AudioEngine {
       }
       this.notes[i].state = 'playing';
     }
+
+    this.activeNotes.set(note, i);
   }
 
   noteOff(note: number): void {
-    const i = note + octaveMap[this.currentOctave];
-    if (i < 0 || i >= 128) return;
+    // Use the slot index recorded at noteOn time, not the current octave's
+    // mapping. This ensures we stop the right slot even if octave/transpose
+    // changed while the key was held.
+    const i = this.activeNotes.get(note);
+    if (i === undefined) return;
+    this.activeNotes.delete(note);
+    this.releaseSlot(i);
+  }
 
+  private releaseSlot(i: number): void {
+    if (i < 0 || i >= 128) return;
     const slot = this.notes[i];
     if (slot.state !== 'playing') return;
 
@@ -181,24 +203,11 @@ export class AudioEngine {
   }
 
   allNotesOff(): void {
-    const now = this.context?.currentTime ?? 0;
-    const fadeTime = 0.3;
-
+    // Release every slot that is currently playing, regardless of which
+    // note triggered it. This is the safety net for the stuck-note bug.
+    this.activeNotes.clear();
     for (let i = 0; i < this.notes.length; i++) {
-      const slot = this.notes[i];
-      if (slot.state !== 'playing') continue;
-
-      slot.state = 'releasing';
-      for (let r = 0; r < slot.gains.length; r++) {
-        slot.gains[r].gain.setValueAtTime(slot.gains[r].gain.value, now);
-        slot.gains[r].gain.exponentialRampToValueAtTime(0.001, now + fadeTime);
-        try { slot.sources[r].stop(now + fadeTime); } catch (_) { /* ignore */ }
-      }
-
-      const index = i;
-      slot.releaseTimer = setTimeout(() => {
-        this.notes[index] = this.buildNoteSlot(index);
-      }, (fadeTime + 0.05) * 1000);
+      this.releaseSlot(i);
     }
   }
 
