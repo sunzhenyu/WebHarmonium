@@ -42,6 +42,8 @@ export const translations = {
       droneOn: 'Drone ON',
       droneOff: 'Drone OFF',
       droneDesc: 'Sa+Pa continuous drone for raga practice',
+      droneSoft: 'soft',
+      droneStrong: 'strong',
     },
     // Common UI
     ui: {
@@ -437,6 +439,8 @@ export const translations = {
       droneOn: 'ड्रोन चालू',
       droneOff: 'ड्रोन बंद',
       droneDesc: 'राग अभ्यास के लिए सा+प निरंतर ड्रोन',
+      droneSoft: 'धीमा',
+      droneStrong: 'तेज़',
     },
     // Common UI
     ui: {

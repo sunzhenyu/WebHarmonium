@@ -1,6 +1,5 @@
 import { AudioEngineConfig } from './types';
 import { octaveMap } from './keyboardMap';
-import { dbg } from '../debug';
 
 interface NoteSlot {
   sources: AudioBufferSourceNode[];
@@ -43,7 +42,9 @@ export class AudioEngine {
   // Shruti Box / Drone state
   private droneSlot: NoteSlot | null = null;
   private droneEnabled: boolean = false;
-  private droneVolume: number = 0.5;
+  // 0.0–0.6 range (UI clamps); 0.3 default is the sweet spot where the
+  // drone sits behind the keys, like a real Shruti Box during practice.
+  private droneVolume: number = 0.3;
 
   private config: AudioEngineConfig = {
     sampleURL: '/audio/harmonium-kannan-orig.wav',
@@ -152,7 +153,6 @@ export class AudioEngine {
 
   noteOn(note: number): void {
     if (!this.context || !this.audioBuffer || !this.masterGain) {
-      dbg.push(`engine.noteOn(${note}) NOT READY ctx=${!!this.context} buf=${!!this.audioBuffer} gain=${!!this.masterGain}`);
       return;
     }
 
@@ -162,14 +162,12 @@ export class AudioEngine {
     const i = note + octaveMap[this.currentOctave];
     if (i < 0 || i >= 128) return;
 
-    dbg.push(`engine.noteOn(${note}) i=${i} state=${this.context.state}`);
 
     // If this note is somehow already playing (rapid re-press, or the
     // previous noteOff never fired), release the old voice first so we
     // can't leak sources.
     const existing = this.voices.get(note);
     if (existing) {
-      dbg.push(`engine.noteOn(${note}) replacing existing voice`);
       this.releaseVoice(existing);
     }
 
@@ -189,7 +187,6 @@ export class AudioEngine {
     // its own after 8 seconds. Long enough for normal sustained notes,
     // short enough that a stuck note is not a session-killing bug.
     voice.hardStopTimer = setTimeout(() => {
-      dbg.push(`HARDSTOP note=${note}`);
       if (this.voices.get(note) === voice) {
         this.voices.delete(note);
       }
@@ -201,7 +198,6 @@ export class AudioEngine {
       // still resuming, the voice has been removed from the map — bail
       // out without building any audio nodes.
       if (this.voices.get(note) !== voice) {
-        dbg.push(`buildAndStart note=${note} cancelled before build`);
         return;
       }
       if (!this.context || !this.audioBuffer || !this.masterGain) return;
@@ -229,7 +225,6 @@ export class AudioEngine {
       // noteOff raced us between the check above and the synchronous
       // node-construction loop.
       if (this.voices.get(note) !== voice) {
-        dbg.push(`buildAndStart note=${note} cancelled before start`);
         for (let r = 0; r < voice.sources.length; r++) {
           try { voice.sources[r].disconnect(); } catch (_) { /* ignore */ }
           try { voice.gains[r].disconnect(); } catch (_) { /* ignore */ }
@@ -239,19 +234,14 @@ export class AudioEngine {
 
       try {
         for (const src of voice.sources) src.start(0);
-        dbg.push(`start ok note=${note} reeds=${voice.sources.length}`);
       } catch (e) {
-        dbg.push(`start ERR note=${note} ${(e as Error).message}`);
       }
     };
 
     if (this.context.state === 'suspended') {
-      dbg.push(`resume() for note=${note}`);
       this.context.resume().then(() => {
-        dbg.push(`resumed for note=${note} state=${this.context?.state}`);
         buildAndStart();
       }).catch((e) => {
-        dbg.push(`resume ERR ${(e as Error).message}`);
       });
     } else {
       buildAndStart();
@@ -260,12 +250,10 @@ export class AudioEngine {
 
   noteOff(note: number): void {
     const voice = this.voices.get(note);
-    dbg.push(`engine.noteOff(${note}) found=${!!voice}`);
     if (!voice) return;
     this.voices.delete(note);
     this.releaseVoice(voice);
 
-    dbg.push(`after noteOff: voices.size=${this.voices.size} drone=${this.droneEnabled}`);
     // iOS Safari workaround: source.stop() / disconnect() do NOT stop a
     // playing looped AudioBufferSourceNode on iOS. The only reliable way
     // to silence everything is to suspend the AudioContext when no
@@ -279,32 +267,25 @@ export class AudioEngine {
 
   private scheduleContextSuspend(): void {
     if (this.suspendTimer) clearTimeout(this.suspendTimer);
-    dbg.push(`scheduleContextSuspend in 80ms`);
     // Short delay so rapid noteOn/noteOff sequences don't thrash the
     // context. Long enough that a stuck note actually goes silent.
     this.suspendTimer = setTimeout(() => {
       this.suspendTimer = undefined;
-      if (!this.context) { dbg.push('suspend skip: no ctx'); return; }
+      if (!this.context) { return; }
       if (this.voices.size > 0 || this.droneEnabled) {
-        dbg.push(`suspend skip: voices=${this.voices.size} drone=${this.droneEnabled}`);
         return;
       }
       if (this.context.state !== 'running') {
-        dbg.push(`suspend skip: state=${this.context.state}`);
         return;
       }
-      dbg.push(`suspending context (no active voices)`);
       this.context.suspend().then(() => {
-        dbg.push(`suspend done, state=${this.context?.state}`);
       }).catch((e) => {
-        dbg.push(`suspend ERR ${(e as Error).message}`);
       });
     }, 80);
   }
 
   private cancelScheduledSuspend(): void {
     if (this.suspendTimer) {
-      dbg.push(`cancelScheduledSuspend`);
       clearTimeout(this.suspendTimer);
       this.suspendTimer = undefined;
     }
@@ -321,18 +302,19 @@ export class AudioEngine {
       voice.releaseTimer = undefined;
     }
 
-    let killed = 0;
-    let errors: string[] = [];
+    // Cut sound IMMEDIATELY: gain.value to 0 synchronously, then stop()
+    // and disconnect() every node. iOS Safari ignores stop()/disconnect()
+    // on looped sources — that's why we also schedule a context suspend
+    // when no voices remain (see scheduleContextSuspend).
     for (let r = 0; r < voice.sources.length; r++) {
       const src = voice.sources[r];
       const gain = voice.gains[r];
-      try { gain.gain.cancelScheduledValues(0); } catch (e) { errors.push(`csv:${(e as Error).message}`); }
-      try { gain.gain.value = 0; } catch (e) { errors.push(`gv:${(e as Error).message}`); }
-      try { src.stop(0); killed++; } catch (e) { errors.push(`stop:${(e as Error).message}`); }
-      try { src.disconnect(); } catch (e) { errors.push(`sd:${(e as Error).message}`); }
-      try { gain.disconnect(); } catch (e) { errors.push(`gd:${(e as Error).message}`); }
+      try { gain.gain.cancelScheduledValues(0); } catch (_) { /* ignore */ }
+      try { gain.gain.value = 0; } catch (_) { /* ignore */ }
+      try { src.stop(0); } catch (_) { /* ignore */ }
+      try { src.disconnect(); } catch (_) { /* ignore */ }
+      try { gain.disconnect(); } catch (_) { /* ignore */ }
     }
-    dbg.push(`releaseVoice killed=${killed}/${voice.sources.length} errs=[${errors.join('|')}]`);
   }
 
   allNotesOff(): void {
@@ -401,7 +383,11 @@ export class AudioEngine {
     for (const noteIdx of droneNotes) {
       const src = this.context.createBufferSource();
       const gain = this.context.createGain();
-      gain.gain.value = this.droneVolume * 0.5;
+      // Sa+Pa stack together so we attenuate each one to 0.4× the user's
+      // chosen droneVolume — keeps the drone sitting behind the keys
+      // rather than competing with them, matching how a real Shruti Box
+      // is used as a reference pitch background.
+      gain.gain.value = this.droneVolume * 0.4;
       src.connect(gain);
       gain.connect(this.masterGain);
       src.buffer = this.audioBuffer;
@@ -436,7 +422,6 @@ export class AudioEngine {
       try { src.start(0); } catch (_) { /* ignore */ }
     }
     this.droneSlot.state = 'playing';
-    dbg.push('drone started');
   }
 
   private stopDrone(): void {
@@ -451,12 +436,10 @@ export class AudioEngine {
       try { gain.disconnect(); } catch (_) { /* ignore */ }
     }
     this.droneSlot = null;
-    dbg.push('stopDrone done');
   }
 
   setDrone(enabled: boolean): void {
     this.droneEnabled = enabled;
-    dbg.push(`setDrone(${enabled})`);
     if (enabled) {
       this.cancelScheduledSuspend();
       this.startDrone();
@@ -475,7 +458,8 @@ export class AudioEngine {
     this.droneVolume = volume;
     if (this.droneSlot) {
       for (const gain of this.droneSlot.gains) {
-        gain.gain.value = volume * 0.5;
+        // Match the 0.4× attenuation used in buildDroneSlot.
+        gain.gain.value = volume * 0.4;
       }
     }
   }

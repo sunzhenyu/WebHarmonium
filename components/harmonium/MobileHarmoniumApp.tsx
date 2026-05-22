@@ -23,7 +23,7 @@ export default function MobileHarmoniumApp() {
   const [reeds, setReeds] = useLocalStorage<number>('harmonium.reeds', 1);
   const [reverbEnabled, setReverbEnabled] = useLocalStorage<boolean>('harmonium.reverb', false);
   const [droneEnabled, setDroneEnabled] = useLocalStorage<boolean>('harmonium.drone', false);
-  const [droneVolume, setDroneVolume] = useLocalStorage<number>('harmonium.droneVolume', 0.5);
+  const [droneVolume, setDroneVolume] = useLocalStorage<number>('harmonium.droneVolume', 0.3);
   const [pressedKeys, setPressedKeys] = useState<Set<string>>(new Set());
   const startTimeRef = useRef<number>(Date.now());
 
@@ -54,6 +54,13 @@ export default function MobileHarmoniumApp() {
 
   useEffect(() => {
     if (!isLoaded && !isLoading) loadEngine(octave, transpose);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // One-time migration: the drone volume slider used to go up to 1.0,
+  // now it tops out at 0.6. Clamp any old saved value down so users
+  // who had it cranked don't get blasted on first load.
+  useEffect(() => {
+    if (droneVolume > 0.6) setDroneVolume(0.3);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {

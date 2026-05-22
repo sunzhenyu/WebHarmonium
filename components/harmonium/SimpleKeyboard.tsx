@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { AudioEngine } from '@/lib/audio/AudioEngine';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
-import { dbg } from '@/lib/debug';
 
 interface SimpleKeyboardProps {
   engine: AudioEngine | null;
@@ -31,115 +30,49 @@ const keyboardMap: Record<string, number> = {
 export default function SimpleKeyboard({ engine, pressedKeys }: SimpleKeyboardProps) {
   const { t } = useLanguage();
 
-  // Currently held notes. Any release event (anywhere) clears all of
-  // them — single-finger harmonium, over-release on multi-touch is fine.
+  // Currently held notes. Any release event (anywhere on window/document)
+  // clears them all. For a single-finger harmonium UI, over-releasing on
+  // a multi-touch chord is acceptable — lifting any finger ends the chord.
   const activeNotesRef = useRef<Set<number>>(new Set());
 
-  // Global release listeners: touch + mouse natively, not Pointer Events.
-  // On iOS Safari, Pointer Events have been unreliable in our testing —
-  // pointerup sometimes never fires after a synthesized pointerdown.
-  // The classic touch/mouse handlers fire consistently.
-  useEffect(() => {
-    dbg.push(`SimpleKeyboard mounted, engine=${!!engine}`);
-  }, [engine]);
+  // iOS Safari fires a synthesized mousedown ~1ms after each touchstart.
+  // We ignore mousedown within this window so each tap creates only one
+  // voice instead of two overlapping ones.
+  const lastTouchAt = useRef<number>(0);
 
   useEffect(() => {
     if (!engine) return;
 
-    const releaseAll = (reason: string) => {
-      const held = Array.from(activeNotesRef.current);
-      dbg.push(`releaseAll(${reason}) held=[${held.join(',')}]`);
-      if (held.length === 0) return;
-      for (const n of held) engine.noteOff(n);
+    const releaseAll = () => {
+      if (activeNotesRef.current.size === 0) return;
+      for (const n of activeNotesRef.current) engine.noteOff(n);
       activeNotesRef.current.clear();
     };
 
-    // Log EVERY event we can think of, both at window and document level,
-    // to find out what iOS Safari is actually dispatching. Once we know,
-    // we can pick the right one.
-    const tag = (name: string) => (e: Event) => {
-      const tgt = (e.target as Element)?.tagName ?? '?';
-      const extra: string[] = [];
-      if ('touches' in e) {
-        const te = e as TouchEvent;
-        extra.push(`touches=${te.touches.length}`, `changed=${te.changedTouches.length}`);
-      }
-      if ('pointerType' in e) {
-        const pe = e as PointerEvent;
-        extra.push(`type=${pe.pointerType}`, `id=${pe.pointerId}`);
-      }
-      if ('button' in e) {
-        const me = e as MouseEvent;
-        extra.push(`btn=${me.button}`);
-      }
-      dbg.push(`${name} tgt=${tgt} ${extra.join(' ')}`);
-    };
+    const onVisibility = () => { if (document.hidden) releaseAll(); };
 
-    const events: [EventTarget, string, EventListener][] = [
-      [window, 'touchstart', tag('win touchstart')],
-      [window, 'touchend',   tag('win touchend')],
-      [window, 'touchcancel', tag('win touchcancel')],
-      [window, 'touchmove',  tag('win touchmove')],
-      [window, 'mousedown',  tag('win mousedown')],
-      [window, 'mouseup',    tag('win mouseup')],
-      [window, 'pointerdown', tag('win pointerdown')],
-      [window, 'pointerup',   tag('win pointerup')],
-      [window, 'pointercancel', tag('win pointercancel')],
-      [document, 'touchend',  tag('doc touchend')],
-      [document, 'mouseup',   tag('doc mouseup')],
-      [document, 'pointerup', tag('doc pointerup')],
-    ];
-
-    // The actual release handlers — we still listen for the standard
-    // ones in case any fire.
-    const onTouchEnd = () => releaseAll('touchend');
-    const onTouchCancel = () => releaseAll('touchcancel');
-    const onMouseUp = () => releaseAll('mouseup');
-    const onPointerUp = () => releaseAll('pointerup');
-    const onBlur = () => { dbg.push('win blur'); releaseAll('blur'); };
-    const onVisibility = () => {
-      dbg.push(`visibilitychange hidden=${document.hidden}`);
-      if (document.hidden) releaseAll('visibility');
-    };
-
-    for (const [t, n, fn] of events) t.addEventListener(n, fn, { passive: true });
-    window.addEventListener('touchend', onTouchEnd);
-    window.addEventListener('touchcancel', onTouchCancel);
-    window.addEventListener('mouseup', onMouseUp);
-    window.addEventListener('pointerup', onPointerUp);
-    window.addEventListener('blur', onBlur);
+    window.addEventListener('touchend', releaseAll);
+    window.addEventListener('touchcancel', releaseAll);
+    window.addEventListener('mouseup', releaseAll);
+    window.addEventListener('pointerup', releaseAll);
+    window.addEventListener('blur', releaseAll);
     document.addEventListener('visibilitychange', onVisibility);
 
-    dbg.push(`listeners attached, engine ready`);
-
     return () => {
-      for (const [t, n, fn] of events) t.removeEventListener(n, fn);
-      window.removeEventListener('touchend', onTouchEnd);
-      window.removeEventListener('touchcancel', onTouchCancel);
-      window.removeEventListener('mouseup', onMouseUp);
-      window.removeEventListener('pointerup', onPointerUp);
-      window.removeEventListener('blur', onBlur);
+      window.removeEventListener('touchend', releaseAll);
+      window.removeEventListener('touchcancel', releaseAll);
+      window.removeEventListener('mouseup', releaseAll);
+      window.removeEventListener('pointerup', releaseAll);
+      window.removeEventListener('blur', releaseAll);
       document.removeEventListener('visibilitychange', onVisibility);
     };
   }, [engine]);
 
-  // Block mouse events that iOS Safari synthesizes after touchstart.
-  // We want touch to be the only path; otherwise each tap produces two
-  // overlapping voices for the same note, which on iOS could double-play.
-  const lastTouchAt = useRef<number>(0);
-
-  const press = (keyChar: string, source: string) => {
-    if (!engine) {
-      dbg.push(`press(${keyChar}) from=${source} NO ENGINE`);
-      return;
-    }
+  const press = (keyChar: string) => {
+    if (!engine) return;
     const note = keyboardMap[keyChar];
     if (note === undefined) return;
-    if (activeNotesRef.current.has(note)) {
-      dbg.push(`press(${keyChar}=${note}) from=${source} dup-skip`);
-      return;
-    }
-    dbg.push(`press(${keyChar}=${note}) from=${source}`);
+    if (activeNotesRef.current.has(note)) return;
     engine.noteOn(note);
     activeNotesRef.current.add(note);
   };
@@ -147,19 +80,14 @@ export default function SimpleKeyboard({ engine, pressedKeys }: SimpleKeyboardPr
   const handleTouchStart = (e: React.TouchEvent, keyChar: string) => {
     e.preventDefault();
     lastTouchAt.current = performance.now();
-    press(keyChar, 'touchstart');
+    press(keyChar);
   };
 
   const handleMouseDown = (e: React.MouseEvent, keyChar: string) => {
     if (e.button !== 0) return;
-    // Ignore mousedown that comes right after a touchstart — it's the
-    // synthesized event iOS Safari fires after each tap, and we already
-    // handled the touch.
-    if (performance.now() - lastTouchAt.current < 800) {
-      dbg.push(`mousedown(${keyChar}) ignored (recent touch)`);
-      return;
-    }
-    press(keyChar, 'mousedown');
+    // Skip the synthesized mouse event iOS fires right after touchstart.
+    if (performance.now() - lastTouchAt.current < 800) return;
+    press(keyChar);
   };
 
   const isKeyPressed = (keyChar: string) =>
