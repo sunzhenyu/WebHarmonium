@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { AudioEngine } from '@/lib/audio/AudioEngine';
 import { keyboardMap } from '@/lib/audio/keyboardMap';
 
@@ -41,30 +41,69 @@ const keys: KeyData[] = [
 ];
 
 export default function Keyboard({ engine, pressedKeys }: KeyboardProps) {
-  const handleMouseDown = (keyChar: string) => {
+  const touchNotesRef = useRef<Map<number, number>>(new Map());
+  const mouseNoteRef = useRef<number | null>(null);
+
+  const stopNoteByNumber = (note: number) => {
     if (!engine) return;
-    const note = keyboardMap[keyChar];
-    if (note !== undefined) {
-      engine.noteOn(note);
-    }
+    engine.noteOff(note);
   };
 
-  const handleMouseUp = (keyChar: string) => {
+  useEffect(() => {
+    if (!engine) return;
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      for (let i = 0; i < e.changedTouches.length; i++) {
+        const touch = e.changedTouches[i];
+        const note = touchNotesRef.current.get(touch.identifier);
+        if (note !== undefined) {
+          stopNoteByNumber(note);
+          touchNotesRef.current.delete(touch.identifier);
+        }
+      }
+    };
+
+    const handleMouseUp = () => {
+      if (mouseNoteRef.current !== null) {
+        stopNoteByNumber(mouseNoteRef.current);
+        mouseNoteRef.current = null;
+      }
+    };
+
+    window.addEventListener('touchend', handleTouchEnd);
+    window.addEventListener('touchcancel', handleTouchEnd);
+    window.addEventListener('mouseup', handleMouseUp);
+
+    return () => {
+      window.removeEventListener('touchend', handleTouchEnd);
+      window.removeEventListener('touchcancel', handleTouchEnd);
+      window.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [engine]);
+
+  const handleMouseDown = (e: React.MouseEvent, keyChar: string) => {
+    if (e.button !== 0) return;
     if (!engine) return;
     const note = keyboardMap[keyChar];
-    if (note !== undefined) {
-      engine.noteOff(note);
+    if (note === undefined) return;
+    if (mouseNoteRef.current !== null) {
+      stopNoteByNumber(mouseNoteRef.current);
     }
+    engine.noteOn(note);
+    mouseNoteRef.current = note;
   };
 
   const handleTouchStart = (e: React.TouchEvent, keyChar: string) => {
     e.preventDefault();
-    handleMouseDown(keyChar);
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent, keyChar: string) => {
-    e.preventDefault();
-    handleMouseUp(keyChar);
+    if (!engine) return;
+    const note = keyboardMap[keyChar];
+    if (note === undefined) return;
+    for (let i = 0; i < e.changedTouches.length; i++) {
+      const touch = e.changedTouches[i];
+      if (touchNotesRef.current.has(touch.identifier)) continue;
+      engine.noteOn(note);
+      touchNotesRef.current.set(touch.identifier, note);
+    }
   };
 
   const isKeyPressed = (keyChar: string) => {
@@ -118,11 +157,9 @@ export default function Keyboard({ engine, pressedKeys }: KeyboardProps) {
                   ? `fill-black stroke-black stroke-1 ${isKeyPressed(key.keyChar) ? 'fill-gray-600' : 'hover:fill-gray-700 active:fill-gray-600'}`
                   : `fill-white stroke-black stroke-1 ${isKeyPressed(key.keyChar) ? 'fill-gray-300' : 'hover:fill-gray-100 active:fill-gray-200'}`
               }`}
-              onMouseDown={() => handleMouseDown(key.keyChar)}
-              onMouseUp={() => handleMouseUp(key.keyChar)}
-              onMouseLeave={() => handleMouseUp(key.keyChar)}
+              onMouseDown={(e) => handleMouseDown(e, key.keyChar)}
               onTouchStart={(e) => handleTouchStart(e, key.keyChar)}
-              onTouchEnd={(e) => handleTouchEnd(e, key.keyChar)}
+              onContextMenu={(e) => e.preventDefault()}
             />
             {key.label && !key.isBlack && (
               <text
