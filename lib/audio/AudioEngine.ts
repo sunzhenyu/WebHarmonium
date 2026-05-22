@@ -138,14 +138,35 @@ export class AudioEngine {
     const i = note + octaveMap[this.currentOctave];
     if (i < 0 || i >= 128) return;
 
-    this.resumeContext();
-
     // If this note is already playing in another slot (e.g. user changed
     // octave while holding the key), stop the old slot first.
     const existingSlot = this.activeNotes.get(note);
     if (existingSlot !== undefined && existingSlot !== i) {
       this.releaseSlot(existingSlot);
     }
+
+    // Reserve the slot synchronously so a noteOff arriving before the
+    // async resume completes still has somewhere to find this note.
+    this.activeNotes.set(note, i);
+
+    // iOS Safari: AudioContext starts suspended and resume() is async.
+    // Calling source.start() while suspended schedules the source but it
+    // can keep playing once resume completes, even if noteOff was already
+    // called in the meantime — that's the stuck-note bug on iPhone.
+    // Wait for resume before starting sources.
+    const start = () => this.startSlot(note, i);
+    if (this.context && this.context.state === 'suspended') {
+      this.context.resume().then(start).catch(() => { /* ignore */ });
+    } else {
+      start();
+    }
+  }
+
+  private startSlot(note: number, i: number): void {
+    // The user may have released the key (noteOff) while we were waiting
+    // for the AudioContext to resume. If activeNotes no longer points at
+    // this slot, abort — don't start a phantom note.
+    if (this.activeNotes.get(note) !== i) return;
 
     const slot = this.notes[i];
 
@@ -159,17 +180,14 @@ export class AudioEngine {
     }
 
     if (this.notes[i].state === 'idle') {
-      // Lazily build the slot on first press (slots start empty after init)
       if (this.notes[i].sources.length === 0) {
         this.notes[i] = this.buildNoteSlot(i);
       }
       for (const src of this.notes[i].sources) {
-        src.start(0);
+        try { src.start(0); } catch (_) { /* ignore */ }
       }
       this.notes[i].state = 'playing';
     }
-
-    this.activeNotes.set(note, i);
   }
 
   noteOff(note: number): void {
