@@ -40,6 +40,10 @@ export default function SimpleKeyboard({ engine, pressedKeys }: SimpleKeyboardPr
   // pointerup sometimes never fires after a synthesized pointerdown.
   // The classic touch/mouse handlers fire consistently.
   useEffect(() => {
+    dbg.push(`SimpleKeyboard mounted, engine=${!!engine}`);
+  }, [engine]);
+
+  useEffect(() => {
     if (!engine) return;
 
     const releaseAll = (reason: string) => {
