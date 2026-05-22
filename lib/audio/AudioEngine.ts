@@ -156,6 +156,9 @@ export class AudioEngine {
       return;
     }
 
+    // Cancel any pending suspend — we're about to need the context again.
+    this.cancelScheduledSuspend();
+
     const i = note + octaveMap[this.currentOctave];
     if (i < 0 || i >= 128) return;
 
@@ -261,6 +264,37 @@ export class AudioEngine {
     if (!voice) return;
     this.voices.delete(note);
     this.releaseVoice(voice);
+
+    // iOS Safari workaround: source.stop() / disconnect() do NOT stop a
+    // playing looped AudioBufferSourceNode on iOS. The only reliable way
+    // to silence everything is to suspend the AudioContext when no
+    // voices are active. The next noteOn will resume() it again.
+    if (this.voices.size === 0 && this.droneEnabled === false) {
+      this.scheduleContextSuspend();
+    }
+  }
+
+  private suspendTimer?: ReturnType<typeof setTimeout>;
+
+  private scheduleContextSuspend(): void {
+    if (this.suspendTimer) clearTimeout(this.suspendTimer);
+    // Short delay so rapid noteOn/noteOff sequences don't thrash the
+    // context. Long enough that a stuck note actually goes silent.
+    this.suspendTimer = setTimeout(() => {
+      this.suspendTimer = undefined;
+      if (!this.context) return;
+      if (this.voices.size > 0 || this.droneEnabled) return;
+      if (this.context.state !== 'running') return;
+      dbg.push(`suspending context (no active voices)`);
+      this.context.suspend().catch(() => { /* ignore */ });
+    }, 80);
+  }
+
+  private cancelScheduledSuspend(): void {
+    if (this.suspendTimer) {
+      clearTimeout(this.suspendTimer);
+      this.suspendTimer = undefined;
+    }
   }
 
   private releaseVoice(voice: Voice): void {
