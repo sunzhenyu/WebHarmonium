@@ -30,102 +30,94 @@ const keyboardMap: Record<string, number> = {
 export default function SimpleKeyboard({ engine, pressedKeys }: SimpleKeyboardProps) {
   const { t } = useLanguage();
 
-  // Track which note each touch identifier is playing, so we can stop
-  // the right note when the touch ends/cancels — even if the finger
-  // slides off the button before lifting.
-  const touchNotesRef = useRef<Map<number, number>>(new Map());
-  // Track mouse-pressed note so we can release on global mouseup
-  // even if the cursor left the button first.
-  const mouseNoteRef = useRef<number | null>(null);
+  // Map each pointerId to the note it's playing. Pointer Events unify
+  // touch and mouse, fire reliably across browsers, and capture the
+  // pointer on pointerdown so pointerup always fires on the same element
+  // — no more lost touchend when the finger slides off the button.
+  const pointerNotesRef = useRef<Map<number, number>>(new Map());
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
-  const playNote = (keyChar: string): number | null => {
-    if (!engine) return null;
-    const note = keyboardMap[keyChar];
-    if (note === undefined) return null;
-    engine.noteOn(note);
-    return note;
-  };
-
-  const stopNote = (note: number) => {
-    if (!engine) return;
-    engine.noteOff(note);
-  };
-
-  // Global listeners as a safety net: if any touch ends/cancels anywhere
-  // (e.g. finger slides off the key before lifting), release that note.
+  // Safety net: if any pointer up/cancel reaches the window, release
+  // whatever note it was playing. This covers iOS Safari quirks where
+  // the per-button pointerup sometimes doesn't fire.
   useEffect(() => {
     if (!engine) return;
 
-    const handleTouchEnd = (e: TouchEvent) => {
-      for (let i = 0; i < e.changedTouches.length; i++) {
-        const touch = e.changedTouches[i];
-        const note = touchNotesRef.current.get(touch.identifier);
-        if (note !== undefined) {
-          stopNote(note);
-          touchNotesRef.current.delete(touch.identifier);
-        }
+    const release = (e: PointerEvent) => {
+      const note = pointerNotesRef.current.get(e.pointerId);
+      if (note !== undefined) {
+        engine.noteOff(note);
+        pointerNotesRef.current.delete(e.pointerId);
       }
     };
 
-    const handleMouseUp = () => {
-      if (mouseNoteRef.current !== null) {
-        stopNote(mouseNoteRef.current);
-        mouseNoteRef.current = null;
-      }
+    const releaseAll = () => {
+      if (pointerNotesRef.current.size === 0) return;
+      pointerNotesRef.current.clear();
+      engine.allNotesOff();
     };
 
-    window.addEventListener('touchend', handleTouchEnd);
-    window.addEventListener('touchcancel', handleTouchEnd);
-    window.addEventListener('mouseup', handleMouseUp);
+    window.addEventListener('pointerup', release);
+    window.addEventListener('pointercancel', release);
+    window.addEventListener('blur', releaseAll);
 
     return () => {
-      window.removeEventListener('touchend', handleTouchEnd);
-      window.removeEventListener('touchcancel', handleTouchEnd);
-      window.removeEventListener('mouseup', handleMouseUp);
+      window.removeEventListener('pointerup', release);
+      window.removeEventListener('pointercancel', release);
+      window.removeEventListener('blur', releaseAll);
     };
   }, [engine]);
 
-  const handleTouchStart = (e: React.TouchEvent, keyChar: string) => {
-    e.preventDefault();
-    for (let i = 0; i < e.changedTouches.length; i++) {
-      const touch = e.changedTouches[i];
-      if (touchNotesRef.current.has(touch.identifier)) continue;
-      const note = playNote(keyChar);
-      if (note !== null) {
-        touchNotesRef.current.set(touch.identifier, note);
-      }
+  const handlePointerDown = (e: React.PointerEvent, keyChar: string) => {
+    if (!engine) return;
+    const note = keyboardMap[keyChar];
+    if (note === undefined) return;
+
+    // Stop any earlier press from this same pointer that didn't get
+    // released properly (defensive).
+    const existing = pointerNotesRef.current.get(e.pointerId);
+    if (existing !== undefined) {
+      engine.noteOff(existing);
     }
+
+    // Capture the pointer so pointerup fires on this element even if the
+    // finger slides off — eliminates the "finger slid off → stuck note"
+    // path on mobile.
+    try { (e.currentTarget as Element).setPointerCapture(e.pointerId); } catch (_) { /* ignore */ }
+
+    engine.noteOn(note);
+    pointerNotesRef.current.set(e.pointerId, note);
   };
 
-  const handleMouseDown = (e: React.MouseEvent, keyChar: string) => {
-    // Skip if this is a synthesized mouse event from a touch — touchstart
-    // already handled it. Touch devices fire mousedown ~300ms after touchend.
-    if (e.button !== 0) return;
-    if (mouseNoteRef.current !== null) {
-      stopNote(mouseNoteRef.current);
-    }
-    const note = playNote(keyChar);
-    mouseNoteRef.current = note;
+  const handlePointerUp = (e: React.PointerEvent) => {
+    if (!engine) return;
+    const note = pointerNotesRef.current.get(e.pointerId);
+    if (note === undefined) return;
+    engine.noteOff(note);
+    pointerNotesRef.current.delete(e.pointerId);
+    try { (e.currentTarget as Element).releasePointerCapture(e.pointerId); } catch (_) { /* ignore */ }
   };
 
   const isKeyPressed = (keyChar: string) =>
     pressedKeys.has(keyChar) || pressedKeys.has(keyChar.toUpperCase());
 
   return (
-    <div className="flex justify-center my-2">
+    <div className="flex justify-center my-2" ref={containerRef}>
       <div className="relative w-full max-w-2xl">
         {/* 白键 */}
         <div className="flex gap-1">
           {simpleKeys.filter(k => !k.isBlack).map((key) => (
             <button
               key={key.keyChar}
+              type="button"
               className={`flex-1 h-32 sm:h-40 rounded-b-xl border transition-all shadow-md touch-none select-none ${
                 isKeyPressed(key.keyChar)
                   ? 'bg-orange-200 border-orange-400 scale-95'
                   : 'bg-stone-100 border-stone-300 hover:bg-stone-200 active:bg-orange-100'
               }`}
-              onMouseDown={(e) => handleMouseDown(e, key.keyChar)}
-              onTouchStart={(e) => handleTouchStart(e, key.keyChar)}
+              onPointerDown={(e) => handlePointerDown(e, key.keyChar)}
+              onPointerUp={handlePointerUp}
+              onPointerCancel={handlePointerUp}
               onContextMenu={(e) => e.preventDefault()}
               aria-label={`${key.sargam} (${key.note})`}
             >
@@ -146,14 +138,16 @@ export default function SimpleKeyboard({ engine, pressedKeys }: SimpleKeyboardPr
               return (
                 <button
                   key={key.keyChar}
+                  type="button"
                   className={`absolute h-full w-12 sm:w-16 rounded-b-lg border transition-all pointer-events-auto shadow-lg touch-none select-none ${
                     isKeyPressed(key.keyChar)
                       ? 'bg-zinc-600 border-zinc-500 scale-95'
                       : 'bg-zinc-800 border-zinc-700 hover:bg-zinc-700 active:bg-zinc-600'
                   }`}
                   style={{ left: `${positions[index]}%`, transform: 'translateX(-50%)' }}
-                  onMouseDown={(e) => handleMouseDown(e, key.keyChar)}
-                  onTouchStart={(e) => handleTouchStart(e, key.keyChar)}
+                  onPointerDown={(e) => handlePointerDown(e, key.keyChar)}
+                  onPointerUp={handlePointerUp}
+                  onPointerCancel={handlePointerUp}
                   onContextMenu={(e) => e.preventDefault()}
                 >
                   <div className="flex flex-col items-center justify-end h-full pb-2 pointer-events-none">

@@ -8,6 +8,17 @@ interface NoteSlot {
   releaseTimer?: ReturnType<typeof setTimeout>;
 }
 
+// An individual "voice" — the actual audio nodes started by one noteOn.
+// We track these directly so noteOff can release exactly the voice it
+// started, regardless of any cached slot or pool state being rebuilt
+// underneath us (which used to leak sources on iOS Safari).
+interface Voice {
+  sources: AudioBufferSourceNode[];
+  gains: GainNode[];
+  pitchIndex: number;
+  releaseTimer?: ReturnType<typeof setTimeout>;
+}
+
 export class AudioEngine {
   private context: AudioContext | null = null;
   private audioBuffer: AudioBuffer | null = null;
@@ -19,10 +30,10 @@ export class AudioEngine {
   private keyMap: number[] = [];
   private baseKeyMap: number[] = [];
 
-  // Tracks which slot index each note is currently playing in,
-  // so noteOff can stop the correct slot even if octave/transpose
-  // changed while the key was held down.
-  private activeNotes: Map<number, number> = new Map();
+  // Map from note number (as passed by the keyboard) to the currently
+  // playing Voice. One voice per held key. noteOff(note) always finds
+  // and releases the exact voice that noteOn(note) started.
+  private voices: Map<number, Voice> = new Map();
 
   // Shruti Box / Drone state
   private droneSlot: NoteSlot | null = null;
@@ -135,110 +146,102 @@ export class AudioEngine {
   }
 
   noteOn(note: number): void {
+    if (!this.context || !this.audioBuffer || !this.masterGain) return;
+
     const i = note + octaveMap[this.currentOctave];
     if (i < 0 || i >= 128) return;
 
-    // If this note is already playing in another slot (e.g. user changed
-    // octave while holding the key), stop the old slot first.
-    const existingSlot = this.activeNotes.get(note);
-    if (existingSlot !== undefined && existingSlot !== i) {
-      this.releaseSlot(existingSlot);
+    // If this note is somehow already playing (rapid re-press, or the
+    // previous noteOff never fired), release the old voice first so we
+    // can't leak sources.
+    const existing = this.voices.get(note);
+    if (existing) {
+      this.releaseVoice(existing);
     }
 
-    // Reserve the slot synchronously so a noteOff arriving before the
-    // async resume completes still has somewhere to find this note.
-    this.activeNotes.set(note, i);
+    // Build a fresh voice. We own these nodes directly — no slot pool,
+    // no caching, no `setReeds` quietly replacing them underneath us.
+    const voice: Voice = { sources: [], gains: [], pitchIndex: i };
+    const reedCount = this.reeds;
+    for (let r = 0; r < reedCount; r++) {
+      const src = this.context.createBufferSource();
+      const gain = this.context.createGain();
+      gain.gain.value = 1;
+      src.connect(gain);
+      gain.connect(this.masterGain);
+      src.buffer = this.audioBuffer;
+      src.loop = this.config.loop;
+      src.loopStart = this.config.loopStart;
 
-    // iOS Safari: AudioContext starts suspended and resume() is async.
-    // Calling source.start() while suspended schedules the source but it
-    // can keep playing once resume completes, even if noteOff was already
-    // called in the meantime — that's the stuck-note bug on iPhone.
-    // Wait for resume before starting sources.
-    const start = () => this.startSlot(note, i);
-    if (this.context && this.context.state === 'suspended') {
+      const reedDetune = r === 0 ? 0 : (r % 2 === 1 ? 5 : -5);
+      if (this.keyMap[i] !== 0) {
+        src.detune.value = this.keyMap[i] * 100 + reedDetune;
+      }
+      voice.sources.push(src);
+      voice.gains.push(gain);
+    }
+
+    // Register the voice before starting playback. If noteOff arrives
+    // between resume() and the actual start(), the resume callback will
+    // see the voice has been removed and abort cleanly.
+    this.voices.set(note, voice);
+
+    const start = () => {
+      // If the user already released this key while AudioContext was
+      // still resuming, the voice has been removed from the map — bail
+      // out instead of starting a phantom note.
+      if (this.voices.get(note) !== voice) return;
+      try {
+        for (const src of voice.sources) src.start(0);
+      } catch (_) { /* ignore */ }
+    };
+
+    if (this.context.state === 'suspended') {
       this.context.resume().then(start).catch(() => { /* ignore */ });
     } else {
       start();
     }
   }
 
-  private startSlot(note: number, i: number): void {
-    // The user may have released the key (noteOff) while we were waiting
-    // for the AudioContext to resume. If activeNotes no longer points at
-    // this slot, abort — don't start a phantom note.
-    if (this.activeNotes.get(note) !== i) return;
-
-    const slot = this.notes[i];
-
-    // If releasing, cancel the release and restart cleanly
-    if (slot.state === 'releasing') {
-      clearTimeout(slot.releaseTimer);
-      for (const src of slot.sources) {
-        try { src.stop(0); } catch (_) { /* ignore */ }
-      }
-      this.notes[i] = this.buildNoteSlot(i);
-    }
-
-    if (this.notes[i].state === 'idle') {
-      if (this.notes[i].sources.length === 0) {
-        this.notes[i] = this.buildNoteSlot(i);
-      }
-      for (const src of this.notes[i].sources) {
-        try { src.start(0); } catch (_) { /* ignore */ }
-      }
-      this.notes[i].state = 'playing';
-    }
-  }
-
   noteOff(note: number): void {
-    // Use the slot index recorded at noteOn time, not the current octave's
-    // mapping. This ensures we stop the right slot even if octave/transpose
-    // changed while the key was held.
-    const i = this.activeNotes.get(note);
-    if (i === undefined) return;
-    this.activeNotes.delete(note);
-    this.releaseSlot(i);
+    const voice = this.voices.get(note);
+    if (!voice) return;
+    this.voices.delete(note);
+    this.releaseVoice(voice);
   }
 
-  private releaseSlot(i: number): void {
-    if (i < 0 || i >= 128) return;
-    const slot = this.notes[i];
-    if (slot.state !== 'playing') return;
-
-    const now = this.context?.currentTime ?? 0;
+  private releaseVoice(voice: Voice): void {
+    if (!this.context) return;
+    const now = this.context.currentTime;
     const fadeTime = 0.3;
 
-    slot.state = 'releasing';
-    for (let r = 0; r < slot.gains.length; r++) {
-      // Cancel any scheduled ramps from previous calls, then fade out.
-      try { slot.gains[r].gain.cancelScheduledValues(now); } catch (_) { /* ignore */ }
-      slot.gains[r].gain.setValueAtTime(slot.gains[r].gain.value, now);
-      slot.gains[r].gain.exponentialRampToValueAtTime(0.001, now + fadeTime);
-      try { slot.sources[r].stop(now + fadeTime); } catch (_) { /* ignore */ }
+    for (let r = 0; r < voice.gains.length; r++) {
+      const gain = voice.gains[r];
+      const src = voice.sources[r];
+      try { gain.gain.cancelScheduledValues(now); } catch (_) { /* ignore */ }
+      try { gain.gain.setValueAtTime(gain.gain.value, now); } catch (_) { /* ignore */ }
+      try { gain.gain.exponentialRampToValueAtTime(0.001, now + fadeTime); } catch (_) { /* ignore */ }
+      try { src.stop(now + fadeTime); } catch (_) { /* ignore */ }
     }
 
-    // Belt-and-suspenders for iOS Safari: after the fade should have
-    // completed, hard-mute the gain to silence any source that didn't
-    // actually stop, then disconnect everything so even a runaway buffer
-    // can't leak through.
-    slot.releaseTimer = setTimeout(() => {
-      for (let r = 0; r < slot.gains.length; r++) {
-        try { slot.gains[r].gain.value = 0; } catch (_) { /* ignore */ }
-        try { slot.sources[r].stop(0); } catch (_) { /* ignore */ }
-        try { slot.sources[r].disconnect(); } catch (_) { /* ignore */ }
-        try { slot.gains[r].disconnect(); } catch (_) { /* ignore */ }
+    // After the fade window, force-mute and disconnect every node so a
+    // looped source that ignored stop() (iOS Safari quirk) can't route
+    // audio anywhere.
+    voice.releaseTimer = setTimeout(() => {
+      for (let r = 0; r < voice.gains.length; r++) {
+        try { voice.gains[r].gain.value = 0; } catch (_) { /* ignore */ }
+        try { voice.sources[r].stop(0); } catch (_) { /* ignore */ }
+        try { voice.sources[r].disconnect(); } catch (_) { /* ignore */ }
+        try { voice.gains[r].disconnect(); } catch (_) { /* ignore */ }
       }
-      this.notes[i] = this.buildNoteSlot(i);
     }, (fadeTime + 0.05) * 1000);
   }
 
   allNotesOff(): void {
-    // Release every slot that is currently playing, regardless of which
-    // note triggered it. This is the safety net for the stuck-note bug.
-    this.activeNotes.clear();
-    for (let i = 0; i < this.notes.length; i++) {
-      this.releaseSlot(i);
+    for (const voice of this.voices.values()) {
+      this.releaseVoice(voice);
     }
+    this.voices.clear();
   }
 
   setVolume(volume: number): void {
@@ -358,6 +361,13 @@ export class AudioEngine {
 
   destroy(): void {
     this.stopDrone();
+    for (const voice of this.voices.values()) {
+      if (voice.releaseTimer) clearTimeout(voice.releaseTimer);
+      for (const src of voice.sources) {
+        try { src.stop(0); } catch (_) { /* ignore */ }
+      }
+    }
+    this.voices.clear();
     for (let i = 0; i < this.notes.length; i++) {
       const slot = this.notes[i];
       if (slot?.releaseTimer) clearTimeout(slot.releaseTimer);
