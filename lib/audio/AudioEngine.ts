@@ -170,31 +170,15 @@ export class AudioEngine {
       this.releaseVoice(existing);
     }
 
-    // Build a fresh voice. We own these nodes directly — no slot pool,
-    // no caching, no `setReeds` quietly replacing them underneath us.
+    // Reserve the voice slot synchronously with empty arrays so a fast
+    // noteOff can find this note and cancel before we actually wire up
+    // any audio nodes. We do NOT create sources/gains yet — iOS Safari
+    // appears to auto-start any source connected to a destination once
+    // the AudioContext resumes, even if start() was never called. By
+    // delaying both creation AND connection until after the resume, a
+    // noteOff that arrives before resume completes simply marks the
+    // voice cancelled and we never build the audio graph at all.
     const voice: Voice = { sources: [], gains: [], pitchIndex: i };
-    const reedCount = this.reeds;
-    for (let r = 0; r < reedCount; r++) {
-      const src = this.context.createBufferSource();
-      const gain = this.context.createGain();
-      gain.gain.value = 1;
-      src.connect(gain);
-      gain.connect(this.masterGain);
-      src.buffer = this.audioBuffer;
-      src.loop = this.config.loop;
-      src.loopStart = this.config.loopStart;
-
-      const reedDetune = r === 0 ? 0 : (r % 2 === 1 ? 5 : -5);
-      if (this.keyMap[i] !== 0) {
-        src.detune.value = this.keyMap[i] * 100 + reedDetune;
-      }
-      voice.sources.push(src);
-      voice.gains.push(gain);
-    }
-
-    // Register the voice before starting playback. If noteOff arrives
-    // between resume() and the actual start(), the resume callback will
-    // see the voice has been removed and abort cleanly.
     this.voices.set(note, voice);
 
     // Hard safety cap: if for any reason noteOff never arrives (a missed
@@ -209,14 +193,47 @@ export class AudioEngine {
       this.releaseVoice(voice);
     }, 8000);
 
-    const start = () => {
+    const buildAndStart = () => {
       // If the user already released this key while AudioContext was
       // still resuming, the voice has been removed from the map — bail
-      // out instead of starting a phantom note.
+      // out without building any audio nodes.
       if (this.voices.get(note) !== voice) {
-        dbg.push(`start cb note=${note} voice swapped, abort`);
+        dbg.push(`buildAndStart note=${note} cancelled before build`);
         return;
       }
+      if (!this.context || !this.audioBuffer || !this.masterGain) return;
+
+      const reedCount = this.reeds;
+      for (let r = 0; r < reedCount; r++) {
+        const src = this.context.createBufferSource();
+        const gain = this.context.createGain();
+        gain.gain.value = 1;
+        src.connect(gain);
+        gain.connect(this.masterGain);
+        src.buffer = this.audioBuffer;
+        src.loop = this.config.loop;
+        src.loopStart = this.config.loopStart;
+
+        const reedDetune = r === 0 ? 0 : (r % 2 === 1 ? 5 : -5);
+        if (this.keyMap[i] !== 0) {
+          src.detune.value = this.keyMap[i] * 100 + reedDetune;
+        }
+        voice.sources.push(src);
+        voice.gains.push(gain);
+      }
+
+      // One more cancellation check just before pressing start, in case
+      // noteOff raced us between the check above and the synchronous
+      // node-construction loop.
+      if (this.voices.get(note) !== voice) {
+        dbg.push(`buildAndStart note=${note} cancelled before start`);
+        for (let r = 0; r < voice.sources.length; r++) {
+          try { voice.sources[r].disconnect(); } catch (_) { /* ignore */ }
+          try { voice.gains[r].disconnect(); } catch (_) { /* ignore */ }
+        }
+        return;
+      }
+
       try {
         for (const src of voice.sources) src.start(0);
         dbg.push(`start ok note=${note} reeds=${voice.sources.length}`);
@@ -229,12 +246,12 @@ export class AudioEngine {
       dbg.push(`resume() for note=${note}`);
       this.context.resume().then(() => {
         dbg.push(`resumed for note=${note} state=${this.context?.state}`);
-        start();
+        buildAndStart();
       }).catch((e) => {
         dbg.push(`resume ERR ${(e as Error).message}`);
       });
     } else {
-      start();
+      buildAndStart();
     }
   }
 
