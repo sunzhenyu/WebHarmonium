@@ -231,29 +231,37 @@ export class AudioEngine {
       clearTimeout(voice.hardStopTimer);
       voice.hardStopTimer = undefined;
     }
-    const now = this.context.currentTime;
-    const fadeTime = 0.3;
-
-    for (let r = 0; r < voice.gains.length; r++) {
-      const gain = voice.gains[r];
-      const src = voice.sources[r];
-      try { gain.gain.cancelScheduledValues(now); } catch (_) { /* ignore */ }
-      try { gain.gain.setValueAtTime(gain.gain.value, now); } catch (_) { /* ignore */ }
-      try { gain.gain.exponentialRampToValueAtTime(0.001, now + fadeTime); } catch (_) { /* ignore */ }
-      try { src.stop(now + fadeTime); } catch (_) { /* ignore */ }
+    if (voice.releaseTimer) {
+      clearTimeout(voice.releaseTimer);
+      voice.releaseTimer = undefined;
     }
 
-    // After the fade window, force-mute and disconnect every node so a
-    // looped source that ignored stop() (iOS Safari quirk) can't route
-    // audio anywhere.
+    const now = this.context.currentTime;
+    const fadeTime = 0.15;
+
+    // Fade the gain to zero quickly. We deliberately do NOT call
+    // source.stop(when) on iOS Safari — its scheduling for looped
+    // buffers has been flaky in our testing, sometimes ignored, which
+    // is what caused the stuck-note bug. Instead, after the fade we
+    // disconnect the source/gain entirely, which is synchronous and
+    // physically removes them from the audio graph.
+    for (let r = 0; r < voice.gains.length; r++) {
+      const gain = voice.gains[r];
+      try { gain.gain.cancelScheduledValues(now); } catch (_) { /* ignore */ }
+      try { gain.gain.setValueAtTime(gain.gain.value, now); } catch (_) { /* ignore */ }
+      try { gain.gain.linearRampToValueAtTime(0, now + fadeTime); } catch (_) { /* ignore */ }
+    }
+
     voice.releaseTimer = setTimeout(() => {
-      for (let r = 0; r < voice.gains.length; r++) {
-        try { voice.gains[r].gain.value = 0; } catch (_) { /* ignore */ }
-        try { voice.sources[r].stop(0); } catch (_) { /* ignore */ }
-        try { voice.sources[r].disconnect(); } catch (_) { /* ignore */ }
-        try { voice.gains[r].disconnect(); } catch (_) { /* ignore */ }
+      for (let r = 0; r < voice.sources.length; r++) {
+        const src = voice.sources[r];
+        const gain = voice.gains[r];
+        try { gain.gain.value = 0; } catch (_) { /* ignore */ }
+        try { src.stop(0); } catch (_) { /* ignore */ }
+        try { src.disconnect(); } catch (_) { /* ignore */ }
+        try { gain.disconnect(); } catch (_) { /* ignore */ }
       }
-    }, (fadeTime + 0.05) * 1000);
+    }, (fadeTime + 0.02) * 1000);
   }
 
   allNotesOff(): void {

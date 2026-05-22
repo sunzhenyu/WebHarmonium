@@ -30,57 +30,65 @@ const keyboardMap: Record<string, number> = {
 export default function SimpleKeyboard({ engine, pressedKeys }: SimpleKeyboardProps) {
   const { t } = useLanguage();
 
-  // Notes currently held down. We don't trust pointerId matching across
-  // pointerdown/pointerup on iOS — instead, any pointerup/cancel/blur
-  // releases every note we believe is still held. For a harmonium UI
-  // this is correct behavior (you press, then lift — short-lived overlap
-  // between multiple fingers is acceptable to release together).
+  // Currently held notes. Any release event (anywhere) clears all of
+  // them — single-finger harmonium, over-release on multi-touch is fine.
   const activeNotesRef = useRef<Set<number>>(new Set());
 
-  const releaseAll = () => {
-    if (!engine) return;
-    if (activeNotesRef.current.size === 0) return;
-    for (const n of activeNotesRef.current) {
-      engine.noteOff(n);
-    }
-    activeNotesRef.current.clear();
-  };
-
-  // Safety net: any pointer up/cancel anywhere on the page releases
-  // every held note. Also release on window blur / tab hide for the
-  // "switched apps while holding a key" case.
+  // Global release listeners: touch + mouse natively, not Pointer Events.
+  // On iOS Safari, Pointer Events have been unreliable in our testing —
+  // pointerup sometimes never fires after a synthesized pointerdown.
+  // The classic touch/mouse handlers fire consistently.
   useEffect(() => {
     if (!engine) return;
 
-    const onUp = () => releaseAll();
+    const releaseAll = () => {
+      if (activeNotesRef.current.size === 0) return;
+      for (const n of activeNotesRef.current) engine.noteOff(n);
+      activeNotesRef.current.clear();
+    };
+
     const onVisibility = () => { if (document.hidden) releaseAll(); };
 
-    window.addEventListener('pointerup', onUp);
-    window.addEventListener('pointercancel', onUp);
-    window.addEventListener('blur', onUp);
+    // window-level listeners catch every release path:
+    //   touchend       — finger lifted (even if it ended outside the key)
+    //   touchcancel    — system interrupted the touch (incoming call, etc.)
+    //   mouseup        — desktop click release
+    //   blur           — tab/app switched away mid-press
+    //   visibilitychange — tab hidden
+    window.addEventListener('touchend', releaseAll);
+    window.addEventListener('touchcancel', releaseAll);
+    window.addEventListener('mouseup', releaseAll);
+    window.addEventListener('blur', releaseAll);
     document.addEventListener('visibilitychange', onVisibility);
 
     return () => {
-      window.removeEventListener('pointerup', onUp);
-      window.removeEventListener('pointercancel', onUp);
-      window.removeEventListener('blur', onUp);
+      window.removeEventListener('touchend', releaseAll);
+      window.removeEventListener('touchcancel', releaseAll);
+      window.removeEventListener('mouseup', releaseAll);
+      window.removeEventListener('blur', releaseAll);
       document.removeEventListener('visibilitychange', onVisibility);
     };
-  }, [engine]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [engine]);
 
-  const handlePointerDown = (e: React.PointerEvent, keyChar: string) => {
+  const press = (keyChar: string) => {
     if (!engine) return;
     const note = keyboardMap[keyChar];
     if (note === undefined) return;
-
-    // If this exact note was already marked active (rapid re-press),
-    // release it first so the engine doesn't have to dedupe.
-    if (activeNotesRef.current.has(note)) {
-      engine.noteOff(note);
-    }
-
+    if (activeNotesRef.current.has(note)) return;
     engine.noteOn(note);
     activeNotesRef.current.add(note);
+  };
+
+  const handleTouchStart = (e: React.TouchEvent, keyChar: string) => {
+    // preventDefault stops the synthesized mouse events that iOS would
+    // otherwise fire ~300ms later — keeps press() from being called twice.
+    e.preventDefault();
+    press(keyChar);
+  };
+
+  const handleMouseDown = (e: React.MouseEvent, keyChar: string) => {
+    if (e.button !== 0) return;
+    press(keyChar);
   };
 
   const isKeyPressed = (keyChar: string) =>
@@ -95,12 +103,13 @@ export default function SimpleKeyboard({ engine, pressedKeys }: SimpleKeyboardPr
             <button
               key={key.keyChar}
               type="button"
-              className={`flex-1 h-32 sm:h-40 rounded-b-xl border transition-all shadow-md touch-none select-none ${
+              className={`flex-1 h-32 sm:h-40 rounded-b-xl border transition-all shadow-md select-none ${
                 isKeyPressed(key.keyChar)
                   ? 'bg-orange-200 border-orange-400 scale-95'
                   : 'bg-stone-100 border-stone-300 hover:bg-stone-200 active:bg-orange-100'
               }`}
-              onPointerDown={(e) => handlePointerDown(e, key.keyChar)}
+              onTouchStart={(e) => handleTouchStart(e, key.keyChar)}
+              onMouseDown={(e) => handleMouseDown(e, key.keyChar)}
               onContextMenu={(e) => e.preventDefault()}
               aria-label={`${key.sargam} (${key.note})`}
             >
@@ -122,13 +131,14 @@ export default function SimpleKeyboard({ engine, pressedKeys }: SimpleKeyboardPr
                 <button
                   key={key.keyChar}
                   type="button"
-                  className={`absolute h-full w-12 sm:w-16 rounded-b-lg border transition-all pointer-events-auto shadow-lg touch-none select-none ${
+                  className={`absolute h-full w-12 sm:w-16 rounded-b-lg border transition-all pointer-events-auto shadow-lg select-none ${
                     isKeyPressed(key.keyChar)
                       ? 'bg-zinc-600 border-zinc-500 scale-95'
                       : 'bg-zinc-800 border-zinc-700 hover:bg-zinc-700 active:bg-zinc-600'
                   }`}
                   style={{ left: `${positions[index]}%`, transform: 'translateX(-50%)' }}
-                  onPointerDown={(e) => handlePointerDown(e, key.keyChar)}
+                  onTouchStart={(e) => handleTouchStart(e, key.keyChar)}
+                  onMouseDown={(e) => handleMouseDown(e, key.keyChar)}
                   onContextMenu={(e) => e.preventDefault()}
                 >
                   <div className="flex flex-col items-center justify-end h-full pb-2 pointer-events-none">
