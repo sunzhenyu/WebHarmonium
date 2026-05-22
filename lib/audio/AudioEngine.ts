@@ -274,20 +274,18 @@ export class AudioEngine {
       voice.releaseTimer = undefined;
     }
 
-    // Cut sound IMMEDIATELY: set gain to 0 synchronously (no ramp, no
-    // scheduled values that iOS Safari might ignore), then disconnect
-    // every node so the source physically has nowhere to send audio.
-    // We accept the tiny click — getting rid of stuck notes is more
-    // important than a smooth fade.
+    let killed = 0;
+    let errors: string[] = [];
     for (let r = 0; r < voice.sources.length; r++) {
       const src = voice.sources[r];
       const gain = voice.gains[r];
-      try { gain.gain.cancelScheduledValues(0); } catch (_) { /* ignore */ }
-      try { gain.gain.value = 0; } catch (_) { /* ignore */ }
-      try { src.stop(0); } catch (_) { /* ignore */ }
-      try { src.disconnect(); } catch (_) { /* ignore */ }
-      try { gain.disconnect(); } catch (_) { /* ignore */ }
+      try { gain.gain.cancelScheduledValues(0); } catch (e) { errors.push(`csv:${(e as Error).message}`); }
+      try { gain.gain.value = 0; } catch (e) { errors.push(`gv:${(e as Error).message}`); }
+      try { src.stop(0); killed++; } catch (e) { errors.push(`stop:${(e as Error).message}`); }
+      try { src.disconnect(); } catch (e) { errors.push(`sd:${(e as Error).message}`); }
+      try { gain.disconnect(); } catch (e) { errors.push(`gd:${(e as Error).message}`); }
     }
+    dbg.push(`releaseVoice killed=${killed}/${voice.sources.length} errs=[${errors.join('|')}]`);
   }
 
   allNotesOff(): void {
