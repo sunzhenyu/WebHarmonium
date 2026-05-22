@@ -10,8 +10,32 @@ export default function DebugOverlay() {
   useEffect(() => {
     if (!dbg.enabled()) return;
     setEnabled(true);
+    dbg.push('overlay mounted ua=' + navigator.userAgent.slice(0, 60));
+
+    // Mount-level catch-all so we see events even before the keyboard
+    // component has wired up its own engine listeners.
+    const log = (name: string) => (e: Event) => {
+      const tgt = (e.target as Element)?.tagName ?? '?';
+      const cls = ((e.target as Element)?.className ?? '').toString().slice(0, 30);
+      dbg.push(`[mount] ${name} tgt=${tgt} cls=${cls}`);
+    };
+    const handlers: [EventTarget, string, EventListener][] = [
+      [window, 'touchstart', log('ts')],
+      [window, 'touchend', log('te')],
+      [window, 'touchcancel', log('tc')],
+      [window, 'mousedown', log('md')],
+      [window, 'mouseup', log('mu')],
+      [window, 'pointerdown', log('pd')],
+      [window, 'pointerup', log('pu')],
+      [window, 'pointercancel', log('px')],
+    ];
+    for (const [t, n, fn] of handlers) t.addEventListener(n, fn, { passive: true });
+
     const unsub = dbg.subscribe(setLines);
-    return unsub;
+    return () => {
+      for (const [t, n, fn] of handlers) t.removeEventListener(n, fn);
+      unsub();
+    };
   }, []);
 
   if (!enabled) return null;

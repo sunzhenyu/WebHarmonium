@@ -50,38 +50,71 @@ export default function SimpleKeyboard({ engine, pressedKeys }: SimpleKeyboardPr
       activeNotesRef.current.clear();
     };
 
-    const onTouchEnd = (e: TouchEvent) => {
-      dbg.push(`window touchend tgt=${(e.target as Element)?.tagName ?? '?'} touches=${e.touches.length} changed=${e.changedTouches.length}`);
-      releaseAll('touchend');
+    // Log EVERY event we can think of, both at window and document level,
+    // to find out what iOS Safari is actually dispatching. Once we know,
+    // we can pick the right one.
+    const tag = (name: string) => (e: Event) => {
+      const tgt = (e.target as Element)?.tagName ?? '?';
+      const extra: string[] = [];
+      if ('touches' in e) {
+        const te = e as TouchEvent;
+        extra.push(`touches=${te.touches.length}`, `changed=${te.changedTouches.length}`);
+      }
+      if ('pointerType' in e) {
+        const pe = e as PointerEvent;
+        extra.push(`type=${pe.pointerType}`, `id=${pe.pointerId}`);
+      }
+      if ('button' in e) {
+        const me = e as MouseEvent;
+        extra.push(`btn=${me.button}`);
+      }
+      dbg.push(`${name} tgt=${tgt} ${extra.join(' ')}`);
     };
-    const onTouchCancel = (e: TouchEvent) => {
-      dbg.push(`window touchcancel touches=${e.touches.length}`);
-      releaseAll('touchcancel');
-    };
-    const onMouseUp = () => { dbg.push('window mouseup'); releaseAll('mouseup'); };
-    const onBlur = () => { dbg.push('window blur'); releaseAll('blur'); };
-    const onPointerUp = (e: PointerEvent) => {
-      dbg.push(`window pointerup type=${e.pointerType} id=${e.pointerId}`);
-      releaseAll('pointerup');
-    };
+
+    const events: [EventTarget, string, EventListener][] = [
+      [window, 'touchstart', tag('win touchstart')],
+      [window, 'touchend',   tag('win touchend')],
+      [window, 'touchcancel', tag('win touchcancel')],
+      [window, 'touchmove',  tag('win touchmove')],
+      [window, 'mousedown',  tag('win mousedown')],
+      [window, 'mouseup',    tag('win mouseup')],
+      [window, 'pointerdown', tag('win pointerdown')],
+      [window, 'pointerup',   tag('win pointerup')],
+      [window, 'pointercancel', tag('win pointercancel')],
+      [document, 'touchend',  tag('doc touchend')],
+      [document, 'mouseup',   tag('doc mouseup')],
+      [document, 'pointerup', tag('doc pointerup')],
+    ];
+
+    // The actual release handlers — we still listen for the standard
+    // ones in case any fire.
+    const onTouchEnd = () => releaseAll('touchend');
+    const onTouchCancel = () => releaseAll('touchcancel');
+    const onMouseUp = () => releaseAll('mouseup');
+    const onPointerUp = () => releaseAll('pointerup');
+    const onBlur = () => { dbg.push('win blur'); releaseAll('blur'); };
     const onVisibility = () => {
       dbg.push(`visibilitychange hidden=${document.hidden}`);
       if (document.hidden) releaseAll('visibility');
     };
 
+    for (const [t, n, fn] of events) t.addEventListener(n, fn, { passive: true });
     window.addEventListener('touchend', onTouchEnd);
     window.addEventListener('touchcancel', onTouchCancel);
     window.addEventListener('mouseup', onMouseUp);
-    window.addEventListener('blur', onBlur);
     window.addEventListener('pointerup', onPointerUp);
+    window.addEventListener('blur', onBlur);
     document.addEventListener('visibilitychange', onVisibility);
 
+    dbg.push(`listeners attached, engine ready`);
+
     return () => {
+      for (const [t, n, fn] of events) t.removeEventListener(n, fn);
       window.removeEventListener('touchend', onTouchEnd);
       window.removeEventListener('touchcancel', onTouchCancel);
       window.removeEventListener('mouseup', onMouseUp);
-      window.removeEventListener('blur', onBlur);
       window.removeEventListener('pointerup', onPointerUp);
+      window.removeEventListener('blur', onBlur);
       document.removeEventListener('visibilitychange', onVisibility);
     };
   }, [engine]);
