@@ -210,12 +210,24 @@ export class AudioEngine {
 
     slot.state = 'releasing';
     for (let r = 0; r < slot.gains.length; r++) {
+      // Cancel any scheduled ramps from previous calls, then fade out.
+      try { slot.gains[r].gain.cancelScheduledValues(now); } catch (_) { /* ignore */ }
       slot.gains[r].gain.setValueAtTime(slot.gains[r].gain.value, now);
       slot.gains[r].gain.exponentialRampToValueAtTime(0.001, now + fadeTime);
       try { slot.sources[r].stop(now + fadeTime); } catch (_) { /* ignore */ }
     }
 
+    // Belt-and-suspenders for iOS Safari: after the fade should have
+    // completed, hard-mute the gain to silence any source that didn't
+    // actually stop, then disconnect everything so even a runaway buffer
+    // can't leak through.
     slot.releaseTimer = setTimeout(() => {
+      for (let r = 0; r < slot.gains.length; r++) {
+        try { slot.gains[r].gain.value = 0; } catch (_) { /* ignore */ }
+        try { slot.sources[r].stop(0); } catch (_) { /* ignore */ }
+        try { slot.sources[r].disconnect(); } catch (_) { /* ignore */ }
+        try { slot.gains[r].disconnect(); } catch (_) { /* ignore */ }
+      }
       this.notes[i] = this.buildNoteSlot(i);
     }, (fadeTime + 0.05) * 1000);
   }
