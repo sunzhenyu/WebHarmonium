@@ -257,32 +257,20 @@ export class AudioEngine {
       voice.releaseTimer = undefined;
     }
 
-    const now = this.context.currentTime;
-    const fadeTime = 0.15;
-
-    // Fade the gain to zero quickly. We deliberately do NOT call
-    // source.stop(when) on iOS Safari — its scheduling for looped
-    // buffers has been flaky in our testing, sometimes ignored, which
-    // is what caused the stuck-note bug. Instead, after the fade we
-    // disconnect the source/gain entirely, which is synchronous and
-    // physically removes them from the audio graph.
-    for (let r = 0; r < voice.gains.length; r++) {
+    // Cut sound IMMEDIATELY: set gain to 0 synchronously (no ramp, no
+    // scheduled values that iOS Safari might ignore), then disconnect
+    // every node so the source physically has nowhere to send audio.
+    // We accept the tiny click — getting rid of stuck notes is more
+    // important than a smooth fade.
+    for (let r = 0; r < voice.sources.length; r++) {
+      const src = voice.sources[r];
       const gain = voice.gains[r];
-      try { gain.gain.cancelScheduledValues(now); } catch (_) { /* ignore */ }
-      try { gain.gain.setValueAtTime(gain.gain.value, now); } catch (_) { /* ignore */ }
-      try { gain.gain.linearRampToValueAtTime(0, now + fadeTime); } catch (_) { /* ignore */ }
+      try { gain.gain.cancelScheduledValues(0); } catch (_) { /* ignore */ }
+      try { gain.gain.value = 0; } catch (_) { /* ignore */ }
+      try { src.stop(0); } catch (_) { /* ignore */ }
+      try { src.disconnect(); } catch (_) { /* ignore */ }
+      try { gain.disconnect(); } catch (_) { /* ignore */ }
     }
-
-    voice.releaseTimer = setTimeout(() => {
-      for (let r = 0; r < voice.sources.length; r++) {
-        const src = voice.sources[r];
-        const gain = voice.gains[r];
-        try { gain.gain.value = 0; } catch (_) { /* ignore */ }
-        try { src.stop(0); } catch (_) { /* ignore */ }
-        try { src.disconnect(); } catch (_) { /* ignore */ }
-        try { gain.disconnect(); } catch (_) { /* ignore */ }
-      }
-    }, (fadeTime + 0.02) * 1000);
   }
 
   allNotesOff(): void {

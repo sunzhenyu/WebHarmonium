@@ -123,6 +123,11 @@ export default function SimpleKeyboard({ engine, pressedKeys }: SimpleKeyboardPr
     };
   }, [engine]);
 
+  // Block mouse events that iOS Safari synthesizes after touchstart.
+  // We want touch to be the only path; otherwise each tap produces two
+  // overlapping voices for the same note, which on iOS could double-play.
+  const lastTouchAt = useRef<number>(0);
+
   const press = (keyChar: string, source: string) => {
     if (!engine) {
       dbg.push(`press(${keyChar}) from=${source} NO ENGINE`);
@@ -141,11 +146,19 @@ export default function SimpleKeyboard({ engine, pressedKeys }: SimpleKeyboardPr
 
   const handleTouchStart = (e: React.TouchEvent, keyChar: string) => {
     e.preventDefault();
+    lastTouchAt.current = performance.now();
     press(keyChar, 'touchstart');
   };
 
   const handleMouseDown = (e: React.MouseEvent, keyChar: string) => {
     if (e.button !== 0) return;
+    // Ignore mousedown that comes right after a touchstart — it's the
+    // synthesized event iOS Safari fires after each tap, and we already
+    // handled the touch.
+    if (performance.now() - lastTouchAt.current < 800) {
+      dbg.push(`mousedown(${keyChar}) ignored (recent touch)`);
+      return;
+    }
     press(keyChar, 'mousedown');
   };
 
