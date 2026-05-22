@@ -17,6 +17,10 @@ interface Voice {
   gains: GainNode[];
   pitchIndex: number;
   releaseTimer?: ReturnType<typeof setTimeout>;
+  // Safety: every voice has a hard cap. If no noteOff arrives within
+  // this window the voice releases itself, so a missed up event cannot
+  // produce an endless drone.
+  hardStopTimer?: ReturnType<typeof setTimeout>;
 }
 
 export class AudioEngine {
@@ -186,6 +190,17 @@ export class AudioEngine {
     // see the voice has been removed and abort cleanly.
     this.voices.set(note, voice);
 
+    // Hard safety cap: if for any reason noteOff never arrives (a missed
+    // pointerup event, an iOS quirk, etc.), the note will still stop on
+    // its own after 8 seconds. Long enough for normal sustained notes,
+    // short enough that a stuck note is not a session-killing bug.
+    voice.hardStopTimer = setTimeout(() => {
+      if (this.voices.get(note) === voice) {
+        this.voices.delete(note);
+      }
+      this.releaseVoice(voice);
+    }, 8000);
+
     const start = () => {
       // If the user already released this key while AudioContext was
       // still resuming, the voice has been removed from the map — bail
@@ -212,6 +227,10 @@ export class AudioEngine {
 
   private releaseVoice(voice: Voice): void {
     if (!this.context) return;
+    if (voice.hardStopTimer) {
+      clearTimeout(voice.hardStopTimer);
+      voice.hardStopTimer = undefined;
+    }
     const now = this.context.currentTime;
     const fadeTime = 0.3;
 

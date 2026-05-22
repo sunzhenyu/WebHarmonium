@@ -30,79 +30,64 @@ const keyboardMap: Record<string, number> = {
 export default function SimpleKeyboard({ engine, pressedKeys }: SimpleKeyboardProps) {
   const { t } = useLanguage();
 
-  // Map each pointerId to the note it's playing. Pointer Events unify
-  // touch and mouse, fire reliably across browsers, and capture the
-  // pointer on pointerdown so pointerup always fires on the same element
-  // — no more lost touchend when the finger slides off the button.
-  const pointerNotesRef = useRef<Map<number, number>>(new Map());
-  const containerRef = useRef<HTMLDivElement | null>(null);
+  // Notes currently held down. We don't trust pointerId matching across
+  // pointerdown/pointerup on iOS — instead, any pointerup/cancel/blur
+  // releases every note we believe is still held. For a harmonium UI
+  // this is correct behavior (you press, then lift — short-lived overlap
+  // between multiple fingers is acceptable to release together).
+  const activeNotesRef = useRef<Set<number>>(new Set());
 
-  // Safety net: if any pointer up/cancel reaches the window, release
-  // whatever note it was playing. This covers iOS Safari quirks where
-  // the per-button pointerup sometimes doesn't fire.
+  const releaseAll = () => {
+    if (!engine) return;
+    if (activeNotesRef.current.size === 0) return;
+    for (const n of activeNotesRef.current) {
+      engine.noteOff(n);
+    }
+    activeNotesRef.current.clear();
+  };
+
+  // Safety net: any pointer up/cancel anywhere on the page releases
+  // every held note. Also release on window blur / tab hide for the
+  // "switched apps while holding a key" case.
   useEffect(() => {
     if (!engine) return;
 
-    const release = (e: PointerEvent) => {
-      const note = pointerNotesRef.current.get(e.pointerId);
-      if (note !== undefined) {
-        engine.noteOff(note);
-        pointerNotesRef.current.delete(e.pointerId);
-      }
-    };
+    const onUp = () => releaseAll();
+    const onVisibility = () => { if (document.hidden) releaseAll(); };
 
-    const releaseAll = () => {
-      if (pointerNotesRef.current.size === 0) return;
-      pointerNotesRef.current.clear();
-      engine.allNotesOff();
-    };
-
-    window.addEventListener('pointerup', release);
-    window.addEventListener('pointercancel', release);
-    window.addEventListener('blur', releaseAll);
+    window.addEventListener('pointerup', onUp);
+    window.addEventListener('pointercancel', onUp);
+    window.addEventListener('blur', onUp);
+    document.addEventListener('visibilitychange', onVisibility);
 
     return () => {
-      window.removeEventListener('pointerup', release);
-      window.removeEventListener('pointercancel', release);
-      window.removeEventListener('blur', releaseAll);
+      window.removeEventListener('pointerup', onUp);
+      window.removeEventListener('pointercancel', onUp);
+      window.removeEventListener('blur', onUp);
+      document.removeEventListener('visibilitychange', onVisibility);
     };
-  }, [engine]);
+  }, [engine]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handlePointerDown = (e: React.PointerEvent, keyChar: string) => {
     if (!engine) return;
     const note = keyboardMap[keyChar];
     if (note === undefined) return;
 
-    // Stop any earlier press from this same pointer that didn't get
-    // released properly (defensive).
-    const existing = pointerNotesRef.current.get(e.pointerId);
-    if (existing !== undefined) {
-      engine.noteOff(existing);
+    // If this exact note was already marked active (rapid re-press),
+    // release it first so the engine doesn't have to dedupe.
+    if (activeNotesRef.current.has(note)) {
+      engine.noteOff(note);
     }
 
-    // Capture the pointer so pointerup fires on this element even if the
-    // finger slides off — eliminates the "finger slid off → stuck note"
-    // path on mobile.
-    try { (e.currentTarget as Element).setPointerCapture(e.pointerId); } catch (_) { /* ignore */ }
-
     engine.noteOn(note);
-    pointerNotesRef.current.set(e.pointerId, note);
-  };
-
-  const handlePointerUp = (e: React.PointerEvent) => {
-    if (!engine) return;
-    const note = pointerNotesRef.current.get(e.pointerId);
-    if (note === undefined) return;
-    engine.noteOff(note);
-    pointerNotesRef.current.delete(e.pointerId);
-    try { (e.currentTarget as Element).releasePointerCapture(e.pointerId); } catch (_) { /* ignore */ }
+    activeNotesRef.current.add(note);
   };
 
   const isKeyPressed = (keyChar: string) =>
     pressedKeys.has(keyChar) || pressedKeys.has(keyChar.toUpperCase());
 
   return (
-    <div className="flex justify-center my-2" ref={containerRef}>
+    <div className="flex justify-center my-2">
       <div className="relative w-full max-w-2xl">
         {/* 白键 */}
         <div className="flex gap-1">
@@ -116,8 +101,6 @@ export default function SimpleKeyboard({ engine, pressedKeys }: SimpleKeyboardPr
                   : 'bg-stone-100 border-stone-300 hover:bg-stone-200 active:bg-orange-100'
               }`}
               onPointerDown={(e) => handlePointerDown(e, key.keyChar)}
-              onPointerUp={handlePointerUp}
-              onPointerCancel={handlePointerUp}
               onContextMenu={(e) => e.preventDefault()}
               aria-label={`${key.sargam} (${key.note})`}
             >
@@ -146,8 +129,6 @@ export default function SimpleKeyboard({ engine, pressedKeys }: SimpleKeyboardPr
                   }`}
                   style={{ left: `${positions[index]}%`, transform: 'translateX(-50%)' }}
                   onPointerDown={(e) => handlePointerDown(e, key.keyChar)}
-                  onPointerUp={handlePointerUp}
-                  onPointerCancel={handlePointerUp}
                   onContextMenu={(e) => e.preventDefault()}
                 >
                   <div className="flex flex-col items-center justify-end h-full pb-2 pointer-events-none">
