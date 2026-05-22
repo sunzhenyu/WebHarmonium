@@ -3,6 +3,7 @@ import '../globals.css';
 import Script from 'next/script';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import DebugOverlay from '@/components/DebugOverlay';
 import { LanguageProvider } from '@/lib/i18n/LanguageContext';
 import type { Metadata } from 'next';
 
@@ -77,6 +78,7 @@ export default async function LangLayout({
           <Header />
           {children}
           <Footer />
+          <DebugOverlay />
         </LanguageProvider>
       </body>
     </html>

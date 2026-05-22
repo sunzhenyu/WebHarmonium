@@ -1,5 +1,6 @@
 import { AudioEngineConfig } from './types';
 import { octaveMap } from './keyboardMap';
+import { dbg } from '../debug';
 
 interface NoteSlot {
   sources: AudioBufferSourceNode[];
@@ -150,16 +151,22 @@ export class AudioEngine {
   }
 
   noteOn(note: number): void {
-    if (!this.context || !this.audioBuffer || !this.masterGain) return;
+    if (!this.context || !this.audioBuffer || !this.masterGain) {
+      dbg.push(`engine.noteOn(${note}) NOT READY ctx=${!!this.context} buf=${!!this.audioBuffer} gain=${!!this.masterGain}`);
+      return;
+    }
 
     const i = note + octaveMap[this.currentOctave];
     if (i < 0 || i >= 128) return;
+
+    dbg.push(`engine.noteOn(${note}) i=${i} state=${this.context.state}`);
 
     // If this note is somehow already playing (rapid re-press, or the
     // previous noteOff never fired), release the old voice first so we
     // can't leak sources.
     const existing = this.voices.get(note);
     if (existing) {
+      dbg.push(`engine.noteOn(${note}) replacing existing voice`);
       this.releaseVoice(existing);
     }
 
@@ -195,6 +202,7 @@ export class AudioEngine {
     // its own after 8 seconds. Long enough for normal sustained notes,
     // short enough that a stuck note is not a session-killing bug.
     voice.hardStopTimer = setTimeout(() => {
+      dbg.push(`HARDSTOP note=${note}`);
       if (this.voices.get(note) === voice) {
         this.voices.delete(note);
       }
@@ -205,14 +213,26 @@ export class AudioEngine {
       // If the user already released this key while AudioContext was
       // still resuming, the voice has been removed from the map — bail
       // out instead of starting a phantom note.
-      if (this.voices.get(note) !== voice) return;
+      if (this.voices.get(note) !== voice) {
+        dbg.push(`start cb note=${note} voice swapped, abort`);
+        return;
+      }
       try {
         for (const src of voice.sources) src.start(0);
-      } catch (_) { /* ignore */ }
+        dbg.push(`start ok note=${note} reeds=${voice.sources.length}`);
+      } catch (e) {
+        dbg.push(`start ERR note=${note} ${(e as Error).message}`);
+      }
     };
 
     if (this.context.state === 'suspended') {
-      this.context.resume().then(start).catch(() => { /* ignore */ });
+      dbg.push(`resume() for note=${note}`);
+      this.context.resume().then(() => {
+        dbg.push(`resumed for note=${note} state=${this.context?.state}`);
+        start();
+      }).catch((e) => {
+        dbg.push(`resume ERR ${(e as Error).message}`);
+      });
     } else {
       start();
     }
@@ -220,6 +240,7 @@ export class AudioEngine {
 
   noteOff(note: number): void {
     const voice = this.voices.get(note);
+    dbg.push(`engine.noteOff(${note}) found=${!!voice}`);
     if (!voice) return;
     this.voices.delete(note);
     this.releaseVoice(voice);

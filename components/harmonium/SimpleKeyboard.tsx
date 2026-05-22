@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { AudioEngine } from '@/lib/audio/AudioEngine';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
+import { dbg } from '@/lib/debug';
 
 interface SimpleKeyboardProps {
   engine: AudioEngine | null;
@@ -41,54 +42,74 @@ export default function SimpleKeyboard({ engine, pressedKeys }: SimpleKeyboardPr
   useEffect(() => {
     if (!engine) return;
 
-    const releaseAll = () => {
-      if (activeNotesRef.current.size === 0) return;
-      for (const n of activeNotesRef.current) engine.noteOff(n);
+    const releaseAll = (reason: string) => {
+      const held = Array.from(activeNotesRef.current);
+      dbg.push(`releaseAll(${reason}) held=[${held.join(',')}]`);
+      if (held.length === 0) return;
+      for (const n of held) engine.noteOff(n);
       activeNotesRef.current.clear();
     };
 
-    const onVisibility = () => { if (document.hidden) releaseAll(); };
+    const onTouchEnd = (e: TouchEvent) => {
+      dbg.push(`window touchend tgt=${(e.target as Element)?.tagName ?? '?'} touches=${e.touches.length} changed=${e.changedTouches.length}`);
+      releaseAll('touchend');
+    };
+    const onTouchCancel = (e: TouchEvent) => {
+      dbg.push(`window touchcancel touches=${e.touches.length}`);
+      releaseAll('touchcancel');
+    };
+    const onMouseUp = () => { dbg.push('window mouseup'); releaseAll('mouseup'); };
+    const onBlur = () => { dbg.push('window blur'); releaseAll('blur'); };
+    const onPointerUp = (e: PointerEvent) => {
+      dbg.push(`window pointerup type=${e.pointerType} id=${e.pointerId}`);
+      releaseAll('pointerup');
+    };
+    const onVisibility = () => {
+      dbg.push(`visibilitychange hidden=${document.hidden}`);
+      if (document.hidden) releaseAll('visibility');
+    };
 
-    // window-level listeners catch every release path:
-    //   touchend       — finger lifted (even if it ended outside the key)
-    //   touchcancel    — system interrupted the touch (incoming call, etc.)
-    //   mouseup        — desktop click release
-    //   blur           — tab/app switched away mid-press
-    //   visibilitychange — tab hidden
-    window.addEventListener('touchend', releaseAll);
-    window.addEventListener('touchcancel', releaseAll);
-    window.addEventListener('mouseup', releaseAll);
-    window.addEventListener('blur', releaseAll);
+    window.addEventListener('touchend', onTouchEnd);
+    window.addEventListener('touchcancel', onTouchCancel);
+    window.addEventListener('mouseup', onMouseUp);
+    window.addEventListener('blur', onBlur);
+    window.addEventListener('pointerup', onPointerUp);
     document.addEventListener('visibilitychange', onVisibility);
 
     return () => {
-      window.removeEventListener('touchend', releaseAll);
-      window.removeEventListener('touchcancel', releaseAll);
-      window.removeEventListener('mouseup', releaseAll);
-      window.removeEventListener('blur', releaseAll);
+      window.removeEventListener('touchend', onTouchEnd);
+      window.removeEventListener('touchcancel', onTouchCancel);
+      window.removeEventListener('mouseup', onMouseUp);
+      window.removeEventListener('blur', onBlur);
+      window.removeEventListener('pointerup', onPointerUp);
       document.removeEventListener('visibilitychange', onVisibility);
     };
   }, [engine]);
 
-  const press = (keyChar: string) => {
-    if (!engine) return;
+  const press = (keyChar: string, source: string) => {
+    if (!engine) {
+      dbg.push(`press(${keyChar}) from=${source} NO ENGINE`);
+      return;
+    }
     const note = keyboardMap[keyChar];
     if (note === undefined) return;
-    if (activeNotesRef.current.has(note)) return;
+    if (activeNotesRef.current.has(note)) {
+      dbg.push(`press(${keyChar}=${note}) from=${source} dup-skip`);
+      return;
+    }
+    dbg.push(`press(${keyChar}=${note}) from=${source}`);
     engine.noteOn(note);
     activeNotesRef.current.add(note);
   };
 
   const handleTouchStart = (e: React.TouchEvent, keyChar: string) => {
-    // preventDefault stops the synthesized mouse events that iOS would
-    // otherwise fire ~300ms later — keeps press() from being called twice.
     e.preventDefault();
-    press(keyChar);
+    press(keyChar, 'touchstart');
   };
 
   const handleMouseDown = (e: React.MouseEvent, keyChar: string) => {
     if (e.button !== 0) return;
-    press(keyChar);
+    press(keyChar, 'mousedown');
   };
 
   const isKeyPressed = (keyChar: string) =>
