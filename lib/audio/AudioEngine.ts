@@ -269,7 +269,7 @@ export class AudioEngine {
     // iOS Safari workaround: source.stop() / disconnect() do NOT stop a
     // playing looped AudioBufferSourceNode on iOS. The only reliable way
     // to silence everything is to suspend the AudioContext when no
-    // voices are active. The next noteOn will resume() it again.
+    // voices are active and the drone is off.
     if (this.voices.size === 0 && this.droneEnabled === false) {
       this.scheduleContextSuspend();
     }
@@ -418,28 +418,56 @@ export class AudioEngine {
 
   private startDrone(): void {
     if (!this.context) return;
-    this.resumeContext();
+    this.cancelScheduledSuspend();
+    if (this.context.state === 'suspended') {
+      this.context.resume().then(() => this.startDroneNow()).catch(() => { /* ignore */ });
+    } else {
+      this.startDroneNow();
+    }
+  }
+
+  private startDroneNow(): void {
+    if (!this.context) return;
+    // If the user toggled drone off again while we were resuming, abort.
+    if (!this.droneEnabled) return;
+    if (this.droneSlot) return;
     this.droneSlot = this.buildDroneSlot();
     for (const src of this.droneSlot.sources) {
-      src.start(0);
+      try { src.start(0); } catch (_) { /* ignore */ }
     }
     this.droneSlot.state = 'playing';
+    dbg.push('drone started');
   }
 
   private stopDrone(): void {
     if (!this.droneSlot) return;
-    for (const src of this.droneSlot.sources) {
+    for (let r = 0; r < this.droneSlot.sources.length; r++) {
+      const src = this.droneSlot.sources[r];
+      const gain = this.droneSlot.gains[r];
+      try { gain.gain.cancelScheduledValues(0); } catch (_) { /* ignore */ }
+      try { gain.gain.value = 0; } catch (_) { /* ignore */ }
       try { src.stop(0); } catch (_) { /* ignore */ }
+      try { src.disconnect(); } catch (_) { /* ignore */ }
+      try { gain.disconnect(); } catch (_) { /* ignore */ }
     }
     this.droneSlot = null;
+    dbg.push('stopDrone done');
   }
 
   setDrone(enabled: boolean): void {
     this.droneEnabled = enabled;
+    dbg.push(`setDrone(${enabled})`);
     if (enabled) {
+      this.cancelScheduledSuspend();
       this.startDrone();
     } else {
       this.stopDrone();
+      // iOS Safari can't actually stop the looped drone source via
+      // stop()/disconnect(). Suspending the context is the only thing
+      // that reliably silences it.
+      if (this.voices.size === 0) {
+        this.scheduleContextSuspend();
+      }
     }
   }
 
